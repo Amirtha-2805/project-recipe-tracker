@@ -1,0 +1,176 @@
+@media screen and (min-width:991px) {
+    .sidenav{
+        width: 240px;;
+        background: #011627;
+        position:absolute;
+        height:100vh;
+        padding: 0 30px;
+            
+    }
+    ul{
+        padding: 0;        
+    }
+    ul .userlist{
+        list-style: none;
+        color: white;
+        margin: 40px 0;                
+    }
+    ul .userlist .link{
+        color: white;
+        display: block;
+        padding: 10px 15px;       
+        border-radius: 60px;
+        text-decoration: none;
+    }
+    ul .userlist:hover,
+    ul .userlist .link .active{
+        background: #172b4d;
+        text-decoration: none;
+        color:white;
+        border-radius: 6px;
+    }
+    .adminhometitle{
+        color:white;
+        margin-top: 40px;
+        margin-left: 20px;
+    }
+    .menuicon{
+        color:black;
+        margin-top: 50px;
+        font-size: 35px;
+        
+    }
+    .icons{
+        font-size: 25px;
+        margin-top: -5px;
+    }
+    .adminlogout{
+        margin-top: 90px;
+        text-align: center;      
+    } 
+    .adminhomebody{
+        width:50%;
+        margin-left: 250px;
+    }  
+    .input-container{
+        width:70%;
+        margin-left: 200px;
+        margin-top: 50px;
+        line-height: 50px;
+        
+    } 
+    .add-recipe-heading{
+        margin-left: 420px;
+        
+    }
+    .recipe-submit-button{
+        margin-left: 500px;
+        margin-top: 20px;
+    }
+}
+/* for large tablets */
+/* @media screen and (min-width:768px) and (max-width:991px) {
+    .sidenav{
+        width: 240px;
+        background: #011627;
+        position:absolute;
+        height:100vh;
+        padding: 0 30px;
+         
+    }
+    ul{
+        padding: 0;
+        
+    }
+    ul li{
+        list-style: none;
+        color: white;
+        margin: 40px 0;
+        
+        
+    }
+    ul li .link{
+        color: white;
+        display: block;
+        padding: 10px 15px;
+        border-radius: 60px;
+        text-decoration: none;
+    }
+    ul li:hover,
+    ul li .link .active{
+        background: #172b4d;
+        text-decoration: none;
+        color:white;
+        border-radius: 6px;
+    }
+    .adminhometitle{
+        color:white;
+        margin-top: 40px;
+    }
+    .menuicon{
+        color:black;
+        margin-top: 50px;
+        font-size: 35px;
+        
+    }
+    .icons{
+        font-size: 25px;
+    }
+    .adminlogout{
+        margin-top: 200px;
+        text-align: center;
+      
+    }
+} */
+/* for small tablets */
+/* @media  (max-width:768px)  {
+    .sidenav{
+        width: 150px;
+        background: #011627;
+        position:absolute;
+        height:100vh;
+        padding: 0 30px;
+    }
+    ul{
+        padding: 0;
+        
+    }
+    ul .userlist{
+        list-style: none;
+        color: white;
+        margin: 40px 0;        
+    }
+    ul .userlist .link{
+        color: white;
+        display: block;
+        padding: 10px 15px;
+        border-radius: 60px;
+        text-decoration: none;
+    }
+    ul .userlist:hover,
+    ul .userlist .link .active{
+        background: #172b4d;
+        text-decoration: none;
+        color:white;
+        border-radius: 6px;
+    }
+    .adminhometitle{
+        color:white;
+        margin-top: 40px;
+    }
+    .menuicon{
+        color:black;
+        margin-top: 50px;
+        font-size: 35px;
+        
+    }
+    .icons{
+        font-size: 25px;
+    }
+    .adminlogout{
+        margin-top: 100px;
+        text-align: center;
+      
+    }
+    
+} */

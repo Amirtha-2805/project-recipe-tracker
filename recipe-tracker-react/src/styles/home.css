@@ -1,0 +1,56 @@
+.ingredients{
+    width:60%;
+    margin-right: 10px;
+    margin-top: 30px;
+    display: flex;
+    
+}
+.input-ingredients{
+    margin-left: 50px;
+    width:60%;
+    margin-top: 50px;
+}
+.home-body{
+    /* background: url(spices.jpg); */
+    /* background: linear-gradient(#0c0e1d,#2b2c28); */
+    background-size: cover;   
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+/* .homelabel{
+    color: white;
+}
+.homehint{
+    color: white;
+} */
+.dropdown{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+}
+.dropdown-row{
+    cursor: pointer;
+    text-align: start;
+    margin: 2px 0;
+}
+.resultbox{
+    width:80%;
+    border: 2px solid black;
+    margin-left: 20px;
+    margin-top: 60px;
+    border-radius: 5px;
+    height: 40vh;
+    overflow-y: scroll;
+    /* background:linear-gradient(pink,grey); */
+
+}
+.result-para{
+    padding: 5px;
+    margin-left: 10px;
+    line-height: 50px;
+    text-align: justify;
+}
+.result-heading{
+    padding:30px;
+    text-align: center;
+}

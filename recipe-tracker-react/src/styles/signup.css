@@ -1,0 +1,38 @@
+.form-control{
+    width:150%
+}
+.input{
+    /* border:1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    line-height: 30px;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    margin-left: 300px;
+    border-radius: 30px;
+    /* background-color: pink; */
+}
+label{
+    font-weight: bold;
+}
+.signupbtn{
+    margin-left: 70px;
+}
+.para{
+    margin-left: 90px;
+    color: white;
+}
+.signuphead{
+    color: white;
+    margin-top: 20px;
+}
+.singupbody{
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    
+}
+.signuplabel{
+    color:white
+}

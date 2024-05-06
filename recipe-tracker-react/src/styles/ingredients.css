@@ -1,0 +1,25 @@
+.input-ingredient{
+    width:30%;
+    margin-left: 300px; 
+    margin-top: 10px;
+    /* margin-bottom: 40px;    */
+}
+.ing-head{
+    margin-left: 500px;
+    padding-top: 200px;
+}
+.submitbtn{
+   
+    margin-left: 160px;
+    margin-top: 10px;
+}
+.ingredient-container{
+    /* border: 1px solid black; */
+    width:150%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.input-btn{
+    display: flex;
+}

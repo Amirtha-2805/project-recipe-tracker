@@ -1,0 +1,28 @@
+.userlogin{   
+    background-size: cover;
+    display: flex;
+    flex-direction: column;   
+    /* border: 1px solid black;  */
+    width:50%;
+    margin-left: 350px;
+    margin-top: 130px;
+}
+.ulogin{
+    margin-left: -10px;
+    color: white;
+    margin-top: 20px;
+}
+.loginbtn{
+    margin-left: 90px;
+}
+.user-login-label{
+    color:white
+}
+.user-para{
+    color:white
+}
+.userlogin-body{
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    height: 100vh;
+}

@@ -1,0 +1,14 @@
+.add{
+    /* border: 1px solid black; */
+    width:150%;
+    padding-top: 110px;
+    
+}
+.input-container{
+    width:45%;
+    margin-top: -10px;
+}
+.select-box{
+    width:150%;
+    height: 10vh;
+}

@@ -1,0 +1,62 @@
+@media screen and (min-width:991px) {
+    .sidenav{
+        width: 240px;;
+        background: #011627;
+        position:absolute;
+        height:100vh;
+        padding: 0 30px;
+            
+    }
+    ul{
+        padding: 0;
+        
+    }
+    ul .userfeaturelist{
+        list-style: none;
+        color: white;
+        margin: 40px 0;
+        
+        
+    }
+    ul .userfeaturelist .link{
+        color: white;
+        display: block;
+        padding: 10px 15px;
+        border-radius: 60px;
+        text-decoration: none;
+    }
+    ul .userfeaturelist:hover,
+    ul .userfeaturelist .link .active{
+        background: #172b4d;
+        text-decoration: none;
+        color:white;
+        border-radius: 6px;
+    }
+    .userhometitle{
+        color:white;
+        margin-top: 40px;
+        margin-left: 20px;
+    }
+    .menuicon{
+        color:black;
+        margin-top: 50px;
+        font-size: 35px;
+        
+    }
+    .icons{
+        font-size: 25px;
+        margin-top: -5px;
+
+    }
+    .userlogout{
+        margin-top: 200px;
+        text-align: center;
+      
+    } 
+    .userhomebody{
+        width:50%;
+        margin-left: 250px;
+    }  
+    
+    
+}

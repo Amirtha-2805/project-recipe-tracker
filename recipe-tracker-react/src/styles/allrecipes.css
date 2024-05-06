@@ -1,0 +1,12 @@
+.all-recipe-table{
+    border: 1px solid black;
+    height:80vh;
+    overflow-y: scroll;
+    margin-left: 220px;
+    width:100%;
+    margin-top: 30px;
+}
+.allrecipe-head{
+    margin-left: 450px;
+    padding-top: 30px;
+}
