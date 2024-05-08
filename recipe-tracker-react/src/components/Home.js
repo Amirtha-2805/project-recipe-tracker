@@ -7,25 +7,27 @@ import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import Select from 'react-select'
 import Spinner from 'react-bootstrap/Spinner';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-// let list_of_ingredients=require("../ingredientsList.json");
-
-
-// import {config} from 'dotenv'
-// import{Configuration,OpenAIAPI} from 'openai'
 
 export default function Home(){
 
-    const question="What kind of recipes can we make only with these ingredients and how to make it?"
+    const question="recipe name and detailed recipe with only these ingredients,"
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
-    // const[selected,setSelected]=useState([])
-    // const[summary,setSummary]=useState("")
-    // const openAiAPI="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"
-
+    const[defaultRecipes,setDefaultRecipes]=useState([])
+    const [messages, setMessages] = useState([
+        {
+            message: "",
+            sender: "ChatGPT"
+        }
+    ]
+    );
+    
     const firebaseFunction=()=>{
         const getData= getDocs(collection(db,"ingredients")).then(docSnap=>{   
         let firebase_data=[]
@@ -36,16 +38,14 @@ export default function Home(){
 
         let firebase_map=firebase_data.map((fire,i)=>{
            return(fire.ingredients)
-        // return(fire)
-        })
-        // console.log("firebasemapp",firebase_map)
+        })       
         setFireBase(firebase_map)
     })
     }
-    console.log("fireeee",fireBase)
-    useEffect(()=>{
-         firebaseFunction()
-    },[])
+    
+        useEffect(()=>{
+            firebaseFunction()
+        },[])
     
         let mapped_data=fireBase.map((data,i)=>{
             return({
@@ -53,112 +53,124 @@ export default function Home(){
                 label: data               
             })
         })
-        console.log("mapped data",mapped_data)
+    
+        getDocs(collection(db,"default_recipes")).then((docSnap)=>{
+            let array=[]    
+            docSnap.forEach((doc)=>{
+                array.push(doc.data())
+            })
+            //  console.log("state recipe",array)
+             setDefaultRecipes(array)
 
-      
-    const submitIngredients=()=>{
-    console.log("ingredients",ingredientsInput) 
+        })
+       
+    
+    // useEffect(()=>{
+    //     getRecipe()   
+    //    },[])
 
-       // getting api using openai(method 1)
-        
-    //     let url="https://api.openai.com/v1/chat/completions"
-    //     let token=`Bearer ${openAiAPI}`
-    //     let model='gpt-3.5-turbo'
-    //     let ingredientsToSend={
-    //         role:'user',
-    //         content:question+ingredientsInput
-    //     }
-    //     console.log(ingredientsToSend)
-    //        let response=await fetch(url,{
-    //         method:'POST',
-    //         headers:{
-    //             'Authorization':token,
-    //             'Content-Type':'application/json'
-    //         },
-    //         body:JSON.stringify({
-    //             model:model,
-    //             messages:ingredientsToSend
-    //         })
-    //     })
-    //    let responseJson=await response.json()
-    //    if(responseJson){
-    //      console.log(responseJson)
-    //    }
-
-
-
-
-    //getting api using openai(method 2)
-
-    // const url="https://api.openai.com/v1/chat/completions"
-    // const apiKey='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'
-    // const headers={
-    //     'Content-Type':'application/json',
-    //     'Authorization':`Bearer ${apiKey}`
-    // }
-    // const data={
-    //     model:'gpt-3.5-turbo',
-    //     messages:[
-    //         {role:'system',content:"You are a helpfull assistant. and you have to summarize the text provider by the user."},
-    //         {role:'user',content:ingredientsInput}
-    //     ]
-    // }
-    // const response=await fetch(url,{
-    //     method:'POST',
-    //     headers,
-    //     body:JSON.stringify(data)
-    // })
-    // const result=await response.json()
-    // const summary=result.choices
-    // setSummary(summary)
-    // console.log(result)
-        // setIngredientsInput(getSearchIngredients+",") //param variable(gerSearchIngredients)
-        // console.log("searched ingredients",getSearchIngredients)
-
-        const apikey="AIzaSyAFY0ukI1_zvQ5D0pttqZsI9RYZ-jPNyrA"
-        setLoading(true) 
-          axios({
-            url:`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apikey}`,
-            method:"POST",
-            data:{
-                contents:[
-                    {parts:[{text:question+recipe}]},
-                ]
-            },
-        }).then((response)=>{
-            console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
-            const text=response['data']['candidates'][0]['content']['parts'][0]['text']
+    const submitIngredients=async(event)=>{
+   
+       
+        //gemini
+        // const apikey="AIzaSyAFY0ukI1_zvQ5D0pttqZsI9RYZ-jPNyrA"
+        // setLoading(true) 
+        //   axios({
+        //     url:`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apikey}`,
+        //     method:"POST",
+        //     data:{
+        //         contents:[
+        //             {parts:[{text:question+recipe}]},
+        //         ]
+        //     },
+        // }).then((response)=>{
+        //     console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
+        //     const text=response['data']['candidates'][0]['content']['parts'][0]['text']
             
-            let responseArray=text.split("*");
-            let newResponse=""
-            for(let i=0; i<responseArray.length; i++){
-                if(i==0 || i%2!==1){
-                    newResponse+= responseArray[i]
-                }
-                else{
-                    newResponse=newResponse+responseArray[i]
-                }
-            }       
-            setResult(newResponse)
-            setLoading(false)
-        })
-       
-        
-       
+        //     let responseArray=text.split("*");
+        //     let newResponse=""
+        //     for(let i=0; i<responseArray.length; i++){
+        //         if(i==0 || i%2!==1){
+        //             newResponse+= responseArray[i]
+        //         }
+        //         else{
+        //             newResponse=newResponse+responseArray[i]
+        //         }
+        //     }       
+        //     setResult(newResponse)
+        //     setLoading(false)
+        // })
+               
+        const newMessage = {
+            message: question+recipe,
+            sender: "user"
+        }
+
+        const newMessages = [newMessage];
+        await processMessageToChatGPT(newMessages);
             }
-   let selected=""
-   const handleChange=(selectedOption)=>{
+            async function processMessageToChatGPT(chatMessages){
+                const API_KEY = "sk-proj-Gkmbh6aLEBuCSTAX5MG1T3BlbkFJMqT83lgOKYLAi2Bg48Kc"
+                setLoading(true)                
+                let apiMessages = chatMessages.map((messageObject)=>{
+                    let role="";
+                    if(messageObject.sender === "ChatGPT"){
+                        role = "assistant"
+                    }else{
+                        role = "user"
+                    }
+                    return (
+                        {role: role, content: messageObject.message}
+                    )
+                });
+        
+                const systemMessage = {
+                    role: "system",
+                    content: "Explain all concept like i am 10 year old"
+                }
+        
+                const apiRequestBody = {
+                    "model": "gpt-3.5-turbo",
+                    "messages": [
+                        systemMessage,
+                        ...apiMessages
+                    ]
+                }
+        
+                await fetch("https://api.openai.com/v1/chat/completions",{
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(apiRequestBody)
+                }).then((response)=>{
+                    return response.json();
+                }).then((data)=>{
+                    console.log(data.choices[0].message.content);
+                    setMessages(
+                        [
+                            {
+                                message: data.choices[0].message.content,
+                                sender: "ChatGPT"
+                            }
+                        ]
+                    )
+                })
+                setLoading(false)
 
-        setIngredientsInput(selectedOption)
-        selectedOption.forEach((each)=>{
-            selected=selected+each.label+","            
-        })
-        setRecipe(selected)
-       
-        console.log("selectinggg",selected)
-   }
-   console.log("recipe",recipe)
+            }
+                
+        let selected=""
+        const handleChange=(selectedOption)=>{
 
+                setIngredientsInput(selectedOption)
+                selectedOption.forEach((each)=>{
+                    selected=selected+each.label+","            
+                })
+                setRecipe(selected)
+        }
+   
     return(
         <>
           <div className="home-body">
@@ -174,30 +186,76 @@ export default function Home(){
                         <button type="button" className="btn btn-success" onClick={()=>submitIngredients()}>Submit</button>
                            <br/> 
                            <br/>
-                            {/* <div className="ingredients">                      
+                           
+                            {/*gemini ai <div className="ingredients">                      
                                     <input type="text" placeholder="Eg. Water,Sugar" value={ingredientsInput} className="form-control" onChange={(e)=>setIngredientsInput(e.target.value)}/>
                                     <button type="button" className="btn btn-success" onClick={()=>submitIngredients()}>Submit</button>
-                                </div>                                                            
-                            // {isLoading==false ? <h3>...Loading</h3>:<p>{result}</p>}    */}
-                               {
+                                </div>                                                             */}
+                             {/* {
                                 isLoading==true ? 
                                 <>
                                  <Spinner animation="border" role="status">
                                 <span className="visually-hidden">Loading...</span>
                            </Spinner></>:null                             
-                                } 
-                             {result ?   <div className="resultbox">
+                                }  */}
+                             {/* {result ?   <div className="resultbox">
                                 <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
                                 <p className="result-para">{result}
                                 </p>
+                                <button type="button" className="btn btn-warning">save</button>
                             </div>
                             :
                             null
+                                }  */}
+
+                                {   
+                                    isLoading==true ? 
+                                    <>
+                                        <Spinner animation="border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    </>
+                                    :
+                                    null                             
                                 } 
+                                {
+                                    isLoading==false?   
+                                        <div className="resultbox">
+                                            <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
+                                            {messages.map((message, index) => {
+                                                return(
+                                                        <div>{message.message}</div>                        
+                                                );
+                                    })}                                
+                                            <button type="button" className="btn btn-warning">save</button>
+                                        </div>
+                                        :
+                                        null
+                                }
                     </div>
-                </center>                                
+                </center>   
+            {
+                defaultRecipes.map((data)=>{
+                    return(
+                        <>
+                        <div className="card">
+                             <Card className="cardbody" style={{ width: '18rem'}}>
+                            <Card.Header><h4>{data.recipe_name}</h4></Card.Header>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item><b>Category: </b>{data.category}</ListGroup.Item>
+                                <ListGroup.Item><b>Ingredients: </b>{data.ingredients}</ListGroup.Item>
+                                <ListGroup.Item><img src={data.recipe_image} width={"100%"}/></ListGroup.Item>                                
+                                <ListGroup.Item><b>Instructions: </b><br/>{data.instructions}</ListGroup.Item>
+
+                            </ListGroup>
+                            </Card>
+                            </div>
+                        </>
+                    )
+                   
+                })
+            }
             </div>
         </>
-
     )
     }

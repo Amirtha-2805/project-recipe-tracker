@@ -1,7 +1,7 @@
 .add{
     /* border: 1px solid black; */
     width:150%;
-    padding-top: 110px;
+    padding-top: 40px;
     
 }
 .input-container{
@@ -10,5 +10,10 @@
 }
 .select-box{
     width:150%;
-    height: 10vh;
+    /* height: 10vh; */
+}
+.file{
+    height: 60px;
+    
+   
 }

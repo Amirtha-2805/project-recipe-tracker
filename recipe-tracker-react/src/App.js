@@ -16,6 +16,7 @@ import {  setToken, signup } from './redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import AdminFeatureHome from './components/adminFeatures/AdminFeatureHome';
 
 function App() {
     const user_token=useSelector((state)=>state.userDetails.token)
@@ -32,6 +33,7 @@ function App() {
   //   })
   // }
   return (
+    
     <div className="App">
       <Router>
         <Routes>         

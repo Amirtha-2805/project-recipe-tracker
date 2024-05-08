@@ -9,18 +9,21 @@ import { setToken,setIsLogged } from "../redux/slices/userSlice";
 import { useEffect } from "react";
 
 
+
 export default function Userlogin(){
     
     const navigate = useNavigate();
     const dispatch=useDispatch()
+   
+
     const userLoginData=useSelector((state)=>state.userDetails)
     const userLogin=()=>{       
         signInWithEmailAndPassword(auth,userLoginData.userlogin.email,userLoginData.userlogin.password) 
         .then((useCredential)=>{
             const user=useCredential.user
-            console.log(useCredential) 
+            // console.log(useCredential) 
             if(user.email==userLoginData.userlogin.email){
-                 navigate("/userhome")
+                 navigate(`/userhome`)
             } 
             dispatch(setToken(user.accessToken))  
             console.log("success",user.email)
@@ -28,10 +31,10 @@ export default function Userlogin(){
         .catch((error)=>{
             const errorCode=error.code;
             const errorMessage=error.message;
-            console.log("Error",errorCode.errorMessage)
+            // console.log("Error",errorCode.errorMessage)
             alert("Invalid email or password")
         })     
-        
+       
     }
    
     return(

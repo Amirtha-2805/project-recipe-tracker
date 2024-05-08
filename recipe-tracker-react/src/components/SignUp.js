@@ -36,7 +36,7 @@ export default function SignUp(){
             
             console.log("token",user.accessToken)       
             alert("Successfully Registered")
-            navigate("/userlogin")
+            navigate(`/userlogin`)
         })
         .catch((error)=>{
             const errorCode=error.code;
@@ -100,7 +100,7 @@ export default function SignUp(){
                     </div>
                     <br/>
                     <div className="signupbtn">
-                        <button className="btn btn-success" onClick={register}>Register</button>
+                        <button className="btn btn-success" onClick={()=>register()}>Register</button>
                         <br/>                
                     </div>
                     <p className="para">Already have an account? <Link to={"/userlogin"}>Login</Link></p>                     

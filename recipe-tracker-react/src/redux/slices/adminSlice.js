@@ -9,7 +9,8 @@ export const adminSlice=createSlice({
             ingredients:"",
             recipe_details:""
         },
-        adminId:""
+        adminId:"",
+       
     },
         reducers:{
             adminFeatures:(state,action)=>{
@@ -20,7 +21,8 @@ export const adminSlice=createSlice({
             },
             setAdminId:(state,action)=>{
                 state.adminId=action.payload
-            }
+            },
+           
        
     }
 })

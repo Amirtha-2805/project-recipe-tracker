@@ -17,6 +17,7 @@ export const userSlice=createSlice({
         },
         userFeatureStatus:"",
         token:"",
+        id:"",
         isLogged:false
     },
         reducers:{
@@ -34,9 +35,12 @@ export const userSlice=createSlice({
         }, 
         setIsLogged:(state,action)=>{
             state.isLogged=action.payload
+        },
+        setId:(state,action)=>{
+            state.id=action.payload
         }  
     }
 })
-export const { signup,uLogin,userFeature,setToken ,setIsLogged} = userSlice.actions
+export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId} = userSlice.actions
 
 export default userSlice.reducer

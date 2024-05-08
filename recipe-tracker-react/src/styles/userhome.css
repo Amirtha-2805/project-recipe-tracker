@@ -1,9 +1,9 @@
 @media screen and (min-width:991px) {
     .sidenav{
-        width: 240px;;
+        width: 300px;;
         background: #011627;
         position:absolute;
-        height:100vh;
+        height:120vh;
         padding: 0 30px;
             
     }
@@ -57,6 +57,22 @@
         width:50%;
         margin-left: 250px;
     }  
+    .user-no-user{
+        width:20%;
+        border-radius: 50%;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+    .user-name{
+        color: white;
+        margin-left: 63px;
+        margin-top: -45px;
+    }
+    .user-email{
+        color:grey;
+        font-size: 15px;
+        margin-left: 63px;
+    }
     
     
 }

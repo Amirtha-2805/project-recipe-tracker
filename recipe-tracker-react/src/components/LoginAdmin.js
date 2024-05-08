@@ -43,11 +43,11 @@ export default function LoginAdmin(){
     const adminLogin=()=>{
             
             if(adminEmail==adminFirebaseData.email && adminPassword==adminFirebaseData.password){
-                alert("Logged in succesfully")
+                  alert("Logged in succesfully")
                   navigate("/adminhome")   
             }
             else{
-                alert("Please Enter a correct email and passowrd")
+                alert("Please Enter  correct email and passowrd")
             }
             
      }

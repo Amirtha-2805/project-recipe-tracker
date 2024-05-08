@@ -54,3 +54,19 @@
     padding:30px;
     text-align: center;
 }
+.catergory{
+    border: 1px solid black;
+    width:15%;
+    height: 20vh;
+}
+.card{
+    display: inline-block;
+     margin: 5px;
+   
+   
+}
+.cardbody{
+    margin: 10px;
+    height: 80vh;
+    overflow-x: hidden;
+}
