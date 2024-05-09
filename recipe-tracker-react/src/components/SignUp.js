@@ -15,8 +15,6 @@ export default function SignUp(){
     const navigate = useNavigate();
     const dispatch=useDispatch();
     const dbref=collection(db,"user_signup_details")
-    
-       
    
     const register= async()=>{
         await createUserWithEmailAndPassword(auth,signupdata.usersignup.email,signupdata.usersignup.password)
@@ -31,10 +29,10 @@ export default function SignUp(){
                                               address:signupdata.usersignup.address,
                                               phone:signupdata.usersignup.phone,
                                               uid:user.uid})
-            // console.log(user.uid)   
+              
             dispatch(setToken(user.accessToken)) 
             
-            console.log("token",user.accessToken)       
+            // console.log("token",user.accessToken)       
             alert("Successfully Registered")
             navigate(`/userlogin`)
         })

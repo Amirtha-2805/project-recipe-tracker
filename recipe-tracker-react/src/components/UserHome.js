@@ -60,15 +60,14 @@ export default function UserHome(){
                     </div>           
                     <h4 className="userhometitle"><b>Features</b></h4>
                         <ul>
-                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("userFeature"))}> <AiFillHome className="icons"/> Home</Link></li>                                       
+                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("userFeature"))}> <AiFillHome className="icons"/> Dashboard</Link></li>                                       
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("recipeList"))}><BiSolidFoodMenu className="icons"/> Recipe List</Link></li>
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("savedRecipe"))}><RiSaveFill className="icons" /> Saved Recipes</Link></li>                   
                         </ul>
                                 
                     <div className="userlogout">
                         <button className="btn btn-danger btn-sm " onClick={userLogOut}>Logout</button>
-                    </div>
-                
+                    </div>                
             </div>
             <div className="userhomebody">
                     {userSlice.userFeatureStatus=="recipeList" ? <RecipeList/>:null}

@@ -9,6 +9,7 @@ import Select from 'react-select'
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from "react-router-dom";
 
 
 export default function Home(){
@@ -20,6 +21,8 @@ export default function Home(){
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
+    const[more,setMore]=useState(false)
+    const[instructions,setInstructions]=useState("")
     const [messages, setMessages] = useState([
         {
             message: "",
@@ -52,8 +55,8 @@ export default function Home(){
                 value: data,
                 label: data               
             })
-        })
-    
+        }) 
+
         getDocs(collection(db,"default_recipes")).then((docSnap)=>{
             let array=[]    
             docSnap.forEach((doc)=>{
@@ -61,7 +64,6 @@ export default function Home(){
             })
             //  console.log("state recipe",array)
              setDefaultRecipes(array)
-
         })
        
     
@@ -70,94 +72,94 @@ export default function Home(){
     //    },[])
 
     const submitIngredients=async(event)=>{
-   
-       
+          
         //gemini
-        // const apikey="AIzaSyAFY0ukI1_zvQ5D0pttqZsI9RYZ-jPNyrA"
-        // setLoading(true) 
-        //   axios({
-        //     url:`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apikey}`,
-        //     method:"POST",
-        //     data:{
-        //         contents:[
-        //             {parts:[{text:question+recipe}]},
-        //         ]
-        //     },
-        // }).then((response)=>{
-        //     console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
-        //     const text=response['data']['candidates'][0]['content']['parts'][0]['text']
+        const apikey="AIzaSyAFY0ukI1_zvQ5D0pttqZsI9RYZ-jPNyrA"
+        setLoading(true) 
+          axios({
+            url:`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apikey}`,
+            method:"POST",
+            data:{
+                contents:[
+                    {parts:[{text:question+recipe}]},
+                ]
+            },
+        }).then((response)=>{
+            console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
+            const text=response['data']['candidates'][0]['content']['parts'][0]['text']
             
-        //     let responseArray=text.split("*");
-        //     let newResponse=""
-        //     for(let i=0; i<responseArray.length; i++){
-        //         if(i==0 || i%2!==1){
-        //             newResponse+= responseArray[i]
-        //         }
-        //         else{
-        //             newResponse=newResponse+responseArray[i]
-        //         }
-        //     }       
-        //     setResult(newResponse)
-        //     setLoading(false)
-        // })
-               
-        const newMessage = {
-            message: question+recipe,
-            sender: "user"
-        }
+            let responseArray=text.split("*");
+            let newResponse=""
+            for(let i=0; i<responseArray.length; i++){
+                if(i==0 || i%2!==1){
+                    newResponse+= responseArray[i]
+                }
+                else{
+                    newResponse=newResponse+responseArray[i]
+                }
+            }       
+            setResult(newResponse)
+            setLoading(false)
+        })
+        
+         //open ai      
+        // const newMessage = {
+        //     message: question+recipe,
+        //     sender: "user"
+        // }
 
-        const newMessages = [newMessage];
-        await processMessageToChatGPT(newMessages);
-            }
-            async function processMessageToChatGPT(chatMessages){
-                const API_KEY = "sk-proj-Gkmbh6aLEBuCSTAX5MG1T3BlbkFJMqT83lgOKYLAi2Bg48Kc"
-                setLoading(true)                
-                let apiMessages = chatMessages.map((messageObject)=>{
-                    let role="";
-                    if(messageObject.sender === "ChatGPT"){
-                        role = "assistant"
-                    }else{
-                        role = "user"
-                    }
-                    return (
-                        {role: role, content: messageObject.message}
-                    )
-                });
+        // const newMessages = [newMessage];
+        // await processMessageToChatGPT(newMessages);
+        //     }
+        // async function processMessageToChatGPT(chatMessages){
+        //         const API_KEY = "sk-proj-Gkmbh6aLEBuCSTAX5MG1T3BlbkFJMqT83lgOKYLAi2Bg48Kc"
+        //         setLoading(true)                
+        //         let apiMessages = chatMessages.map((messageObject)=>{
+        //             let role="";
+        //             if(messageObject.sender === "ChatGPT"){
+        //                 role = "assistant"
+        //             }else{
+        //                 role = "user"
+        //             }
+        //             return (
+        //                 {role: role, content: messageObject.message}
+        //             )
+        //         });
         
-                const systemMessage = {
-                    role: "system",
-                    content: "Explain all concept like i am 10 year old"
-                }
+        //         const systemMessage = {
+        //             role: "system",
+        //             content: "Explain all concept like i am 10 year old"
+        //         }
         
-                const apiRequestBody = {
-                    "model": "gpt-3.5-turbo",
-                    "messages": [
-                        systemMessage,
-                        ...apiMessages
-                    ]
-                }
+        //         const apiRequestBody = {
+        //             "model": "gpt-3.5-turbo",
+        //             "messages": [
+        //                 systemMessage,
+        //                 ...apiMessages
+        //             ]
+        //         }
         
-                await fetch("https://api.openai.com/v1/chat/completions",{
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${API_KEY}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(apiRequestBody)
-                }).then((response)=>{
-                    return response.json();
-                }).then((data)=>{
-                    console.log(data.choices[0].message.content);
-                    setMessages(
-                        [
-                            {
-                                message: data.choices[0].message.content,
-                                sender: "ChatGPT"
-                            }
-                        ]
-                    )
-                })
-                setLoading(false)
+        //         await fetch("https://api.openai.com/v1/chat/completions",{
+        //             method: "POST",
+        //             headers: {
+        //                 "Authorization": `Bearer ${API_KEY}`,
+        //                 "Content-Type": "application/json"
+        //             },
+        //             body: JSON.stringify(apiRequestBody)
+        //         }).then((response)=>{
+        //             return response.json();
+        //         }).then((data)=>{
+        //             console.log(data.choices[0].message.content);
+        //             setMessages(
+        //                 [
+        //                     {
+        //                         message: data.choices[0].message.content,
+        //                         sender: "ChatGPT"
+        //                     }
+        //                 ]
+        //             )
+        //         })
+        //         setLoading(false)
 
             }
                 
@@ -183,32 +185,35 @@ export default function Home(){
                         <Select value={ingredientsInput} onChange={handleChange} onkeyUp={(e)=>setIngredientsInput(e.target.value)} isMulti options={mapped_data} placeholder="Select your ingredients"/>
                         <br/>
                         
-                        <button type="button" className="btn btn-success" onClick={()=>submitIngredients()}>Submit</button>
+                        <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
                            <br/> 
                            <br/>
                            
-                            {/*gemini ai <div className="ingredients">                      
+                            {/* <div className="ingredients">                      
                                     <input type="text" placeholder="Eg. Water,Sugar" value={ingredientsInput} className="form-control" onChange={(e)=>setIngredientsInput(e.target.value)}/>
                                     <button type="button" className="btn btn-success" onClick={()=>submitIngredients()}>Submit</button>
                                 </div>                                                             */}
-                             {/* {
+                              {
                                 isLoading==true ? 
                                 <>
                                  <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                           </Spinner></>:null                             
-                                }  */}
-                             {/* {result ?   <div className="resultbox">
-                                <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
-                                <p className="result-para">{result}
-                                </p>
-                                <button type="button" className="btn btn-warning">save</button>
-                            </div>
-                            :
-                            null
-                                }  */}
-
-                                {   
+                                   <span className="visually-hidden">Loading...</span>
+                                 </Spinner></>:null                             
+                                }  
+                              {
+                                result ? 
+                                    <div className="resultbox">
+                                        <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
+                                        <p className="result-para">{result}
+                                        </p>
+                                        <button type="button" className="btn btn-warning">save</button>
+                                    </div>
+                                     :
+                                    null
+                              }  
+                                       
+                                {/* open ai */}
+                                {/* {   
                                     isLoading==true ? 
                                     <>
                                         <Spinner animation="border" role="status">
@@ -231,28 +236,36 @@ export default function Home(){
                                         </div>
                                         :
                                         null
-                                }
+                                } */}
                     </div>
                 </center>   
             {
-                defaultRecipes.map((data)=>{
+                defaultRecipes.map((data,i)=>{
+                   
                     return(
                         <>
-                        <div className="card">
-                             <Card className="cardbody" style={{ width: '18rem'}}>
+                        <div className="card" key={i}>
+                            <Card className="cardbody" style={{ width: '18rem'}}>
+                            <ListGroup.Item><img src={data.recipe_image} width={"100%"}/></ListGroup.Item>                                
                             <Card.Header><h4>{data.recipe_name}</h4></Card.Header>
                             <ListGroup variant="flush">
                                 <ListGroup.Item><b>Category: </b>{data.category}</ListGroup.Item>
-                                <ListGroup.Item><b>Ingredients: </b>{data.ingredients}</ListGroup.Item>
-                                <ListGroup.Item><img src={data.recipe_image} width={"100%"}/></ListGroup.Item>                                
-                                <ListGroup.Item><b>Instructions: </b><br/>{data.instructions}</ListGroup.Item>
-
+                                <ListGroup.Item><b>Ingredients: </b>{data.ingredients}
+                                <br/>
+                                    <button className="btn btn-warning" width="5%">saved</button>
+                                    <Link onClick={()=>setMore(true)}>More</Link>
+                                </ListGroup.Item>
+                                {
+                                   more==true ?
+                                    <ListGroup.Item><b>Instructions: </b><br/>{data.instructions}</ListGroup.Item>
+                                   :
+                                   null 
+                                }
                             </ListGroup>
                             </Card>
-                            </div>
+                        </div>
                         </>
-                    )
-                   
+                    )                   
                 })
             }
             </div>
