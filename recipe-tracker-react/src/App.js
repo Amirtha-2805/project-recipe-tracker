@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import AdminFeatureHome from './components/adminFeatures/AdminFeatureHome';
+import RecipeEdit from './components/adminFeatures/RecipeEdit';
+import UserEdit from './components/adminFeatures/UserEdit';
 
 function App() {
     const user_token=useSelector((state)=>state.userDetails.token)
@@ -45,6 +47,10 @@ function App() {
             <Route path='/userhome' element={<UserHome/>}/>
             <Route path='/auth' element={<Auth/>}/>  
             <Route path='/ingredients' element={<Ingredients/>}></Route>
+            <Route path='/recipeedit/:id' element={<RecipeEdit/>}></Route>
+            <Route path='/useredit/:id' element={<UserEdit/>}></Route>
+
+
             {/* {
                isLogged==false? <Route path='/' element={<Home />}/>:null
                

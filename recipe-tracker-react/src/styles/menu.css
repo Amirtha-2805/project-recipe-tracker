@@ -1,7 +1,7 @@
-.navbar-container{
+/* .navbar-container{
     display: flex;
     justify-content: space-around;
-    /* background-color: pink;    */
+    
 }
 
 .me-auto{
@@ -31,7 +31,7 @@
 }
 .dropdown-item{
     text-decoration: none;
-}
+} */
 /* .navbar-container{
     background-color:black;
     height: 80px;
@@ -83,3 +83,23 @@
     text-decoration: none;
     color: white;   
 } */
+.nav-item{
+    margin-left: 80px;
+    margin-top: 15px;
+    text-decoration: none;
+    color:black
+}
+.dropdown-toggle{
+    margin-top: -8px;
+}
+.navbar-toggler{
+    margin-left: 400px;
+    margin-bottom: 10px;
+}
+.navbar{
+    background-color:#a3b18a;
+    /* background-color:#354f52; */
+
+
+    /* color: white; */
+}

@@ -54,7 +54,7 @@ export default function LoginAdmin(){
     return(
 
         <>
-            <div className='admin-login-body'>
+            {/* <div className='admin-login-body'>
                 <NavBar/>
                 <div className='admin'>
                 <center><h3 className='admintitle'>Admin Login</h3></center>
@@ -71,7 +71,39 @@ export default function LoginAdmin(){
                     </div>
                 </div>
                 </div>
+            </div> */}
+
+<NavBar/>
+
+<center>
+            
+            <div className="card-body">
+
+               <div className="admin-input">  
+
+              <h3 className="admin-title" style={{color:"white"}}>Admin Login</h3>
+            <br/>
+            <div className='admin-box'>
+                <br/>
+
+                <div className='admin-body'>
+              <div className="input-group input-lg">                             
+             <label>Email</label><input type="email" className="form-control" placeholder="Enter email..." onKeyUp={(e)=>setAdminEmail(e.target.value)} />      
+              </div>
+              <div className="input-group input-lg">             
+             <label>Password</label><input type="password" className="form-control" placeholder="Enter Password..."  onKeyUp={(e)=>setAdminPassword(e.target.value)}/>
+              </div> 
+              </div>
+              <br/>
+              <div className='adminloginbtn'>
+                <button className='btn btn-primary' style={{marginLeft:"-90px"}} onClick={adminLogin}>Login</button>
+            </div>   
+            <br/>             
             </div>
+             </div>
+            </div>
+</center>
+
         </>
     )
 }

@@ -47,64 +47,78 @@ export default function SignUp(){
     }       
     return(
         <>
-            <div className="singupbody">
+           
+            <NavBar/>
 
-                <NavBar/>
-                <center><h3 className="signuphead">Register</h3></center>
-                <div className="input">
-                    <div>
-                        <label className="signuplabel">Name</label><input type="text" className="form-control" placeholder="Enter your name" onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            name:e.target.value
-                        }))}/>
+            <center>
+                <div class="card-body">
+                    <div className="signup-input">
+                        <h3 class="card-title" style={{color:"white"}}>Register</h3>
+                        <br/>
+                        <div className="signup-box">
+                            <br/>
+                            <div className="signup-body">
+                                <div class="input-group input-lg">              
+                                    <label>Name</label> 
+                                    <input type="text" class="form-control" placeholder="Enter Name..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        name:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Email</label>  
+                                    <input type="email" class="form-control" placeholder="Enter email..."  onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        email:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Password</label> 
+                                    <input type="password" class="form-control" placeholder="Enter password..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        password:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Age</label> 
+                                    <input type="text" class="form-control" placeholder="Enter age..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        age:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Gender</label>
+                                    <input type="text" class="form-control" placeholder="Enter gender..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        gender:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Address</label> 
+                                    <input type="text" class="form-control" placeholder="Enter address..."  onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        address:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" placeholder="Enter phone..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        phone:e.target.value
+                                    }))}/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className="signupbtn">
+                                <button className="btn btn-success" type="button" onClick={()=>register()} style={{marginLeft:"-80px"}}>Register</button>
+                                <br/>                
+                            </div>
+                            <p className="para" style={{marginLeft:"-20px"}}>Already have an account?  <Link to={"/userlogin"} >Login</Link></p> 
+                        </div>
                     </div>
-                    <div>
-                        <label className="signuplabel">Email</label><input type="email" className="form-control" placeholder="Enter your email"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            email:e.target.value
-                        }))}/>
-                    </div>
-                    <div>
-                        <label className="signuplabel">Password</label><input type="password" className="form-control" placeholder="Enter your password"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            password:e.target.value
-                        }))}/>
-                    </div>
-
-                    <div>
-                        <label className="signuplabel">Age</label><input type="number" className="form-control" placeholder="Enter your age"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            age:e.target.value
-                        }))}/>
-                    </div>
-                                <div>
-                        <label className="signuplabel">Gender</label><input type="text" className="form-control" placeholder="Enter your gender"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            gender:e.target.value
-                        }))}/>
-                    </div>
-                    <div>
-                    <div>
-                        <label className="signuplabel">Address</label><input type="text" className="form-control" placeholder="Enter your address"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            address:e.target.value
-                        }))}/>
-                    </div>
-
-                        <label className="signuplabel">Phone</label><input type="text" className="form-control" placeholder="Enter your contact number"  onKeyUp={(e)=>dispatch(signup({
-                            ...signupdata.usersignup,
-                            phone:e.target.value
-                        }))}/>
-                    </div>
-                    <br/>
-                    <div className="signupbtn">
-                        <button className="btn btn-success" onClick={()=>register()}>Register</button>
-                        <br/>                
-                    </div>
-                    <p className="para">Already have an account? <Link to={"/userlogin"}>Login</Link></p>                     
-
                 </div>
-            </div>
+            </center>
+
         </>
 
     )

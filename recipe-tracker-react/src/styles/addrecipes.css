@@ -1,19 +1,21 @@
-.add{
-    /* border: 1px solid black; */
-    width:150%;
+.add-body{
+    width:163%;
     padding-top: 40px;
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    height: 120vh; 
     
+}
+.add-recipe-heading{
+    color:white
 }
 .input-container{
-    width:45%;
-    margin-top: -10px;
+    display: flex;
+    flex-direction: column;
+    gap:20px
 }
-.select-box{
-    width:150%;
-    /* height: 10vh; */
-}
-.file{
-    height: 60px;
-    
-   
+.recipe-input{
+    display: flex;
+    flex-direction: column;
+    gap:20px
 }

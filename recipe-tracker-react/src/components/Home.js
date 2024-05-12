@@ -11,10 +11,11 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
 
-
 export default function Home(){
 
-    const question="recipe name and detailed recipe with only these ingredients,"
+    const question1="Recipe name:Give recipe name with only these ingredients".split("")   
+    const question2="Ingredients:Give Ingredients".split("")
+    const question3="Instructions:Give detailed recipe with only these ingredients and give a line by line response"
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
@@ -44,7 +45,7 @@ export default function Home(){
         })       
         setFireBase(firebase_map)
     })
-    }
+    }   
     
         useEffect(()=>{
             firebaseFunction()
@@ -81,7 +82,7 @@ export default function Home(){
             method:"POST",
             data:{
                 contents:[
-                    {parts:[{text:question+recipe}]},
+                    {parts:[{text:question1+question2+question3+recipe}]},
                 ]
             },
         }).then((response)=>{
@@ -187,12 +188,7 @@ export default function Home(){
                         
                         <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
                            <br/> 
-                           <br/>
-                           
-                            {/* <div className="ingredients">                      
-                                    <input type="text" placeholder="Eg. Water,Sugar" value={ingredientsInput} className="form-control" onChange={(e)=>setIngredientsInput(e.target.value)}/>
-                                    <button type="button" className="btn btn-success" onClick={()=>submitIngredients()}>Submit</button>
-                                </div>                                                             */}
+                           <br/>                            
                               {
                                 isLoading==true ? 
                                 <>
@@ -238,34 +234,71 @@ export default function Home(){
                                         null
                                 } */}
                     </div>
-                </center>   
+                </center>  
+                <h3 style={{textAlign:"center"}}>Vegeterian</h3> 
+           
             {
-                defaultRecipes.map((data,i)=>{
-                   
-                    return(
+                defaultRecipes.map((recipe,i)=>{
+                    if(recipe.category=="Vegeterian"){
+                        return(                            
+                            <>
+                                <div className="veg" key={i}>
+                                    <Card className="cardbody" style={{ width: '18rem'}}>
+                                        <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
+                                        <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
+                                        <ListGroup variant="flush">
+                                                <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
+                                                <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
+                                            <br/>
+                                                <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>saved</button>
+                                                <Link onClick={()=>setMore(true)}  style={{marginLeft:"50px"}}>More</Link>
+                                            </ListGroup.Item>
+                                            {
+                                            more==true ?                                 
+                                                <ListGroup.Item><b>Instructions: </b><br/>{recipe.instructions}</ListGroup.Item>                                            
+                                            :
+                                            null 
+                                            }
+                                        </ListGroup>
+                                    </Card> 
+                                </div>
+                            </>
+                        )                
+                    }                    
+                })                
+            }
+            <hr className="ruler"/>
+            <h3 style={{textAlign:"center"}}>Non Vegeterian</h3>
+            {
+                defaultRecipes.map((recipe,i)=>{
+                    if(recipe.category=="Non-vegeterian"){
+                        return(
                         <>
-                        <div className="card" key={i}>
+                            <div className="nonveg" key={i}>
+                            {/* <h3>{recipe.category}</h3> */}
                             <Card className="cardbody" style={{ width: '18rem'}}>
-                            <ListGroup.Item><img src={data.recipe_image} width={"100%"}/></ListGroup.Item>                                
-                            <Card.Header><h4>{data.recipe_name}</h4></Card.Header>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item><b>Category: </b>{data.category}</ListGroup.Item>
-                                <ListGroup.Item><b>Ingredients: </b>{data.ingredients}
-                                <br/>
-                                    <button className="btn btn-warning" width="5%">saved</button>
-                                    <Link onClick={()=>setMore(true)}>More</Link>
-                                </ListGroup.Item>
-                                {
-                                   more==true ?
-                                    <ListGroup.Item><b>Instructions: </b><br/>{data.instructions}</ListGroup.Item>
-                                   :
-                                   null 
-                                }
-                            </ListGroup>
+                                <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
+                                <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
+                                    <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
+                                    <br/>
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>saved</button>
+                                        <Link onClick={()=>setMore(true)} style={{marginLeft:"50px"}}>More</Link>
+                                    </ListGroup.Item>
+                                    {
+                                    more==true ?                                  
+                                        <ListGroup.Item><b>Instructions: </b><br/>{recipe.instructions}</ListGroup.Item>                                            
+                                    :
+                                    null 
+                                    }
+                                </ListGroup>
                             </Card>
-                        </div>
-                        </>
-                    )                   
+                                </div> 
+                            </>
+
+                        )
+                    }
                 })
             }
             </div>

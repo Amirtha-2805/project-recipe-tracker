@@ -15,12 +15,17 @@
     /* background: linear-gradient(#0c0e1d,#2b2c28); */
     background-size: cover;   
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 250vh;
 }
-/* .homelabel{
+.ruler{
+    color:#0c0e1d,#2b2c28;
     color: white;
+   
 }
-.homehint{
+.homelabel{
+    margin-top: 30px;
+}
+/* .homehint{
     color: white;
 } */
 .dropdown{
@@ -41,8 +46,7 @@
     border-radius: 5px;
     height: 40vh;
     overflow-y: scroll;
-    /* background:linear-gradient(pink,grey); */
-
+    overflow-x: scroll;
 }
 .result-para{
     padding: 5px;
@@ -59,14 +63,20 @@
     width:15%;
     height: 20vh;
 }
-.card{
-    display: inline-block;
+.veg{
      margin: 5px;
-   
-   
+     /* border: 1px solid black; */
+    display:inline-block;       
 }
+.nonveg{
+    margin: 5px;
+    /* border: 1px solid black; */
+   display:inline-block;      
+}
+
 .cardbody{
     margin: 10px;
     height: 70vh;
     overflow-x: hidden;
+
 }

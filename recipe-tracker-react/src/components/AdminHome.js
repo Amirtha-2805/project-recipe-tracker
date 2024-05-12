@@ -19,7 +19,6 @@ import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/fire
 import AdminFeatureHome from "./adminFeatures/AdminFeatureHome";
 import noUser from "../styles/no-user.webp"
 
-
 export default function AdminHome(){
     const adminSlice=useSelector((state)=>state.adminDetails)
     const dispatch=useDispatch()
@@ -57,7 +56,7 @@ export default function AdminHome(){
     
        return(
 
-            <>
+        <>
     
             <div className="sidenav">
                 <div className="no-user">
@@ -80,15 +79,13 @@ export default function AdminHome(){
 
             </div>
             
-            <div className="adminhomebody">
-              
+            <div className="adminhomebody">              
                 {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
                 {adminSlice.adminFeatureStatus=="allUsers" ? <UserList/>:null}
                 {adminSlice.adminFeatureStatus=="allRecipes" ? <AllRecipes/>:null} 
                 {adminSlice.adminFeatureStatus=="addIngredients" ? <Ingredients/>:null} 
                 {adminSlice.adminFeatureStatus=="adminHome" ? <AdminFeatureHome/>:null} 
             </div>
-
                 
         </>
         

@@ -32,8 +32,8 @@ const AddRecipes=()=>{
             instructions:adminFeaturesSliceData.addRecipes.recipe_details,
             recipe_name:adminFeaturesSliceData.addRecipes.recipe_title,
             recipe_image:image     
-
       })
+      alert("Recipe added")
     }  
 
     const handleChange=(selected)=>{
@@ -50,46 +50,50 @@ const AddRecipes=()=>{
             })
         })
     }
-
                  
     return(
         <>
-        <div className="add">
+        <div className="add-body">
             <h1 className="add-recipe-heading">Add Recipes</h1> 
             <div className="input-container">           
 
-            <div>
+            <div className="recipe-input">
+            <div className="select">
                 <label>Select Category</label>
                  <div className="select-box">
                     <Select options={categories}  placeholder="Select category" onChange={handleChange}/>                
                 </div>
+                </div>
 
-                <label>Recipe Title</label>
-                    <input type="text" className="form-control" placeholder="Enter Recipe Title" onKeyUp={(e)=>dispatch(setAddRecipes({
+            <div class="input-group input-lg">
+                                    <label>Recipe Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Recipe Title" onKeyUp={(e)=>dispatch(setAddRecipes({
                     ...adminFeaturesSliceData.addRecipes,
                     recipe_title:e.target.value
-                }))}></input>
-            </div>
-            <div>
-               <label>Ingredients</label>
-                <input type="text" className="form-control" placeholder="Enter Recipe ingredients" onKeyUp={(e)=>dispatch(setAddRecipes({
+                }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Ingredients</label> 
+                                    <input type="text" class="form-control" placeholder="Enter Recipe ingredients" onKeyUp={(e)=>dispatch(setAddRecipes({
                     ...adminFeaturesSliceData.addRecipes,
                     ingredients:e.target.value
-                }))}></input>
-            </div>
-            <div>
-            <label>Recipe Details</label>
+                }))}/>
+                                </div>
 
+            <div class="input-group input-lg">
+            <label>Recipe Details</label>
                 <textarea type="text" className="form-control" placeholder="Enter Recipe details" onKeyUp={(e)=>dispatch(setAddRecipes({
                     ...adminFeaturesSliceData.addRecipes,
                     recipe_details:e.target.value
                 }))}></textarea>
+                </div>
             </div>
                       
-            <div class="mb-3">
-                <label for="formFileSm" className="form-label">Choose Recipe Image</label>
-                <input className="form-control form-control-sm" id="formFileSm" type="file" onChange={(e)=>handleUpload(e)}/>
-            </div>
+              <div class="input-group input-lg">
+                                    <label>Recipe image</label>
+                                    <input type="file" class="form-control" placeholder="Enter Recipe Title"onChange={(e)=>handleUpload(e)}/>
+                                </div>
+             
             </div>
             <div className="recipe-submit-button">
                 <button type="button" className="btn btn-warning" onClick={submitRecipe}>Submit</button>

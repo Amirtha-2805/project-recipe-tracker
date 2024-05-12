@@ -1,13 +1,22 @@
 .user-list-table{
     border: 1px solid black;
-    height:80vh;
+    /* height:80vh; */
+    /* width:100%; */
+    height: 60vh;
     overflow-y: scroll;
-    margin-left: 220px;
-    width:100%;
+    margin-left: 130px;
+    width:80%;
     margin-top: 30px;
 }
 .user-list-head{
     margin-left: 490px;
     padding-top: 30px;
+    color: white;
 
+}
+.user-body{
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    height: 120vh; 
+    width:163%
 }
