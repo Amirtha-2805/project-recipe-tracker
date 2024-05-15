@@ -3,37 +3,37 @@ import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import { useState,useEffect } from "react";
 import "../../styles/recipe_edit.css";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { imagesDb } from "../../firebase";
+import {v4} from 'uuid';
 
 
 const RecipeEdit=()=>{
     let {id} = useParams();
-    const[recipeName,setRecipeName]=useState("")
-    const[recipeCategory,setRecipeCategory]=useState("")
-    const[recipeIngredients,setRecipeIngredients]=useState("")
-    const[recipeInstructions,setRecipeInstructions]=useState("")
+    const[recipeImage,setRecipeImage]=useState("")
     const[editedRecipe,setEditedRecipe]=useState({
         edited_recipe_name:"",
         edited_recipe_category:"",
         edited_Recipe_ingredients:"",
-        edited_recipe_instructions:""
+        edited_recipe_instructions:"",
+        edited_image:"",
+        edited_url:""
     })
 
 const edit=()=>{
     getDoc(doc(db,"default_recipes",id)).then((docSnap)=>{
-        let recipe_title=""
-        let recipe_category=""
-        let recipe_ingredients=""
-        let recipe_instructions=""
        if(docSnap.exists()){
-            recipe_title=docSnap.data()['recipe_name'];
-            recipe_category=docSnap.data()['category'];
-            recipe_ingredients=docSnap.data()['ingredients'];
-            recipe_instructions=docSnap.data()['instructions']
+        setEditedRecipe(
+            {
+                edited_recipe_name:docSnap.data()['recipe_name'],
+                edited_recipe_category:docSnap.data()['category'],
+                edited_Recipe_ingredients:docSnap.data()['ingredients'],
+                edited_recipe_instructions:docSnap.data()['instructions'],
+                edited_image:docSnap.data()['recipe_image'],
+                edited_url:docSnap.data()['recipe_url']
+            }
+        ) 
        }
-       setRecipeName(recipe_title)
-       setRecipeCategory(recipe_category)
-       setRecipeIngredients(recipe_ingredients)
-       setRecipeInstructions(recipe_instructions)       
     })
 }
 const updateRecipe=()=>{
@@ -41,7 +41,9 @@ const updateRecipe=()=>{
         recipe_name:editedRecipe.edited_recipe_name,
         category:editedRecipe.edited_recipe_category,
         ingredients:editedRecipe.edited_Recipe_ingredients,
-        instructions:editedRecipe.edited_recipe_instructions
+        instructions:editedRecipe.edited_recipe_instructions,
+        recipe_image:editedRecipe.edited_image,
+        recipe_url:editedRecipe.edited_url
     })  
     alert("recipe updated")  
 }
@@ -49,6 +51,16 @@ const updateRecipe=()=>{
 useEffect(()=>{
     edit()
 },[])
+const handleUpload=(e)=>{
+    // console.log("image",e.target.files[0])
+    const imgs=ref(imagesDb,`recipe_images/${v4()}`)
+    uploadBytes(imgs,e.target.files[0]).then(data=>{
+        console.log("images",data)
+        getDownloadURL(data.ref).then((imgUrl)=>{
+            setRecipeImage(imgUrl)
+        })
+    })
+}
 
 
 return(
@@ -62,32 +74,43 @@ return(
                             <div className="input-edit">
                                 <div className="input-group input-lg">                             
                                     <label>Recipe</label>          
-                                    <input type="text" className="form-control" defaultValue={recipeName} onKeyUp={(e)=>setEditedRecipe({
+                                    <input type="text" className="form-control" defaultValue={editedRecipe.edited_recipe_name} onKeyUp={(e)=>setEditedRecipe({
                                         ...editedRecipe,
                                         edited_recipe_name:e.target.value
                                     })} />      
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Category</label>      
-                                    <input type="text" className="form-control" defaultValue={recipeCategory} onKeyUp={(e)=>setEditedRecipe({
+                                    <input type="text" className="form-control" defaultValue={editedRecipe.edited_recipe_category} onKeyUp={(e)=>setEditedRecipe({
                                         ...editedRecipe,
                                         edited_recipe_category:e.target.value
                                     })}/>
                                 </div> 
                                 <div className="input-group input-lg">             
                                     <label>Ingredients</label>    
-                                    <input type="text" className="form-control" defaultValue={recipeIngredients} onKeyUp={(e)=>setEditedRecipe({
+                                    <input type="text" className="form-control" defaultValue={editedRecipe.edited_Recipe_ingredients} onKeyUp={(e)=>setEditedRecipe({
                                         ...editedRecipe,
                                         edited_Recipe_ingredients:e.target.value
                                     })}/>
                                 </div> 
                                 <div className="input-group input-lg">             
                                     <label>Instructions</label>   
-                                    <input type="text" className="form-control" defaultValue={recipeInstructions} onKeyUp={(e)=>setEditedRecipe({
+                                    <input type="text" className="form-control" defaultValue={editedRecipe.edited_recipe_instructions} onKeyUp={(e)=>setEditedRecipe({
                                         ...editedRecipe,
                                         edited_recipe_instructions:e.target.value
                                     })} />
                                 </div>
+                                <div className="input-group input-lg">             
+                                    <label>Image</label>   
+                                    <input type="file" className="form-control" defaultValue={editedRecipe.edited_image} onChange={(e)=>handleUpload(e)} />
+                                </div>
+                                <div className="input-group input-lg">             
+                                    <label>Recipe url</label>      
+                                    <input type="url" className="form-control" defaultValue={editedRecipe.edited_url} onKeyUp={(e)=>setEditedRecipe({
+                                        ...editedRecipe,
+                                        edited_url:e.target.value
+                                    })}/>
+                                </div> 
                             </div> 
                             <br/>
                             <div>

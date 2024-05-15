@@ -192,7 +192,7 @@ export default function Home(){
                               {
                                 isLoading==true ? 
                                 <>
-                                 <Spinner animation="border" role="status">
+                                 <Spinner animation="border" role="status" style={{color:"white"}}>
                                    <span className="visually-hidden">Loading...</span>
                                  </Spinner></>:null                             
                                 }  
@@ -235,7 +235,7 @@ export default function Home(){
                                 } */}
                     </div>
                 </center>  
-                <h3 style={{textAlign:"center"}}>Vegeterian</h3> 
+                <h3 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h3> 
            
             {
                 defaultRecipes.map((recipe,i)=>{
@@ -259,6 +259,7 @@ export default function Home(){
                                             :
                                             null 
                                             }
+                                                <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
                                         </ListGroup>
                                     </Card> 
                                 </div>
@@ -268,7 +269,7 @@ export default function Home(){
                 })                
             }
             <hr className="ruler"/>
-            <h3 style={{textAlign:"center"}}>Non Vegeterian</h3>
+            <h3 style={{textAlign:"center",color:"white"}}>Non Vegeterian</h3>
             {
                 defaultRecipes.map((recipe,i)=>{
                     if(recipe.category=="Non-vegeterian"){
@@ -292,6 +293,8 @@ export default function Home(){
                                     :
                                     null 
                                     }
+                                                <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                            
+
                                 </ListGroup>
                             </Card>
                                 </div> 

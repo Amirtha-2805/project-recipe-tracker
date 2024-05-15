@@ -1,6 +1,6 @@
 .all-recipe-table{
-    border: 1px solid black;
-    height:80vh;
+    /* border: 1px solid black; */
+    height:60vh;
     overflow-y: scroll;
     margin-left: 130px;
     width:80%;
@@ -17,3 +17,4 @@
     height: 120vh;
     width:163% 
 }
+

@@ -31,7 +31,8 @@ const AddRecipes=()=>{
             ingredients:adminFeaturesSliceData. addRecipes.ingredients,
             instructions:adminFeaturesSliceData.addRecipes.recipe_details,
             recipe_name:adminFeaturesSliceData.addRecipes.recipe_title,
-            recipe_image:image     
+            recipe_image:image,
+            recipe_url:adminFeaturesSliceData.addRecipes.recipe_url    
       })
       alert("Recipe added")
     }  
@@ -91,10 +92,19 @@ const AddRecipes=()=>{
                       
               <div class="input-group input-lg">
                                     <label>Recipe image</label>
-                                    <input type="file" class="form-control" placeholder="Enter Recipe Title"onChange={(e)=>handleUpload(e)}/>
+                                    <input type="file" class="form-control" placeholder="Enter Recipe Title" onChange={(e)=>handleUpload(e)}/>
+                                </div>
+
+                                <div class="input-group input-lg">
+                                    <label>Recipe url</label> 
+                                    <input type="url" class="form-control" placeholder="Enter Recipe link" onKeyUp={(e)=>dispatch(setAddRecipes({
+                    ...adminFeaturesSliceData.addRecipes,
+                    recipe_url:e.target.value
+                }))}/>
                                 </div>
              
             </div>
+            
             <div className="recipe-submit-button">
                 <button type="button" className="btn btn-warning" onClick={submitRecipe}>Submit</button>
             </div>

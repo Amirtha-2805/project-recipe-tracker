@@ -18,6 +18,8 @@ import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import AdminFeatureHome from "./adminFeatures/AdminFeatureHome";
 import noUser from "../styles/no-user.webp"
+import IngredientList from "./adminFeatures/IngredientList";
+import { IoOptions } from "react-icons/io5";
 
 export default function AdminHome(){
     const adminSlice=useSelector((state)=>state.adminDetails)
@@ -70,7 +72,7 @@ export default function AdminHome(){
                         <li className="userlist"><Link className="link" onClick={()=>dispatch(adminFeatures("allUsers"))}><PiUserListFill className="icons"/>  UserList</Link></li>
                         <li className="userlist"><Link className="link" onClick={()=>dispatch(adminFeatures("allRecipes"))} ><MdFoodBank className="icons"/> All Recipes</Link></li>
                         <li className="userlist"><Link className="link" onClick={()=>dispatch(adminFeatures("addRecipes"))}><MdAssignmentAdd className="icons"/> Add Recipes</Link></li>                   
-                        <li className="userlist"><Link className="link" onClick={()=>dispatch(adminFeatures("addIngredients"))}><MdAssignmentAdd className="icons"/> Add Ingredients</Link></li>                   
+                        <li className="userlist"><Link className="link" onClick={()=>dispatch(adminFeatures("ingredientList"))}><IoOptions className="icons"/> Ingredient option</Link></li>                   
                     </ul>
                 
                 <div className="adminlogout">
@@ -83,8 +85,9 @@ export default function AdminHome(){
                 {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
                 {adminSlice.adminFeatureStatus=="allUsers" ? <UserList/>:null}
                 {adminSlice.adminFeatureStatus=="allRecipes" ? <AllRecipes/>:null} 
-                {adminSlice.adminFeatureStatus=="addIngredients" ? <Ingredients/>:null} 
+                {adminSlice.adminFeatureStatus=="ingredientList" ? <IngredientList/>:null} 
                 {adminSlice.adminFeatureStatus=="adminHome" ? <AdminFeatureHome/>:null} 
+                {adminSlice.adminFeatureStatus=="addIngredients"? <Ingredients/>:null}
             </div>
                 
         </>

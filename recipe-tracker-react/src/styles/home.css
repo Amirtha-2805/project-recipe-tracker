@@ -12,14 +12,14 @@
 }
 .home-body{
     /* background: url(spices.jpg); */
-    /* background: linear-gradient(#0c0e1d,#2b2c28); */
+    background: linear-gradient(#0c0e1d,#2b2c28);
     background-size: cover;   
     background-repeat: no-repeat;
-    height: 250vh;
+    height: 500vh;
 }
 .ruler{
     color:#0c0e1d,#2b2c28;
-    color: white;
+    /* color: white; */
    
 }
 .homelabel{
@@ -53,10 +53,12 @@
     margin-left: 10px;
     line-height: 50px;
     text-align: justify;
+    color: white;
 }
 .result-heading{
     padding:30px;
     text-align: center;
+    color:white
 }
 .catergory{
     border: 1px solid black;
@@ -78,5 +80,11 @@
     margin: 10px;
     height: 70vh;
     overflow-x: hidden;
-
+    border: 1px solid white;
+   
+}
+.cardbody:hover{
+    -webkit-box-shadow:0px 0px 7px 7px rgba(244,247,247,0.6);
+    -moz-box-shadow: 0px 0px 7px 7px rgba(244,247,247,0.6);
+    box-shadow: 0px 0px 7px 7px rgba(244,247,247,0.6);
 }

@@ -7,10 +7,10 @@ export const adminSlice=createSlice({
         addRecipes:{
             recipe_title:"",
             ingredients:"",
-            recipe_details:""
+            recipe_details:"",
+            recipe_url:""
         },
-        adminId:"",
-       
+        adminId:"",       
     },
         reducers:{
             adminFeatures:(state,action)=>{
@@ -22,7 +22,6 @@ export const adminSlice=createSlice({
             setAdminId:(state,action)=>{
                 state.adminId=action.payload
             },
-           
        
     }
 })

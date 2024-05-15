@@ -85,7 +85,7 @@ export default function UserList(){
         </div> */}
 
         <div className="user-list-table">
-            <table border="1" className="table table-bordered" >
+            <table border="1" className="table table-striped" >
                 <thead>
                     <tr>
                         <th>Name</th>

@@ -113,7 +113,8 @@ export default function AllRecipes(){
                     <th>Recipe Name</th>
                     <th>Category</th>
                     <th>Ingredients</th>
-                    <th>Instructions</th>   
+                    <th>Instructions</th> 
+                    <th>Recipe url</th>  
                     <th>Edit</th>
                     <th>Delete</th>             
                 </tr>
@@ -135,6 +136,9 @@ export default function AllRecipes(){
                                 </td>
                                 <td>
                                     {recipes.instructions}                                
+                                </td>
+                                <td>
+                                    {recipes.recipe_url}                                
                                 </td>
                                 <td>
                                     <Link to={`/recipeedit/${recipes.id}`}>Edit</Link>                                

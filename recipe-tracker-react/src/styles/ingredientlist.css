@@ -1,0 +1,30 @@
+
+/* .ing-list{
+    padding-top: 20px;
+    margin-left: 400px;
+} */
+.ing-heading{
+    /* border:1px solid black; */
+    width:100%;
+    margin-left: 250px;
+    text-align: center;
+    padding-top: 20px;
+}
+#addbtn{
+    margin-left: 500px;
+    width:65%
+}
+
+.add-ing-btn{
+   margin-left: 450px;
+   margin-top: -50px;
+  
+}
+.inglist-body{
+    border:1px solid black;
+    height:60vh;
+    width:100%;
+    margin-left: 250px;
+    margin-top: 50px;
+    overflow-y: scroll;
+}
