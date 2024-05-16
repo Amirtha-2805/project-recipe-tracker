@@ -59,7 +59,7 @@ export default function LoginAdmin(){
             <center>
             <div className="card-body">
                 <div className="admin-input">  
-                    <h3 className="admin-title" style={{color:"white"}}>Admin Login</h3>
+                    <h3 className="admin-title" style={{color:"white",marginTop:"-10px"}}>Admin Login</h3>
                     <br/>
                     <div className='admin-box'>
                         <br/>

@@ -46,10 +46,8 @@ export default function SignUp(){
         })
     }       
     return(
-        <>
-           
+        <>           
             <NavBar/>
-
             <center>
                 <div class="card-body">
                     <div className="signup-input">

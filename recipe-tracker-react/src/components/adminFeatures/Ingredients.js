@@ -11,7 +11,8 @@ const Ingredients=()=>{
            
     const submitIngredients=async ()=>{
         addDoc(dbref,inputIngredients)
-        alert("ingredient added")       
+        alert("ingredient added")  
+
     }
     return(
         <>

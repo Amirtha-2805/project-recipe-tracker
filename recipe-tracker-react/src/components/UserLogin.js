@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import NavBar from "./Menu";
 import { setToken,setIsLogged } from "../redux/slices/userSlice";
 import { useEffect } from "react";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 
 export default function Userlogin(){
@@ -21,7 +22,8 @@ export default function Userlogin(){
             // console.log(useCredential) 
             if(user.email==userLoginData.userlogin.email){
                 alert("Logged in successfully")
-                 navigate(`/userhome`)
+                dispatch(setIsLogged(true))
+                 navigate(`/ `)
             } 
             dispatch(setToken(user.accessToken))  
             console.log("success",user.email)
@@ -53,7 +55,7 @@ export default function Userlogin(){
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Password</label> 
-                                    <input type="text" className="form-control" placeholder="Enter Password..." onKeyUp={(e)=>dispatch(uLogin({
+                                    <input type="password" className="form-control" placeholder="Enter Password..." onKeyUp={(e)=>dispatch(uLogin({
                                         ...userLoginData.userlogin,
                                         password:e.target.value
                                     }))}/>

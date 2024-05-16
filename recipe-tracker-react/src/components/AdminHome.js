@@ -39,15 +39,15 @@ export default function AdminHome(){
         })
     })
     
-    useEffect(()=>{
+    // useEffect(()=>{
 
-            if(adminSlice.adminId){
-                navigate("/adminhome")
-            }        
-            else{            
-                navigate("/")
-            }
-           },[])
+    //         if(adminSlice.adminId){
+    //             navigate("/adminhome")
+    //         }        
+    //         else{            
+    //             navigate("/")
+    //         }
+    //        },[])
            
     useEffect(()=>{
         dispatch(adminFeatures("adminHome"))

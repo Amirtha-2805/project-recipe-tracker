@@ -66,6 +66,7 @@ export default function AllRecipes(){
                     <th>Category</th>
                     <th>Ingredients</th>
                     <th>Instructions</th> 
+                    <th>Image</th>
                     <th>Recipe url</th>  
                     <th>Edit</th>
                     <th>Delete</th>             
@@ -88,6 +89,9 @@ export default function AllRecipes(){
                                 </td>
                                 <td>
                                     {recipes.instructions}                                
+                                </td>
+                                <td>
+                                    {recipes.recipe_image}                                
                                 </td>
                                 <td>
                                     {recipes.recipe_url}                                

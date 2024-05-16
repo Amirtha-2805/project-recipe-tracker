@@ -6,9 +6,12 @@ import "../../styles/recipe_edit.css";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { imagesDb } from "../../firebase";
 import {v4} from 'uuid';
-
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const RecipeEdit=()=>{
     let {id} = useParams();
+    const adminSlice=useSelector((state)=>state.adminDetails)
+    let navigate=useNavigate()
     const[recipeImage,setRecipeImage]=useState("")
     const[editedRecipe,setEditedRecipe]=useState({
         edited_recipe_name:"",
@@ -18,8 +21,7 @@ const RecipeEdit=()=>{
         edited_image:"",
         edited_url:""
     })
-
-const edit=()=>{
+    const edit=()=>{
     getDoc(doc(db,"default_recipes",id)).then((docSnap)=>{
        if(docSnap.exists()){
         setEditedRecipe(
@@ -101,7 +103,7 @@ return(
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Image</label>   
-                                    <input type="file" className="form-control"  onChange={(e)=>handleUpload(e)} />
+                                    <input type="file" className="form-control" defaultValue={editedRecipe.edited_image}  onChange={(e)=>handleUpload(e)} />
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Recipe url</label>      

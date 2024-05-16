@@ -15,6 +15,7 @@ import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { signup } from "../redux/slices/userSlice";
 import { setId } from "../redux/slices/userSlice";
+import { setIsLogged } from "../redux/slices/userSlice";
 
 
 export default function UserHome(){
@@ -29,31 +30,31 @@ export default function UserHome(){
         navigate("/")
     }
     
-    const setUser=()=>{
-        setUserName(userSlice.usersignup.name)
-        setUserEmail(userSlice.usersignup.email)
+    const setUser=()=>{        
+            // setUserName(userSlice.usersignup.name)
+            setUserEmail(userSlice.userlogin.email)       
     }
-   
-    // console.log("name",userName,"email",userEmail)
+
     useEffect(()=>{
         setUser()
     },[])
     
 
-    useEffect(()=>{        
-        if(userSlice.token){
-            navigate("/userhome")
-        }
-        else{           
-            navigate("/")
-        }
-    })
+    // useEffect(()=>{        
+    //     if(userSlice.token){
+    //         navigate("/userhome")
+    //     }
+    //     else{           
+    //         navigate("/")
+    //     }
+    // })
     return(       
         <>        
             <div className="sidenav">
                     <div className="no-user">
                             <img src={noUser} className="user-no-user"/>
                             <h6 className="user-name">{userName}</h6>
+
                             <h6 className="user-email">{userEmail}</h6>                                                        
                     </div>           
                     <h4 className="userhometitle"><b>Features</b></h4>

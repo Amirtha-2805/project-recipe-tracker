@@ -10,11 +10,18 @@ import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { setIsLogged } from "../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import noUser from "../styles/no-user.webp";
+
+
 
 export default function Home(){
 
-    const question1="Recipe name:Give recipe name with only these ingredients".split("")   
-    const question2="Ingredients:Give Ingredients".split("")
+    const question1="Recipe name:Give recipe name with only these ingredients"  
+    const question2="Ingredients:Give Ingredients"
     const question3="Instructions:Give detailed recipe with only these ingredients and give a line by line response"
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
@@ -22,7 +29,6 @@ export default function Home(){
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
-    // const[instructions,setInstructions]=useState("")
     const [messages, setMessages] = useState([
         {
             message: "",
@@ -30,6 +36,10 @@ export default function Home(){
         }
     ]
     );
+    let navigate=useNavigate()
+    const userLogin=useSelector((state)=>state.userDetails)
+    
+   
     const firebaseFunction=()=>{
         const getData= getDocs(collection(db,"ingredients")).then(docSnap=>{   
         let firebase_data=[]
@@ -71,8 +81,13 @@ export default function Home(){
     //    },[])
 
     const submitIngredients=async(event)=>{
+        if(userLogin.isLogged==false){
+            alert("Please Login First")
+            navigate("/userlogin")            
+        }
           
         //gemini
+        else{
         const apikey="AIzaSyAFY0ukI1_zvQ5D0pttqZsI9RYZ-jPNyrA"
         setLoading(true) 
           axios({
@@ -100,6 +115,7 @@ export default function Home(){
             setResult(newResponse)
             setLoading(false)
         })
+    }
         
          //open ai      
         // const newMessage = {
@@ -164,7 +180,6 @@ export default function Home(){
                 
         let selected=""
         const handleChange=(selectedOption)=>{
-
                 setIngredientsInput(selectedOption)
                 selectedOption.forEach((each)=>{
                     selected=selected+each.label+","            
@@ -175,7 +190,24 @@ export default function Home(){
     return(
         <>
         <div className="home-body">
-            <NavBar/>
+        {userLogin.isLogged==true?  <Navbar expand="lg" className="custom-navbar">
+              <Navbar.Brand href="/">Recipe Tracker</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="ml-auto">
+                      <Link to="/" className="nav-link">Home</Link>
+                      <Link to="/signup" className="nav-link">Register</Link>
+                      <NavDropdown title="Login" id="basic-nav-dropdown">
+                          <Link to="/loginadmin" className="dropdown-item">Admin</Link>
+                          <Link to="/userlogin" className="dropdown-item">User</Link>
+                      </NavDropdown>
+                      <div className="user-data">
+                      <img src={noUser} className="user-no-userhome"/>
+                     <Link to={"/userhome"} className="user-mail">{userLogin.userlogin.email}</Link>
+                     </div>
+                  </Nav>
+              </Navbar.Collapse>
+          </Navbar>:<NavBar/>}
             <center>
                 <div className="input-ingredients">        
                     <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
@@ -240,12 +272,12 @@ export default function Home(){
                                     <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
-                                        <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
-                                        <br/>
-                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
-                                        <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>
+                                        <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}</ListGroup.Item>
+                                        <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>  
+                                        <ListGroup.Item>
+                                            <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                            <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>                                                                                         
                                         </ListGroup.Item>
-                                        <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
                                     </ListGroup>
                                 </Card> 
                             </div>
@@ -268,14 +300,13 @@ export default function Home(){
                                 <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
-                                    <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
-                                    <br/>
-                                    <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
-                                    <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
+                                    <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}                                    
+                                    </ListGroup.Item>                                    
+                                    <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                            
+                                    <ListGroup.Item>                                    
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
                                     </ListGroup.Item>
-                                    
-                                    {/* <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                             */}
-    
                                 </ListGroup>
                             </Card>
                                 </div> 
@@ -286,6 +317,7 @@ export default function Home(){
                 })
             }
         </div>
+       
     </>
     
     )
