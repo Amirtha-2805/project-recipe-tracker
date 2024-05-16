@@ -57,61 +57,53 @@ const AddRecipes=()=>{
         <div className="add-body">
             <h1 className="add-recipe-heading">Add Recipes</h1> 
             <div className="input-container">           
-
-            <div className="recipe-input">
-            <div className="select">
-                <label>Select Category</label>
-                 <div className="select-box">
-                    <Select options={categories}  placeholder="Select category" onChange={handleChange}/>                
+                <div className="recipe-input">
+                    <div className="select">
+                        <label>Select Category</label>
+                        <div className="select-box">
+                            <Select options={categories} placeholder="Select category" onChange={handleChange}/>                
+                        </div>
+                    </div>
+                    <div className="input-group input-lg">
+                        <label>Recipe Name</label>
+                        <input type="text" className="form-control" placeholder="Enter Recipe Title" onKeyUp={(e)=>dispatch(setAddRecipes({
+                            ...adminFeaturesSliceData.addRecipes,
+                            recipe_title:e.target.value
+                        }))}/>
+                    </div>
+                    <div className="input-group input-lg">
+                        <label>Ingredients</label> 
+                        <input type="text" className="form-control" placeholder="Enter Recipe ingredients" onKeyUp={(e)=>dispatch(setAddRecipes({
+                            ...adminFeaturesSliceData.addRecipes,
+                            ingredients:e.target.value
+                        }))}/>
+                    </div>
+                    <div className="input-group input-lg">
+                        <label>Recipe Details</label>
+                        <textarea type="text" className="form-control" placeholder="Enter Recipe details" onKeyUp={(e)=>dispatch(setAddRecipes({
+                            ...adminFeaturesSliceData.addRecipes,
+                            recipe_details:e.target.value
+                        }))}></textarea>
+                    </div>
+                    <div className="input-group input-lg">
+                        <label>Recipe image</label>
+                        <input type="file" className="form-control" placeholder="Enter Recipe Title" onChange={(e)=>handleUpload(e)}/>
+                    </div>
+                    <div className="input-group input-lg">
+                        <label>Recipe url</label> 
+                        <input type="url" className="form-control" placeholder="Enter Recipe link" onKeyUp={(e)=>dispatch(setAddRecipes({
+                            ...adminFeaturesSliceData.addRecipes,
+                            recipe_url:e.target.value
+                        }))}/>
+                    </div>
                 </div>
-                </div>
-
-            <div class="input-group input-lg">
-                                    <label>Recipe Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Recipe Title" onKeyUp={(e)=>dispatch(setAddRecipes({
-                    ...adminFeaturesSliceData.addRecipes,
-                    recipe_title:e.target.value
-                }))}/>
-                                </div>
-                                <div class="input-group input-lg">
-                                    <label>Ingredients</label> 
-                                    <input type="text" class="form-control" placeholder="Enter Recipe ingredients" onKeyUp={(e)=>dispatch(setAddRecipes({
-                    ...adminFeaturesSliceData.addRecipes,
-                    ingredients:e.target.value
-                }))}/>
-                                </div>
-
-            <div class="input-group input-lg">
-            <label>Recipe Details</label>
-                <textarea type="text" className="form-control" placeholder="Enter Recipe details" onKeyUp={(e)=>dispatch(setAddRecipes({
-                    ...adminFeaturesSliceData.addRecipes,
-                    recipe_details:e.target.value
-                }))}></textarea>
+                <div className="recipe-submit-button">
+                    <button type="button" className="btn btn-warning" onClick={submitRecipe}>Submit</button>
                 </div>
             </div>
-                      
-              <div class="input-group input-lg">
-                                    <label>Recipe image</label>
-                                    <input type="file" class="form-control" placeholder="Enter Recipe Title" onChange={(e)=>handleUpload(e)}/>
-                                </div>
-
-                                <div class="input-group input-lg">
-                                    <label>Recipe url</label> 
-                                    <input type="url" class="form-control" placeholder="Enter Recipe link" onKeyUp={(e)=>dispatch(setAddRecipes({
-                    ...adminFeaturesSliceData.addRecipes,
-                    recipe_url:e.target.value
-                }))}/>
-                                </div>
-             
-            </div>
-            
-            <div className="recipe-submit-button">
-                <button type="button" className="btn btn-warning" onClick={submitRecipe}>Submit</button>
-            </div>
-           
-            </div>
-
-        </>
+        </div>
+    </>
+    
     )
 }
 export default AddRecipes

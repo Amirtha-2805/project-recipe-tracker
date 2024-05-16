@@ -39,6 +39,5 @@ const IngredientEdit=()=>{
             <button type="button" onClick={updateIngredient}>Update</button>
         </>
     )
-
 }
 export default IngredientEdit

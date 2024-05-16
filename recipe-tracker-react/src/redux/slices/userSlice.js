@@ -41,6 +41,6 @@ export const userSlice=createSlice({
         }  
     }
 })
-export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId} = userSlice.actions
+export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId } = userSlice.actions
 
 export default userSlice.reducer

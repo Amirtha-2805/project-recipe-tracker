@@ -23,25 +23,25 @@ import { getFirestore } from "firebase/firestore";
 // };
 
 //amirthanatarajan14@gmail.com
-const firebaseConfig = {
-  apiKey: "AIzaSyA0eSmLWQEFXnx30eq2-rApOvnuWOhpfeQ",
-  authDomain: "react-recipe-tracker.firebaseapp.com",
-  projectId: "react-recipe-tracker",
-  storageBucket: "react-recipe-tracker.appspot.com",
-  messagingSenderId: "61711308434",
-  appId: "1:61711308434:web:2d7ca2ccab97e0b1a8384b"
-};
-
-
-//amirtha1428@gmail.com
 // const firebaseConfig = {
-//   apiKey: "AIzaSyBAUKBtuAYD55RX5ZJJfTMbO3QjtANRTaI",
-//   authDomain: "recipe-tracker-9a973.firebaseapp.com",
-//   projectId: "recipe-tracker-9a973",
-//   storageBucket: "recipe-tracker-9a973.appspot.com",
-//   messagingSenderId: "201657213588",
-//   appId: "1:201657213588:web:2e8699675f8f0b2435ca81"
+//   apiKey: "AIzaSyA0eSmLWQEFXnx30eq2-rApOvnuWOhpfeQ",
+//   authDomain: "react-recipe-tracker.firebaseapp.com",
+//   projectId: "react-recipe-tracker",
+//   storageBucket: "react-recipe-tracker.appspot.com",
+//   messagingSenderId: "61711308434",
+//   appId: "1:61711308434:web:2d7ca2ccab97e0b1a8384b"
 // };
+
+
+// amirtha1428@gmail.com
+const firebaseConfig = {
+  apiKey: "AIzaSyBAUKBtuAYD55RX5ZJJfTMbO3QjtANRTaI",
+  authDomain: "recipe-tracker-9a973.firebaseapp.com",
+  projectId: "recipe-tracker-9a973",
+  storageBucket: "recipe-tracker-9a973.appspot.com",
+  messagingSenderId: "201657213588",
+  appId: "1:201657213588:web:2e8699675f8f0b2435ca81"
+};
 
 
 

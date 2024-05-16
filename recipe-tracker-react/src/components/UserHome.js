@@ -39,17 +39,15 @@ export default function UserHome(){
         setUser()
     },[])
     
-    // localStorage.setItem("user_token",userSlice.token)        
-    // let user_token=localStorage.getItem("user_token")
-    // useEffect(()=>{
-        
-    //     if(userSlice.token){
-    //         navigate("/userhome")
-    //     }
-    //     else{           
-    //         navigate("/")
-    //     }
-    // })
+
+    useEffect(()=>{        
+        if(userSlice.token){
+            navigate("/userhome")
+        }
+        else{           
+            navigate("/")
+        }
+    })
     return(       
         <>        
             <div className="sidenav">

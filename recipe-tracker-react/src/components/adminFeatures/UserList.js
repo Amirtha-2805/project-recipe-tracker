@@ -43,87 +43,41 @@ export default function UserList(){
         <>
         <div className="user-body">
             <h2 className="user-list-head">User List</h2>
-            {/* <div className="user-list-table">
-            <table border="1" className="table table-bordered" >            
-                <thead>
-                    <tr>
-                        <th>UserId</th>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Body</th>                   
-                        <th>Delete</th>             
-                    </tr>
-                </thead>
-                <tbody>       
-                    {getUser.map((users,i)=>{                                                   
-                        return(           
-                            <>                                             
-                                <tr  key={i}  >                        
-                                    <td >
-                                        {users.userId}
-                                    </td>
-                                    <td>
-                                        {users.id}
-                                    </td>
-                                    <td>
-                                        {users.title}
-                                        
-                                    </td>
-                                    <td>
-                                        {users.body}                                
-                                    </td>                        
-                                    <td>
-                                        <Link onClick={()=>deleteUser(users.id)}>Delete</Link>                                
-                                    </td>
-                                
-                                </tr>
-                            </>
-                        )            
-        })}
-                </tbody>
-            </table> 
-        </div> */}
-
-        <div className="user-list-table">
-            <table border="1" className="table table-striped" >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        getUser.map((users,i)=>{
-                            return(
-                                <>
-                                    <tr key={i} >
+            <div className="user-list-table">
+                <table border="1" className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            getUser.map((users, i) => {
+                                return(
+                                    <tr key={i}>
                                         <td>{users.name}</td>
                                         <td>{users.email}</td> 
                                         <td>{users.age}</td> 
                                         <td>{users.gender}</td>
                                         <td>{users.address}</td> 
                                         <td>{users.phone}</td> 
-                                        {/* <td>{users.uid}</td>  */}
-                                        {/* <td><Link to={`/useredit/${users.id}`}>Edit</Link></td>  */}
                                         <td><Link onClick={()=>deleteUser(users.id)}>Delete</Link></td> 
-                                   </tr>
-                                   
-                                </>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>            
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>            
+            </div>
         </div>
-        </div>
-        </>
-           
+    </>
+               
     )
     
 

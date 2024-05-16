@@ -1,115 +1,33 @@
-/* .navbar-container{
-    display: flex;
-    justify-content: space-around;
-    
+
+.custom-navbar {
+    background-color: #565264;
+    padding: 15px 30px; 
 }
 
-.me-auto{
-    margin-left: 700px;
-
-}
-.register{
-    margin-right: 5px;
-    text-decoration: none;
-
-}
-.home-link{
-    text-decoration: none;
-    color:black
-    
-}
-.register-link{
-    text-decoration: none;
-    color:black;
-    margin-left: 50px;
-}
-.menubar{
-    width:100%
-}
-#basic-nav-dropdown{
-    margin-left: 50px;
-}
-.dropdown-item{
-    text-decoration: none;
-} */
-/* .navbar-container{
-    background-color:black;
-    height: 80px;
-    width:100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    color: white;
-    
-}
-.navbar-container ul{
-    list-style: none;
-    display: flex;
-}
-.navbar-container ul li {
-    padding: 10px 30px;
-    position: relative;    
+.custom-navbar .navbar-brand {
+    color: #fff;
+    font-weight: bold;
 }
 
-.link-menu{
-    text-decoration: none;
-    color:black;
-    transition: all 0.3s;
-    color: white;
-}
-  .dropdown{
-   width:10%;
-   background-color:grey;
-   margin-left: 1167px;
-   height:20vh;
-   border-radius: 5px;
-}
-.dropdown ul{
-    display: block;
-    margin: 10px;
-}
-.dropdown ul li{
-    width:150px;
-    padding: 10px;
-    list-style: none;
-    margin-left: 20px;
-    margin-top: 10px;
-}
-.dropdown-menu{
-    text-decoration: none;
-}
-.dropdown-link{
-    text-decoration: none;
-    color: white;   
-} */
-.nav-item{
-    margin-left: 250px;
-    margin-top: 15px;
-    text-decoration: none;
-    color:white;
-}
-.nav-item:hover{
-    color:grey
-}
-.dropdown-toggle{
-    margin-top: -8px;
-    color:white;
-}
-.dropdown-toggle:hover{
-    color: grey;
-}
-.navbar-toggler{
-    /* margin-left: 400px; */
-    /* margin-bottom: 60px; */
-    color: white;
-    border: none;
-    /* margin-top: -50px; */
+.custom-navbar .navbar-nav .nav-link {
+    color: #fff;
+    margin-right: 15px; 
 }
 
-.navbar{
-    /* background-color:#011824; */
-    background-color:#565264;    
-    color: white;
+.custom-navbar .navbar-nav .nav-link:hover {
+    color: #ccc; }
+
+.custom-navbar .dropdown-menu {
+    background-color: #565264;
 }
+
+.custom-navbar .dropdown-item {
+    color: #fff;
+}
+
+.custom-navbar .dropdown-item:hover {
+    background-color: #454553; 
+}
+
+
 

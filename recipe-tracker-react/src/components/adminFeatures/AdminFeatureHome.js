@@ -45,17 +45,9 @@ return(
             <div className="total">
                     <p className="total-head"><b>Total Users</b></p>
                     <h2 className="number"><b>{noOfUsers}</b></h2>
-                    <p className="male-para">Males {noOfMales}</p>
-                    {/* <h6 ><b>{noOfMales}</b></h6> */}
+                    <p className="male-para">Males {noOfMales}</p>                   
                     <p className="female-para" >Females {noOfFemales}</p>
-                    {/* <h6 ><b>{noOfFemales}</b></h6> */}
             </div>
-            {/* <div className="male">
-                    
-            </div>
-            <div className="female">
-                   
-            </div> */}
             <div className="total-ingredients">
                     <p className="total-head"><b>Total ingredients</b></p>
                     <h2 className="number-of-ing"><b>{noOfIngredients}</b></h2>

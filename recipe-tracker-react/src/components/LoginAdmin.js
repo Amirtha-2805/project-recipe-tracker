@@ -9,32 +9,33 @@ import { setAdminId } from '../redux/slices/adminSlice';
 import { useSelector,useDispatch } from 'react-redux';
 
 
-
 export default function LoginAdmin(){
     const navigate = useNavigate();
-    const[adminEmail,setAdminEmail]=useState("")
-    const[adminPassword,setAdminPassword]=useState("")
+    const[adminEmailPwd,setAdminEmailPwd]=useState({
+        email:"",
+        password:""
+    })
     const adminFirerbaseId=useSelector((state)=>state.adminDetails)
     const[adminFirebaseData,setAdminFirebaseData]=useState({email:"",
     password:""})
     let dispatch=useDispatch()
     
-    getDocs(collection(db,"admin_login_details")).then(docSnap=>{
-        docSnap.forEach((doc)=>{
-            dispatch(setAdminId(doc.id))                
-        })
-    })
-    console.log("idd",adminFirerbaseId.adminId)
-    
+    // getDocs(collection(db,"admin_login_details")).then(docSnap=>{
+    //     docSnap.forEach((doc)=>{
+    //         dispatch(setAdminId(doc.id))                
+    //     })
+    // })
+    // console.log("idd",adminFirerbaseId.adminId)
+    console.log("admin",adminEmailPwd)
     const getAdminData=()=>{
-        let getFireBaseData=getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
+               getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
                        docSnap.forEach((doc)=>{
-               setAdminFirebaseData({...doc.data(),email:doc.data().email,password:doc.data().password})
-               
+                         setAdminFirebaseData({...doc.data(),email:doc.data().email,password:doc.data().password})
+                         dispatch(setAdminId(doc.id))                               
                  })
         })
     }
-    console.log("adminnnnn",adminFirebaseData)  
+    // console.log("adminnnnn",adminFirebaseData)  
 
         useEffect(()=>{
             getAdminData()
@@ -42,7 +43,7 @@ export default function LoginAdmin(){
 
     const adminLogin=()=>{
             
-            if(adminEmail==adminFirebaseData.email && adminPassword==adminFirebaseData.password){
+            if(adminEmailPwd.email==adminFirebaseData.email && adminEmailPwd.password==adminFirebaseData.password){
                   alert("Logged in succesfully")
                   navigate("/adminhome")   
             }
@@ -54,56 +55,36 @@ export default function LoginAdmin(){
     return(
 
         <>
-            {/* <div className='admin-login-body'>
-                <NavBar/>
-                <div className='admin'>
-                <center><h3 className='admintitle'>Admin Login</h3></center>
-                <div className="adminlogin">
-                    <div>
-                        <label className='admin-login-label'>Email</label><input type="email" className="form-control" onKeyUp={(e)=>setAdminEmail(e.target.value)} placeholder="Enter your email"/>
-                    </div>
-                    <div>
-                        <label className='admin-login-label'>Password</label><input type="password" className="form-control" onKeyUp={(e)=>setAdminPassword(e.target.value)} placeholder="Enter your password"/>
-                    </div>
-                    <br/>
-                    <div className='adminloginbtn'>
-                        <button className='btn btn-primary' onClick={adminLogin}>Login</button>
-                    </div>
-                </div>
-                </div>
-            </div> */}
-
-<NavBar/>
-
-<center>
-            
+            <NavBar/>    
+            <center>
             <div className="card-body">
-
-               <div className="admin-input">  
-
-              <h3 className="admin-title" style={{color:"white"}}>Admin Login</h3>
-            <br/>
-            <div className='admin-box'>
-                <br/>
-
-                <div className='admin-body'>
-              <div className="input-group input-lg">                             
-             <label>Email</label><input type="email" className="form-control" placeholder="Enter email..." onKeyUp={(e)=>setAdminEmail(e.target.value)} />      
-              </div>
-              <div className="input-group input-lg">             
-             <label>Password</label><input type="password" className="form-control" placeholder="Enter Password..."  onKeyUp={(e)=>setAdminPassword(e.target.value)}/>
-              </div> 
-              </div>
-              <br/>
-              <div className='adminloginbtn'>
-                <button className='btn btn-primary' style={{marginLeft:"-90px"}} onClick={adminLogin}>Login</button>
-            </div>   
-            <br/>             
+                <div className="admin-input">  
+                    <h3 className="admin-title" style={{color:"white"}}>Admin Login</h3>
+                    <br/>
+                    <div className='admin-box'>
+                        <br/>
+                        <div className='admin-body'>
+                            <div className="input-group input-lg">                             
+                                <label>Email</label><input type="email" className="form-control" placeholder="Enter email..." onKeyUp={(e)=>setAdminEmailPwd({
+                                    ...adminEmailPwd,
+                                    email: e.target.value})} />      
+                            </div>
+                            <div className="input-group input-lg">             
+                                <label>Password</label><input type="password" className="form-control" placeholder="Enter Password..." onKeyUp={(e)=>setAdminEmailPwd({
+                                    ...adminEmailPwd,
+                                    password:e.target.value})}/>
+                            </div> 
+                        </div>
+                        <br/>
+                        <div className='adminloginbtn'>
+                            <button className='btn btn-primary' style={{marginLeft:"-90px"}} onClick={adminLogin}>Login</button>
+                        </div>   
+                        <br/>             
+                    </div>
+                </div>
             </div>
-             </div>
-            </div>
-</center>
-
-        </>
+        </center>
+    </>
+    
     )
 }

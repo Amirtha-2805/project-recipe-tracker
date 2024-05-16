@@ -22,7 +22,7 @@ export default function Home(){
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
-    const[instructions,setInstructions]=useState("")
+    // const[instructions,setInstructions]=useState("")
     const [messages, setMessages] = useState([
         {
             message: "",
@@ -174,87 +174,81 @@ export default function Home(){
    
     return(
         <>
-          <div className="home-body">
-                <NavBar/>
-                <center>
-                    <div className="input-ingredients">        
-                        <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
-                        <br/> 
-                        <br/>                   
-                        <Select value={ingredientsInput} onChange={handleChange} onkeyUp={(e)=>setIngredientsInput(e.target.value)} isMulti options={mapped_data} placeholder="Select your ingredients"/>
-                        <br/>
-                        
-                        <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
-                           <br/> 
-                           <br/>                            
-                              {
-                                isLoading==true ? 
-                                <>
-                                 <Spinner animation="border" role="status" style={{color:"white"}}>
-                                   <span className="visually-hidden">Loading...</span>
-                                 </Spinner></>:null                             
-                                }  
-                              {
-                                result ? 
-                                    <div className="resultbox">
-                                        <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
-                                        <p className="result-para">{result}
-                                        </p>
-                                        <button type="button" className="btn btn-warning">save</button>
-                                    </div>
-                                     :
-                                    null
-                              }  
-                                       
-                                {/* open ai */}
-                                {/* {   
-                                    isLoading==true ? 
-                                    <>
-                                        <Spinner animation="border" role="status">
-                                            <span className="visually-hidden">Loading...</span>
-                                        </Spinner>
-                                    </>
-                                    :
-                                    null                             
-                                } 
-                                {
-                                    isLoading==false?   
-                                        <div className="resultbox">
-                                            <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
-                                            {messages.map((message, index) => {
-                                                return(
-                                                        <div>{message.message}</div>                        
-                                                );
-                                    })}                                
-                                            <button type="button" className="btn btn-warning">save</button>
-                                        </div>
-                                        :
-                                        null
-                                } */}
-                    </div>
-                </center>  
-                <h3 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h3> 
-           
+        <div className="home-body">
+            <NavBar/>
+            <center>
+                <div className="input-ingredients">        
+                    <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
+                    <br/> 
+                    <br/>                   
+                    <Select value={ingredientsInput} onChange={handleChange} onkeyUp={(e)=>setIngredientsInput(e.target.value)} isMulti options={mapped_data} placeholder="Select your ingredients"/>
+                    <br/>
+                    
+                    <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
+                    <br/> 
+                    <br/>                            
+                    {isLoading==true ? 
+                        <>
+                        <Spinner animation="border" role="status" style={{color:"white"}}>
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        </>
+                        : null                             
+                    }  
+                    {result ? 
+                        <div className="resultbox">
+                            <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
+                            <p className="result-para">{result}</p>
+                            <button type="button" className="btn btn-warning">save</button>
+                        </div>
+                        : null
+                    }  
+                    {/* open ai */}
+                    {/* {   
+                        isLoading==true ? 
+                        <>
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </>
+                        : null                             
+                    } 
+                    {
+                        isLoading==false ?   
+                        <div className="resultbox">
+                            <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
+                            {messages.map((message, index) => {
+                                return(
+                                    <div>{message.message}</div>                        
+                                );
+                            })}                                
+                            <button type="button" className="btn btn-warning">save</button>
+                        </div>
+                        : null
+                    } */}
+                </div>
+            </center>  
+            <h3 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h3> 
             {
                 defaultRecipes.map((recipe,i)=>{
                     if(recipe.category=="Vegeterian"){
                         return(                            
                             <>
-                                <div className="veg" key={i}>
-                                    <Card className="cardbody" style={{ width: '18rem'}}>
-                                        <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
-                                        <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
-                                        <ListGroup variant="flush">
-                                                <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
-                                                <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
-                                                <br/>
-                                                <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
-                                                <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>
-                                            </ListGroup.Item>
-                                            <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
-                                        </ListGroup>
-                                    </Card> 
-                                </div>
+                            <div className="veg" key={i}>
+                                <Card className="cardbody" style={{ width: '18rem'}}>
+                                    <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
+                                    <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
+                                        <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
+                                        <br/>
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                        <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
+                                    </ListGroup>
+                                </Card> 
+                            </div>
                             </>
                         )                
                     }                    
@@ -266,7 +260,7 @@ export default function Home(){
                 defaultRecipes.map((recipe,i)=>{
                     if(recipe.category=="Non-vegeterian"){
                         return(
-                        <>
+                            <>
                             <div className="nonveg" key={i}>
                             {/* <h3>{recipe.category}</h3> */}
                             <Card className="cardbody" style={{ width: '18rem'}}>
@@ -276,22 +270,23 @@ export default function Home(){
                                     <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
                                     <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
                                     <br/>
-                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
-                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
+                                    <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                    <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
                                     </ListGroup.Item>
                                     
                                     {/* <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                             */}
-
+    
                                 </ListGroup>
                             </Card>
                                 </div> 
                             </>
-
+    
                         )
                     }
                 })
             }
-            </div>
-        </>
+        </div>
+    </>
+    
     )
     }
