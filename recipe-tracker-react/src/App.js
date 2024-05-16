@@ -19,6 +19,7 @@ import { auth } from './firebase';
 import AdminFeatureHome from './components/adminFeatures/AdminFeatureHome';
 import RecipeEdit from './components/adminFeatures/RecipeEdit';
 import IngredientEdit from './components/adminFeatures/IngredientEdit';
+import DefaultRecipeView from './components/adminFeatures/DefaultRecipeView';
 
 function App() {
     const user_token=useSelector((state)=>state.userDetails.token)
@@ -49,6 +50,9 @@ function App() {
             <Route path='/ingredients' element={<Ingredients/>}></Route>
             <Route path='/recipeedit/:id' element={<RecipeEdit/>}></Route>
             <Route path='/ingredientedit/:id' element={<IngredientEdit/>}></Route>
+            <Route path='/defaultrecipeview/:id' element={<DefaultRecipeView/>}></Route>
+
+
 
             {/* <Route path='/ingredients' element={<Ingredients/>}></Route> */}
 

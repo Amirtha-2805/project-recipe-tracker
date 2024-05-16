@@ -7,7 +7,6 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { imagesDb } from "../../firebase";
 import {v4} from 'uuid';
 
-
 const RecipeEdit=()=>{
     let {id} = useParams();
     const[recipeImage,setRecipeImage]=useState("")
@@ -42,7 +41,7 @@ const updateRecipe=()=>{
         category:editedRecipe.edited_recipe_category,
         ingredients:editedRecipe.edited_Recipe_ingredients,
         instructions:editedRecipe.edited_recipe_instructions,
-        recipe_image:editedRecipe.edited_image,
+        recipe_image:recipeImage,
         recipe_url:editedRecipe.edited_url
     })  
     alert("recipe updated")  
@@ -102,7 +101,7 @@ return(
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Image</label>   
-                                    <input type="file" className="form-control" defaultValue={editedRecipe.edited_image} onChange={(e)=>handleUpload(e)} />
+                                    <input type="file" className="form-control"  onChange={(e)=>handleUpload(e)} />
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Recipe url</label>      

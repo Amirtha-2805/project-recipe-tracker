@@ -1,0 +1,42 @@
+.view-body{
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    color:white;
+    height:200vh
+}
+
+.instruction-para{
+    text-align:justify;
+    margin-top: 10px;
+    height:30vh;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.recipe-image{
+    border:1px solid white;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.view-head{
+    padding-top: 50px;
+}
+
+.instruction{
+    width:60%;
+    margin-top: 50px;
+}
+
+.ingredients-container{
+    width:60%;
+    margin-top: 50px;    
+}
+
+.ingredients-para{
+    text-align: justify;
+    margin-top: 10px;
+    height:90px;
+    overflow-y: scroll;
+    padding: 10px;
+    
+}

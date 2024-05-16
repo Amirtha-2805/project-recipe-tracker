@@ -22,7 +22,6 @@ export default function Home(){
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
-    const[more,setMore]=useState(false)
     const[instructions,setInstructions]=useState("")
     const [messages, setMessages] = useState([
         {
@@ -31,7 +30,6 @@ export default function Home(){
         }
     ]
     );
-    
     const firebaseFunction=()=>{
         const getData= getDocs(collection(db,"ingredients")).then(docSnap=>{   
         let firebase_data=[]
@@ -61,12 +59,12 @@ export default function Home(){
         getDocs(collection(db,"default_recipes")).then((docSnap)=>{
             let array=[]    
             docSnap.forEach((doc)=>{
-                array.push(doc.data())
+                array.push({...doc.data(),id:doc.id})
             })
             //  console.log("state recipe",array)
              setDefaultRecipes(array)
         })
-       
+      
     
     // useEffect(()=>{
     //     getRecipe()   
@@ -249,17 +247,11 @@ export default function Home(){
                                         <ListGroup variant="flush">
                                                 <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
                                                 <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
-                                            <br/>
-                                                <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>saved</button>
-                                                <Link onClick={()=>setMore(true)}  style={{marginLeft:"50px"}}>More</Link>
+                                                <br/>
+                                                <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                                <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>
                                             </ListGroup.Item>
-                                            {
-                                            more==true ?                                 
-                                                <ListGroup.Item><b>Instructions: </b><br/>{recipe.instructions}</ListGroup.Item>                                            
-                                            :
-                                            null 
-                                            }
-                                                <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
+                                            <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                                                                           
                                         </ListGroup>
                                     </Card> 
                                 </div>
@@ -284,16 +276,11 @@ export default function Home(){
                                     <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
                                     <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}
                                     <br/>
-                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>saved</button>
-                                        <Link onClick={()=>setMore(true)} style={{marginLeft:"50px"}}>More</Link>
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
                                     </ListGroup.Item>
-                                    {
-                                    more==true ?                                  
-                                        <ListGroup.Item><b>Instructions: </b><br/>{recipe.instructions}</ListGroup.Item>                                            
-                                    :
-                                    null 
-                                    }
-                                                <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                            
+                                    
+                                    {/* <ListGroup.Item><b>Url: </b><br/><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                             */}
 
                                 </ListGroup>
                             </Card>
