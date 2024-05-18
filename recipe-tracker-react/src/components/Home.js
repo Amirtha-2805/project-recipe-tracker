@@ -20,9 +20,7 @@ import noUser from "../styles/no-user.webp";
 
 export default function Home(){
 
-    const question1="Recipe name:Give recipe name with only these ingredients"  
-    const question2="Ingredients:Give Ingredients"
-    const question3="Instructions:Give detailed recipe with only these ingredients and give a line by line response"
+    const question1="give me a recipe details with these ingredients and recipe image"  
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
@@ -57,6 +55,7 @@ export default function Home(){
     
         useEffect(()=>{
             firebaseFunction()
+            defaultRecipesList()
         },[])
     
         let mapped_data=fireBase.map((data,i)=>{
@@ -66,15 +65,18 @@ export default function Home(){
             })
         }) 
 
-        getDocs(collection(db,"default_recipes")).then((docSnap)=>{
-            let array=[]    
-            docSnap.forEach((doc)=>{
-                array.push({...doc.data(),id:doc.id})
+        const defaultRecipesList=()=>{
+            getDocs(collection(db,"default_recipes")).then((docSnap)=>{
+                let array=[]    
+                docSnap.forEach((doc)=>{
+                    array.push({...doc.data(),id:doc.id})
+                })
+                //  console.log("state recipe",array)
+                 setDefaultRecipes(array)
             })
-            //  console.log("state recipe",array)
-             setDefaultRecipes(array)
-        })
-      
+    
+        }
+             
     
     // useEffect(()=>{
     //     getRecipe()   
@@ -95,7 +97,7 @@ export default function Home(){
             method:"POST",
             data:{
                 contents:[
-                    {parts:[{text:question1+question2+question3+recipe}]},
+                    {parts:[{text:question1+recipe}]},
                 ]
             },
         }).then((response)=>{
@@ -195,12 +197,6 @@ export default function Home(){
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="ml-auto">
-                      <Link to="/" className="nav-link">Home</Link>
-                      <Link to="/signup" className="nav-link">Register</Link>
-                      <NavDropdown title="Login" id="basic-nav-dropdown">
-                          <Link to="/loginadmin" className="dropdown-item">Admin</Link>
-                          <Link to="/userlogin" className="dropdown-item">User</Link>
-                      </NavDropdown>
                       <div className="user-data">
                       <img src={noUser} className="user-no-userhome"/>
                      <Link to={"/userhome"} className="user-mail">{userLogin.userlogin.email}</Link>

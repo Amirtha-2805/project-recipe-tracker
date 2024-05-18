@@ -28,7 +28,7 @@ const IngredientList=()=>{
     }
     useEffect(()=>{
         getIngredients()
-    })
+    },[])
    
     const deleteIngredient=(ingId)=>{
         deleteDoc(doc(db,"ingredients",ingId))

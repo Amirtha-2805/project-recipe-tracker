@@ -31,13 +31,16 @@ export default function AdminHome(){
     const adminLogOut=()=>{
         navigate("/")
     }
-    getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
-        docSnap.forEach((doc)=>{
-            dispatch(setAdminId(doc.id))
-            setAdminEmail(doc.data().email)
-            setAdminName(doc.data().name)
+    const setDetails=()=>{
+        getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
+            docSnap.forEach((doc)=>{
+                dispatch(setAdminId(doc.id))
+                setAdminEmail(doc.data().email)
+                setAdminName(doc.data().name)
+            })
         })
-    })
+    }
+   
     
     // useEffect(()=>{
 
@@ -51,6 +54,7 @@ export default function AdminHome(){
            
     useEffect(()=>{
         dispatch(adminFeatures("adminHome"))
+        setDetails()
     },[])
     
        return(

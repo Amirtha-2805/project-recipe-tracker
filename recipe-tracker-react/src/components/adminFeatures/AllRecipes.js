@@ -42,7 +42,7 @@ export default function AllRecipes(){
     }
     useEffect(()=>{
         defaultRecipes()
-    })
+    },[])
     const deleteRecipe=(recipeId)=>{
         deleteDoc(doc(db,"default_recipes",recipeId))
         alert("recipe deleted")

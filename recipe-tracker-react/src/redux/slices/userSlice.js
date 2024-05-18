@@ -15,10 +15,22 @@ export const userSlice=createSlice({
             email:"",
             password:""
         },
+        userAllDetails:{
+            user_name:"",
+            user_email:"",
+            user_password:"",
+            user_age:"",
+            user_gender:"",
+            user_phone:"",
+            user_address:""
+        },
         userFeatureStatus:"",
         token:"",
         id:"",
-        isLogged:false
+        isLogged:false,
+       
+       
+       
     },
         reducers:{
         signup:(state,action)=>{
@@ -38,9 +50,15 @@ export const userSlice=createSlice({
         },
         setId:(state,action)=>{
             state.id=action.payload
-        }  
+        },
+        setUserAllDetails:(state,action)=>{
+            state.userAllDetails=action.payload
+        }
+       
+
+       
     }
 })
-export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId } = userSlice.actions
+export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId,setUserAllDetails} = userSlice.actions
 
 export default userSlice.reducer

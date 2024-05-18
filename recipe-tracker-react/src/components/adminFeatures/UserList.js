@@ -8,13 +8,19 @@ import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/fire
 
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
-    getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
-        let user_list=[]
-        docSnap.forEach((doc)=>{
-            user_list.push({...doc.data(),id:doc.id})
+    const userList=()=>{
+        getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
+            let user_list=[]
+            docSnap.forEach((doc)=>{
+                user_list.push({...doc.data(),id:doc.id})
+            })
+        setGetUser(user_list)
         })
-    setGetUser(user_list)
-    })
+
+    }
+    useEffect(()=>{
+        userList()
+    },[])
     // console.log("user",getUser)
     // useEffect(()=>{      
     //     getUserList()       

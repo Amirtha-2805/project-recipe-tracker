@@ -16,8 +16,8 @@ export default function SignUp(){
     const dispatch=useDispatch();
     const dbref=collection(db,"user_signup_details")
    
-    const register= async()=>{
-        await createUserWithEmailAndPassword(auth,signupdata.usersignup.email,signupdata.usersignup.password)
+    const register=()=>{
+         createUserWithEmailAndPassword(auth,signupdata.usersignup.email,signupdata.usersignup.password)
         .then((useCredential)=>{
             const user =useCredential.user;
             console.log("useCredential",useCredential)

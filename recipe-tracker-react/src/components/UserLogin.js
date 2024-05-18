@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
-import {uLogin} from "../redux/slices/userSlice";
 import "../styles/userlogin.css";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import NavBar from "./Menu";
-import { setToken,setIsLogged } from "../redux/slices/userSlice";
-import { useEffect } from "react";
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { setToken,setIsLogged, setUserAllDetails,uLogin } from "../redux/slices/userSlice";
+import { useEffect} from "react";
+import { db } from "../firebase";
+import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
+
 
 
 export default function Userlogin(){
@@ -15,18 +16,33 @@ export default function Userlogin(){
     const navigate = useNavigate();
     const dispatch=useDispatch();
     const userLoginData=useSelector((state)=>state.userDetails);
+
     const userLogin=()=>{       
-        signInWithEmailAndPassword(auth,userLoginData.userlogin.email,userLoginData.userlogin.password) 
+       signInWithEmailAndPassword(auth,userLoginData.userlogin.email,userLoginData.userlogin.password) 
         .then((useCredential)=>{
             const user=useCredential.user
             // console.log(useCredential) 
             if(user.email==userLoginData.userlogin.email){
                 alert("Logged in successfully")
                 dispatch(setIsLogged(true))
-                 navigate(`/ `)
+                 navigate(`/`)
             } 
-            dispatch(setToken(user.accessToken))  
-            console.log("success",user.email)
+            dispatch(setToken(user.accessToken)) 
+            getDocs(collection(db,"user_signup_details")).then((docSnap)=>{  
+                docSnap.forEach((doc)=>{
+                    if(user.email==doc.data().email){
+                    dispatch(setUserAllDetails({
+                        user_name:doc.data().name,
+                        user_email:doc.data().email,
+                        user_pasword:doc.data().password,
+                        user_age:doc.data().age,
+                        user_gender:doc.data().gender,
+                        user_address:doc.data().address,
+                        user_phone:doc.data().phone
+                      }))                            
+                    }
+                })               
+            }) 
          }) 
         .catch((error)=>{
             const errorCode=error.code;
@@ -34,10 +50,10 @@ export default function Userlogin(){
             alert("Invalid email or password")
         })            
     }
-   
+        
     return(
         <>
-            <NavBar/>
+            <NavBar/> 
             <center>
                 <div className="card-body">
                     <div className="login-input">       

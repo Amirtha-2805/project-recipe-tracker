@@ -12,11 +12,10 @@ import { useEffect, useState } from "react";
 import UserFeatureHome from "./userFeatures/UserFeatureHome";
 import noUser from "../styles/no-user.webp";
 import { db } from "../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
+import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import { signup } from "../redux/slices/userSlice";
 import { setId } from "../redux/slices/userSlice";
-import { setIsLogged } from "../redux/slices/userSlice";
-
+import { setIsLogged,setUserAllDetails  } from "../redux/slices/userSlice";
 
 export default function UserHome(){
     const userSlice=useSelector((state)=>state.userDetails)
@@ -31,10 +30,13 @@ export default function UserHome(){
     }
     
     const setUser=()=>{        
-            // setUserName(userSlice.usersignup.name)
-            setUserEmail(userSlice.userlogin.email)       
+            setUserName(userSlice.userAllDetails.user_name)
+            setUserEmail(userSlice.userAllDetails.user_email)               
     }
-
+   
+    
+    // console.log(fireBaseUserData.id)
+       
     useEffect(()=>{
         setUser()
     },[])
@@ -54,7 +56,6 @@ export default function UserHome(){
                     <div className="no-user">
                             <img src={noUser} className="user-no-user"/>
                             <h6 className="user-name">{userName}</h6>
-
                             <h6 className="user-email">{userEmail}</h6>                                                        
                     </div>           
                     <h4 className="userhometitle"><b>Features</b></h4>
