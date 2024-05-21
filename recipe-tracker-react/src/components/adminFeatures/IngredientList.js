@@ -6,12 +6,17 @@ import Ingredients from "./Ingredients";
 import { useSelector,useDispatch } from 'react-redux';
 import { adminFeatures } from "../../redux/slices/adminSlice";
 import { Link } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
 
 
 
 const IngredientList=()=>{
     const[ingredientList,setIngredientList]=useState([])
     const dispatch=useDispatch()
+    
+    const doc=new jsPDF()
+
     const admin=useSelector((state)=>state.adminDetails)
 
     const getIngredients=()=>{       
@@ -33,8 +38,13 @@ const IngredientList=()=>{
     const deleteIngredient=(ingId)=>{
         deleteDoc(doc(db,"ingredients",ingId))
         alert("ingredient deleted")
+        getIngredients()
 
     }
+    const generateIngPdf=()=>{
+        doc.autoTable({html:'#ing-table'})
+        doc.save("ingredients-list.pdf")
+    }  
     
        return(
         <>
@@ -69,6 +79,11 @@ const IngredientList=()=>{
                     </tbody>
                 </table>
             </div>
+            
+        </center>
+        <br/>
+        <center>
+        <button className="btn btn-warning" id="dnbtn" onClick={generateIngPdf}>DownLoad Pdf</button>
         </center>
     </>
     

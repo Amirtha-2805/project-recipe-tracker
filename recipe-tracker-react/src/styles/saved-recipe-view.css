@@ -1,35 +1,29 @@
-.view-body{
+.saved-view-body{
     background: linear-gradient(#0c0e1d,#2b2c28);
     color:white;
-    height:200vh
+    height: 120vh;
+    width:157%;
+    margin-left: 40px;
 }
-
-.instruction-para{
-    margin-top: 10px;   
+.saved-instruction-para{
+    margin-top: 10px;
 }
-
-.recipe-image{
+.saved-recipe-image{
     border:1px solid white;
     border-radius: 10px;
     margin-top: 15px;
 }
-
-.view-head{
-    padding-top: 50px;
+.saved-ingredients-para{
+    margin-top: 10px;    
 }
-
-.instruction{
+.saved-instruction{
     width:60%;
-    /* margin-top: 40px; */
+    margin-top: 20px;
 }
-
 .ingredients-container{
     width:60%;
     margin-top: 40px;    
 }
-
-.ingredients-para{
+.recipe-name{
     margin-top: 10px;
-    padding: 10px;
-    
 }

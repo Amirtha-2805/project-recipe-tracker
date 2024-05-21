@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 import "../../styles/userlist.css";
 import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
+
 
 
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
+    const doc=new jsPDF()
     const userList=()=>{
         getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
             let user_list=[]
@@ -44,13 +48,18 @@ export default function UserList(){
     const deleteUser=(userId)=>{
         deleteDoc(doc(db,"user_signup_details",userId))
         alert("deleted")
-    }       
+        userList()
+    } 
+    const generateUserPdf=()=>{
+        doc.autoTable({html:'#userlist-table'})
+        doc.save("users.pdf")
+    }      
     return(
         <>
         <div className="user-body">
             <h2 className="user-list-head">User List</h2>
             <div className="user-list-table">
-                <table border="1" className="table table-striped">
+                <table border="1" className="table table-striped" id="userlist-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -79,8 +88,15 @@ export default function UserList(){
                             })
                         }
                     </tbody>
-                </table>            
+                </table>  
+                     
             </div>
+            <br/>
+            <center>
+        <button className="btn btn-warning" onClick={generateUserPdf}>DownLoad Pdf</button>
+        </center>    
+           
+
         </div>
     </>
                

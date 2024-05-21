@@ -36,3 +36,11 @@ label{
 .form-control{
     border-radius: 20px;
 }
+#gender{
+    display: flex;
+    gap:5px
+}
+#gender-text{
+    color:white;
+    margin-top: 5px;
+}

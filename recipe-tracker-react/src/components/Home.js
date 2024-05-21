@@ -15,11 +15,13 @@ import { setIsLogged } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import noUser from "../styles/no-user.webp";
+import { useDispatch } from "react-redux";
+import { userFeature,setAiLog } from "../redux/slices/userSlice";
 
 
 
 export default function Home(){
-
+    const dbref=collection(db,"saved_recipes")
     const question1="give me a recipe details with these ingredients and recipe image"  
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
@@ -27,6 +29,7 @@ export default function Home(){
     const[fireBase,setFireBase]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
+    let dispatch=useDispatch()
     const [messages, setMessages] = useState([
         {
             message: "",
@@ -84,6 +87,7 @@ export default function Home(){
 
     const submitIngredients=async(event)=>{
         if(userLogin.isLogged==false){
+            dispatch(setAiLog(true))
             alert("Please Login First")
             navigate("/userlogin")            
         }
@@ -188,7 +192,40 @@ export default function Home(){
                 })
                 setRecipe(selected)
         }
-   
+        
+    const savedRecipe=(recipeId)=>{
+      console.log("recipeid",recipeId)
+      defaultRecipes.forEach((datas)=>{
+        if(recipeId==datas.id){
+            addDoc(dbref,{
+                login_email:userLogin.userlogin.email,
+                recipe_category:datas.category,
+                recipe_image:datas.recipe_image,
+                recipe_ingredients:datas.ingredients,
+                recipe_instructions:datas.instructions,
+                recipe_name:datas.recipe_name,
+                recipe_url:datas.recipe_url
+            })
+           
+        }
+            
+    })
+        alert("saved")
+    }
+    const savedAiRecipe=()=>{
+       
+            addDoc(dbref,{
+                login_email:userLogin.userlogin.email,
+                recipe_category:"AI",                
+                recipe_name:`Recipe with ${recipe}`,
+                recipe_ingredients:recipe,
+                recipe_instructions:result
+            })
+            alert("saved")
+       
+
+    }
+    
     return(
         <>
         <div className="home-body">
@@ -199,7 +236,7 @@ export default function Home(){
                   <Nav className="ml-auto">
                       <div className="user-data">
                       <img src={noUser} className="user-no-userhome"/>
-                     <Link to={"/userhome"} className="user-mail">{userLogin.userlogin.email}</Link>
+                     <Link to={"/userhome"} className="user-mail" >{userLogin.userlogin.email}</Link>
                      </div>
                   </Nav>
               </Navbar.Collapse>
@@ -227,7 +264,7 @@ export default function Home(){
                         <div className="resultbox">
                             <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
                             <p className="result-para">{result}</p>
-                            <button type="button" className="btn btn-warning">save</button>
+                            <button type="button" className="btn btn-warning" onClick={()=>savedAiRecipe()}>save</button>
                         </div>
                         : null
                     }  
@@ -271,7 +308,7 @@ export default function Home(){
                                         <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}</ListGroup.Item>
                                         <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>  
                                         <ListGroup.Item>
-                                            <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                            <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
                                             <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>                                                                                         
                                         </ListGroup.Item>
                                     </ListGroup>
@@ -300,7 +337,7 @@ export default function Home(){
                                     </ListGroup.Item>                                    
                                     <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                            
                                     <ListGroup.Item>                                    
-                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}}>save</button>
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
                                         <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
                                     </ListGroup.Item>
                                 </ListGroup>

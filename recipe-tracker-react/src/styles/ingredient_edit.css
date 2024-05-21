@@ -1,0 +1,17 @@
+.edit-ing{
+    width:50%;
+    margin-top: 20px;
+}
+.ingredient-container-body{
+    width:50%;
+    padding-top: 200px;
+}
+.edit-ing-head{
+    margin-bottom: 10px;
+    color: white;
+}
+.ing-edit-body{
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    height: 120vh;    
+}

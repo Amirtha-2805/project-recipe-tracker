@@ -11,8 +11,9 @@
     padding-top: 20px;
 }
 #addbtn{
-    margin-left: 500px;
-    width:65%
+    margin-left: 350px;
+    width:65%;
+    margin-top: -5px;
 }
 
 .add-ing-btn{

@@ -8,8 +8,12 @@ import { imagesDb } from "../../firebase";
 import {v4} from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import AllRecipes from "./AllRecipes";
+import { useDispatch } from "react-redux";
+import { adminFeatures } from "../../redux/slices/adminSlice";
 const RecipeEdit=()=>{
     let {id} = useParams();
+    let dispatch=useDispatch()
     const adminSlice=useSelector((state)=>state.adminDetails)
     let navigate=useNavigate()
     const[recipeImage,setRecipeImage]=useState("")
@@ -46,17 +50,19 @@ const updateRecipe=()=>{
         recipe_image:recipeImage,
         recipe_url:editedRecipe.edited_url
     })  
-    alert("recipe updated")  
+    alert("recipe updated")
+    // navigate("/adminhome")   
 }
 
 useEffect(()=>{
     edit()
 },[])
+
 const handleUpload=(e)=>{
     // console.log("image",e.target.files[0])
     const imgs=ref(imagesDb,`recipe_images/${v4()}`)
     uploadBytes(imgs,e.target.files[0]).then(data=>{
-        console.log("images",data)
+        // console.log("images",data)
         getDownloadURL(data.ref).then((imgUrl)=>{
             setRecipeImage(imgUrl)
         })
@@ -101,9 +107,11 @@ return(
                                         edited_recipe_instructions:e.target.value
                                     })} />
                                 </div>
-                                <div className="input-group input-lg">             
-                                    <label>Image</label>   
-                                    <input type="file" className="form-control" defaultValue={editedRecipe.edited_image}  onChange={(e)=>handleUpload(e)} />
+                                <div className="input-group input-lg"> 
+
+                                    <label>Image</label> 
+                                    <img src={editedRecipe.edited_image} width={"20%"}/>                                      
+                                    <input type="file" className="form-control" onChange={(e)=>handleUpload(e)} />
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Recipe url</label>      
@@ -122,6 +130,7 @@ return(
                     </div>
                 </div>
             </center>
+           
         </>
 
 

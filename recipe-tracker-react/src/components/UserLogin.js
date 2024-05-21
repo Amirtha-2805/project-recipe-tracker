@@ -24,25 +24,32 @@ export default function Userlogin(){
             // console.log(useCredential) 
             if(user.email==userLoginData.userlogin.email){
                 alert("Logged in successfully")
+                dispatch(setToken(user.accessToken)) 
+                getDocs(collection(db,"user_signup_details")).then((docSnap)=>{  
+                    docSnap.forEach((doc)=>{
+                        if(user.email==doc.data().email){
+                        dispatch(setUserAllDetails({
+                            user_name:doc.data().name,
+                            user_email:doc.data().email,
+                            user_pasword:doc.data().password,
+                            user_age:doc.data().age,
+                            user_gender:doc.data().gender,
+                            user_address:doc.data().address,
+                            user_phone:doc.data().phone
+                          }))                            
+                        }
+                    })               
+                }) 
                 dispatch(setIsLogged(true))
-                 navigate(`/`)
+                 if(userLoginData.aiLog==true){
+                         navigate(`/`)                    
+                 }
+                 else{
+                    navigate("/userhome")
+                 }
             } 
-            dispatch(setToken(user.accessToken)) 
-            getDocs(collection(db,"user_signup_details")).then((docSnap)=>{  
-                docSnap.forEach((doc)=>{
-                    if(user.email==doc.data().email){
-                    dispatch(setUserAllDetails({
-                        user_name:doc.data().name,
-                        user_email:doc.data().email,
-                        user_pasword:doc.data().password,
-                        user_age:doc.data().age,
-                        user_gender:doc.data().gender,
-                        user_address:doc.data().address,
-                        user_phone:doc.data().phone
-                      }))                            
-                    }
-                })               
-            }) 
+            
+           
          }) 
         .catch((error)=>{
             const errorCode=error.code;

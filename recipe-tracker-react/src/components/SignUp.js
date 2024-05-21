@@ -84,12 +84,23 @@ export default function SignUp(){
                                         age:e.target.value
                                     }))}/>
                                 </div>
-                                <div class="input-group input-lg">
+                                {/* <div class="input-group input-lg">
                                     <label>Gender</label>
                                     <input type="text" class="form-control" placeholder="Enter gender..." onKeyUp={(e)=>dispatch(signup({
                                         ...signupdata.usersignup,
                                         gender:e.target.value
                                     }))}/>
+                                </div> */}
+                                 <div class="input-group input-lg" id="gender">
+                                    <label>Gender</label>
+                                    <input type="radio" name="gender" value="male" onChange={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        gender:e.target.value
+                                    }))}/><h6  id="gender-text">Male</h6>
+                                     <input type="radio" name="gender" value="female" onChange={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        gender:e.target.value
+                                    }))}/><h6  id="gender-text">Female</h6>
                                 </div>
                                 <div class="input-group input-lg">
                                     <label>Address</label> 

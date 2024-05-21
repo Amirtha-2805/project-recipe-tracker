@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import "../styles/userhome.css"
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
-import { userFeature } from "../redux/slices/userSlice";
+import { setRecipeName, setsavedRecipes, userFeature } from "../redux/slices/userSlice";
 import RecipeList from "./userFeatures/RecipeList";
 import SavedRecipes from "./userFeatures/SavedRecipes";
 import { AiFillHome } from "react-icons/ai";
@@ -13,56 +13,74 @@ import UserFeatureHome from "./userFeatures/UserFeatureHome";
 import noUser from "../styles/no-user.webp";
 import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
-import { signup } from "../redux/slices/userSlice";
-import { setId } from "../redux/slices/userSlice";
-import { setIsLogged,setUserAllDetails  } from "../redux/slices/userSlice";
+import { signup,setId,uLogin, setIsLogged,setUserAllDetails  } from "../redux/slices/userSlice";
+import Button from 'react-bootstrap/Button';
+import SavedRecipeView from "./userFeatures/SavedRecipeView";
+import { FaHome } from "react-icons/fa";
+
 
 export default function UserHome(){
     const userSlice=useSelector((state)=>state.userDetails)
     const navigate = useNavigate();
     const dispatch=useDispatch();
-    const[userName,setUserName]=useState("")
-    const[userEmail,setUserEmail]=useState("")
     
-
     const userLogOut=()=>{
-        navigate("/")
+        dispatch(setUserAllDetails({
+            user_name:"",
+            user_email:"",
+            user_password:"",
+            user_age:"",
+            user_gender:"",
+            user_phone:"",
+            user_address:""
+        }))
+        dispatch(uLogin({
+            email:"",
+            password:""
+        }))
+        dispatch(setsavedRecipes([]))
+        dispatch(setRecipeName(""))
+        dispatch(setIsLogged(false))
+        alert("You are logged out!")
+            navigate("/")
     }
     
-    const setUser=()=>{        
-            setUserName(userSlice.userAllDetails.user_name)
-            setUserEmail(userSlice.userAllDetails.user_email)               
-    }
+    
    
-    
+  
     // console.log(fireBaseUserData.id)
        
     useEffect(()=>{
-        setUser()
+        dispatch(userFeature("Dashboard"))
+       
+        
+       
     },[])
     
-
-    // useEffect(()=>{        
-    //     if(userSlice.token){
-    //         navigate("/userhome")
-    //     }
-    //     else{           
-    //         navigate("/")
-    //     }
-    // })
+    useEffect(()=>{        
+        if(userSlice.token){
+            navigate("/userhome")
+        }
+        else{           
+            navigate("/")
+        }
+    },[])
+  
+    
     return(       
-        <>        
+        <>  
+
             <div className="sidenav">
                     <div className="no-user">
                             <img src={noUser} className="user-no-user"/>
-                            <h6 className="user-name">{userName}</h6>
-                            <h6 className="user-email">{userEmail}</h6>                                                        
+                            <h6 className="user-name">{userSlice.userAllDetails.user_name}</h6>
+                            <h6 className="user-email">{userSlice.userAllDetails.user_email}</h6>                                                        
                     </div>           
                     <h4 className="userhometitle"><b>Features</b></h4>
                         <ul>
-                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("userFeature"))}> <AiFillHome className="icons"/> Dashboard</Link></li>                                       
-                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("recipeList"))}><BiSolidFoodMenu className="icons"/> Recipe List</Link></li>
+                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("Dashboard"))}> <AiFillHome className="icons"/> Dashboard</Link></li> 
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("savedRecipe"))}><RiSaveFill className="icons" /> Saved Recipes</Link></li>                   
+                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("recipeList"))}><BiSolidFoodMenu className="icons"/> Recipe List</Link></li>
                         </ul>
                                 
                     <div className="userlogout">
@@ -70,9 +88,11 @@ export default function UserHome(){
                     </div>                
             </div>
             <div className="userhomebody">
+                     <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
                     {userSlice.userFeatureStatus=="recipeList" ? <RecipeList/>:null}
                     {userSlice.userFeatureStatus=="savedRecipe" ? <SavedRecipes/>:null} 
-                    {userSlice.userFeatureStatus=="userFeature" ? <UserFeatureHome/>:null}                                
+                    {userSlice.userFeatureStatus=="Dashboard" ? <UserFeatureHome/>:null} 
+                    {userSlice.userFeatureStatus=="viewSaved" ? <SavedRecipeView />:null}                               
             </div>
                
         </>

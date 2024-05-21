@@ -6,10 +6,15 @@ import "../../styles/allrecipes.css"
 import { Link } from "react-router-dom";
 import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
+
 
 
 export default function AllRecipes(){
     const[getRecipe,setGetRecipe]=useState([])
+    const doc=new jsPDF({orientation:"landscape"})
+
 
     // useEffect(()=>{      
     //     getRecipeList()       
@@ -40,12 +45,17 @@ export default function AllRecipes(){
                 setGetRecipe(recipes)
             })
     }
+    const generateRecipePdf=()=>{
+        doc.autoTable({html:'#recipe-list-table'})
+        doc.save("recipe-list.pdf")
+    }      
     useEffect(()=>{
         defaultRecipes()
     },[])
     const deleteRecipe=(recipeId)=>{
         deleteDoc(doc(db,"default_recipes",recipeId))
         alert("recipe deleted")
+        defaultRecipes()
 
     }
 
@@ -58,7 +68,7 @@ export default function AllRecipes(){
            
 
         <div className="all-recipe-table">
-        <table border="1" className="table table-bordered" >
+        <table border="1" className="table table-bordered" id="recipe-list-table" >
             
             <thead>
                 <tr>
@@ -109,6 +119,10 @@ export default function AllRecipes(){
             </tbody>
         </table> 
         </div> 
+        <br/>
+        <center>
+        <button className="btn btn-warning" onClick={generateRecipePdf}>DownLoad Pdf</button>
+        </center>
         </div>
         
         </>

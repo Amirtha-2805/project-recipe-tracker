@@ -20,6 +20,8 @@ import AdminFeatureHome from "./adminFeatures/AdminFeatureHome";
 import noUser from "../styles/no-user.webp"
 import IngredientList from "./adminFeatures/IngredientList";
 import { IoOptions } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
+
 
 export default function AdminHome(){
     const adminSlice=useSelector((state)=>state.adminDetails)
@@ -29,8 +31,11 @@ export default function AdminHome(){
     const[adminName,setAdminName]=useState("")
 
     const adminLogOut=()=>{
+        dispatch(setAdminId(""))
         navigate("/")
+        alert("You are logged out")
     }
+
     const setDetails=()=>{
         getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
             docSnap.forEach((doc)=>{
@@ -39,18 +44,19 @@ export default function AdminHome(){
                 setAdminName(doc.data().name)
             })
         })
-    }
+     }
    
     
-    // useEffect(()=>{
+    useEffect(()=>{
 
-    //         if(adminSlice.adminId){
-    //             navigate("/adminhome")
-    //         }        
-    //         else{            
-    //             navigate("/")
-    //         }
-    //        },[])
+            if(adminSlice.adminId){
+                navigate("/adminhome")
+            }        
+            else{            
+                navigate("/")
+            }
+           },[])
+           
            
     useEffect(()=>{
         dispatch(adminFeatures("adminHome"))
@@ -82,7 +88,8 @@ export default function AdminHome(){
 
             </div>
             
-            <div className="adminhomebody">              
+            <div className="adminhomebody">  
+                <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
                 {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
                 {adminSlice.adminFeatureStatus=="allUsers" ? <UserList/>:null}
                 {adminSlice.adminFeatureStatus=="allRecipes" ? <AllRecipes/>:null} 
