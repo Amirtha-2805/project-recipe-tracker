@@ -68,20 +68,28 @@
 }
 .veg{
      margin: 5px;
-     /* border: 1px solid black; */
-    display:inline-block;       
+     display:flex;
+     justify-content: space-evenly;
+     margin-top:40px;
+     flex-wrap:wrap;
+     
+           
 }
 .nonveg{
     margin: 5px;
-    /* border: 1px solid black; */
-   display:inline-block;      
+    display:flex; 
+    justify-content: space-evenly;
+    margin-top:40px;
+    flex-wrap:wrap;
+
 }
 
 .cardbody{
     margin: 10px;
     height: 70vh;
     overflow-x: hidden;
-    border: 1px solid white;
+    border: 1px solid rgb(43, 39, 39);
+    /* margin-left: 100px; */
    
 }
 .cardbody:hover{

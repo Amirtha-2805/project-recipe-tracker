@@ -15,7 +15,7 @@ const IngredientList=()=>{
     const[ingredientList,setIngredientList]=useState([])
     const dispatch=useDispatch()
     
-    const doc=new jsPDF()
+    const document=new jsPDF()
 
     const admin=useSelector((state)=>state.adminDetails)
 
@@ -42,8 +42,8 @@ const IngredientList=()=>{
 
     }
     const generateIngPdf=()=>{
-        doc.autoTable({html:'#ing-table'})
-        doc.save("ingredients-list.pdf")
+        document.autoTable({html:'#ing-table'})
+        document.save("ingredients-list.pdf")
     }  
     
        return(
@@ -83,7 +83,7 @@ const IngredientList=()=>{
         </center>
         <br/>
         <center>
-        <button className="btn btn-warning" id="dnbtn" onClick={generateIngPdf}>DownLoad Pdf</button>
+        <button className="btn btn-warning" id="dnbtn" onClick={generateIngPdf}>DownLoad PDF</button>
         </center>
     </>
     

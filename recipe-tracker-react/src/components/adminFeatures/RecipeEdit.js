@@ -23,7 +23,8 @@ const RecipeEdit=()=>{
         edited_Recipe_ingredients:"",
         edited_recipe_instructions:"",
         edited_image:"",
-        edited_url:""
+        edited_url:"",
+        edited_iframe:""
     })
     const edit=()=>{
     getDoc(doc(db,"default_recipes",id)).then((docSnap)=>{
@@ -35,7 +36,8 @@ const RecipeEdit=()=>{
                 edited_Recipe_ingredients:docSnap.data()['ingredients'],
                 edited_recipe_instructions:docSnap.data()['instructions'],
                 edited_image:docSnap.data()['recipe_image'],
-                edited_url:docSnap.data()['recipe_url']
+                edited_url:docSnap.data()['recipe_url'],
+                edited_iframe:docSnap.data()['recipe_iframe']
             }
         ) 
        }
@@ -48,7 +50,8 @@ const updateRecipe=()=>{
         ingredients:editedRecipe.edited_Recipe_ingredients,
         instructions:editedRecipe.edited_recipe_instructions,
         recipe_image:recipeImage,
-        recipe_url:editedRecipe.edited_url
+        recipe_url:editedRecipe.edited_url,
+        recipe_iframe:editedRecipe.edited_iframe
     })  
     alert("recipe updated")
     // navigate("/adminhome")   
@@ -118,6 +121,13 @@ return(
                                     <input type="url" className="form-control" defaultValue={editedRecipe.edited_url} onKeyUp={(e)=>setEditedRecipe({
                                         ...editedRecipe,
                                         edited_url:e.target.value
+                                    })}/>
+                                </div> 
+                                <div className="input-group input-lg">             
+                                    <label>Recipe iframe</label>      
+                                    <input type="url" className="form-control" defaultValue={editedRecipe.edited_iframe} onKeyUp={(e)=>setEditedRecipe({
+                                        ...editedRecipe,
+                                        edited_iframe:e.target.value
                                     })}/>
                                 </div> 
                             </div> 

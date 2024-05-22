@@ -6,9 +6,12 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
 import "../../styles/default-recipe-view.css";
+import { FaHome } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 
 const DefaultRecipeView=()=>{
+    let navigate=useNavigate()
     let {id} = useParams();
     const[viewRecipe,setViewRecipe]=useState({
          view_recipe_name:"",
@@ -16,7 +19,8 @@ const DefaultRecipeView=()=>{
          view_recipe_ingredients:"",
          view_recipe_instructions:"",
          view_url:"",
-         view_recipe_image:""
+         view_recipe_image:"",
+         view_recipe_iframe:""
 
     })
     const viewDetails=()=>{
@@ -28,7 +32,8 @@ const DefaultRecipeView=()=>{
                     view_recipe_ingredients:docSnap.data()['ingredients'],
                     view_recipe_instructions:docSnap.data()['instructions'],
                     view_recipe_image:docSnap.data()['recipe_image'],
-                    view_url:docSnap.data()['recipe_url']
+                    view_url:docSnap.data()['recipe_url'],
+                    view_recipe_iframe:docSnap.data()['recipe_iframe']
                 })
             }
             console.log("view",viewRecipe)
@@ -42,6 +47,8 @@ const DefaultRecipeView=()=>{
             
         <>
             <center>
+            <button id="home-link-admin" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
+
                 <div className="view-body">
                     <h2 className="view-head">Here is a detailed Recipe..!</h2>
                     <img src={viewRecipe.view_recipe_image} width={"30%"} className="recipe-image"/>
@@ -58,7 +65,8 @@ const DefaultRecipeView=()=>{
                         <p className="instruction-para">{viewRecipe.view_recipe_instructions}</p>
                     </div>
                     <div>
-                        <p><Link to={viewRecipe.view_url}>Watch Video</Link></p>
+                        <iframe width="560" height="315" src={viewRecipe.view_recipe_iframe}></iframe>
+                        <p><Link to={viewRecipe.view_url}>YouTube</Link></p>
                     </div>
                     <br/>
                     <button type="button" className="btn btn-warning">Save</button>

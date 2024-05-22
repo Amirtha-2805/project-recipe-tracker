@@ -5,15 +5,23 @@ import axios from 'axios'
 import "../../styles/allrecipes.css"
 import { Link } from "react-router-dom";
 import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { jsPDF } from "jspdf";
-import autoTable from 'jspdf-autotable'
+import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 
+import autoTable from 'jspdf-autotable'
 
 
 export default function AllRecipes(){
     const[getRecipe,setGetRecipe]=useState([])
-    const doc=new jsPDF({orientation:"landscape"})
+    const document=new jsPDF({orientation:"landscape"})
+
+    const deleteRecipe=(recipeId)=>{
+        deleteDoc(doc(db,"default_recipes",recipeId))
+        alert("recipe deleted")
+        defaultRecipes()
+
+    }
+
 
 
     // useEffect(()=>{      
@@ -46,19 +54,14 @@ export default function AllRecipes(){
             })
     }
     const generateRecipePdf=()=>{
-        doc.autoTable({html:'#recipe-list-table'})
-        doc.save("recipe-list.pdf")
+        document.autoTable({html:'#recipe-list-table'})
+        document.save("recipe-list.pdf")
     }      
     useEffect(()=>{
         defaultRecipes()
     },[])
-    const deleteRecipe=(recipeId)=>{
-        deleteDoc(doc(db,"default_recipes",recipeId))
-        alert("recipe deleted")
-        defaultRecipes()
 
-    }
-
+   
     return(
         <>
         <div className="allrecipe-body">
@@ -77,7 +80,8 @@ export default function AllRecipes(){
                     <th>Ingredients</th>
                     <th>Instructions</th> 
                     <th>Image</th>
-                    <th>Recipe url</th>  
+                    <th>Recipe url</th> 
+                    <th>Recipe iframe</th>  
                     <th>Edit</th>
                     <th>Delete</th>             
                 </tr>
@@ -107,6 +111,9 @@ export default function AllRecipes(){
                                     {recipes.recipe_url}                                
                                 </td>
                                 <td>
+                                    {recipes.recipe_iframe}                                
+                                </td>
+                                <td>
                                     <Link to={`/recipeedit/${recipes.id}`}>Edit</Link>                                
                                 </td>
                                 <td>
@@ -121,7 +128,7 @@ export default function AllRecipes(){
         </div> 
         <br/>
         <center>
-        <button className="btn btn-warning" onClick={generateRecipePdf}>DownLoad Pdf</button>
+        <button className="btn btn-warning" onClick={generateRecipePdf}>DownLoad PDF</button>
         </center>
         </div>
         

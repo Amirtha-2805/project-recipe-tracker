@@ -19,3 +19,6 @@
     flex-direction: column;
     gap:20px
 }
+#add-submit-btn{
+    margin-left: -400px;
+}

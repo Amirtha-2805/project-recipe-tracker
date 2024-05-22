@@ -47,14 +47,11 @@ export default function UserHome(){
     
     
    
-  
+    
     // console.log(fireBaseUserData.id)
        
     useEffect(()=>{
-        dispatch(userFeature("Dashboard"))
-       
-        
-       
+        dispatch(userFeature("savedRecipe"))      
     },[])
     
     useEffect(()=>{        
@@ -78,8 +75,8 @@ export default function UserHome(){
                     </div>           
                     <h4 className="userhometitle"><b>Features</b></h4>
                         <ul>
-                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("Dashboard"))}> <AiFillHome className="icons"/> Dashboard</Link></li> 
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("savedRecipe"))}><RiSaveFill className="icons" /> Saved Recipes</Link></li>                   
+                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("Dashboard"))}> <AiFillHome className="icons"/> Dashboard</Link></li>                            
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("recipeList"))}><BiSolidFoodMenu className="icons"/> Recipe List</Link></li>
                         </ul>
                                 

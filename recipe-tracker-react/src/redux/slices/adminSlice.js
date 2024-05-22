@@ -8,7 +8,8 @@ export const adminSlice=createSlice({
             recipe_title:"",
             ingredients:"",
             recipe_details:"",
-            recipe_url:""
+            recipe_url:"",
+            recipe_iframe:""
         },
         adminId:"",       
     },

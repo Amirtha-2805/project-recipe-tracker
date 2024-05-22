@@ -9,8 +9,6 @@ import { useDispatch } from "react-redux";
 import { userFeature,setsavedRecipes,setRecipeName } from "../../redux/slices/userSlice";
 const SavedRecipes=()=>{
     const userSlice=useSelector((state)=>state.userDetails)
-    // console.log("mail",userSlice.userlogin.email)
-    // const[savedRecipe,setSavedRecipe]=useState([])
     let dispatch=useDispatch()
 
     const getSavedRecipes=()=>{
@@ -21,14 +19,14 @@ const SavedRecipes=()=>{
                     saved_recipes.push({...doc.data(),id:doc.id})
               }
             })
-          dispatch(setsavedRecipes(saved_recipes))
-            
+          dispatch(setsavedRecipes(saved_recipes))            
         })
     }
     
     useEffect(()=>{
         getSavedRecipes()
     },[])
+
     const deleteSaved=(savedId)=>{
         deleteDoc(doc(db,"saved_recipes",savedId))
         alert("deleted")
@@ -39,6 +37,7 @@ const SavedRecipes=()=>{
         dispatch(setRecipeName(rec_name))
         dispatch(userFeature("viewSaved"))
     }
+
     return(
         <>
            <center>

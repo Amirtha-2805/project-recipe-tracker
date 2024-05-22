@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import "../../styles/user-feature-home.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes } from "../../redux/slices/userSlice";
+import { db } from "../../firebase";
+import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
+import { setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes,setsavedRecipes } from "../../redux/slices/userSlice";
 
 const UserFeatureHome=()=>{
     const userSlice=useSelector((state)=>state.userDetails)
+
     let dispatch=useDispatch()
    
-
     const totalSavedRecipes=()=>{
         let recipe_array_total=[]
         let total_veg_recipes=[]

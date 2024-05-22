@@ -1,17 +1,18 @@
 import { useState,useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
+import { addDoc,collection,updateDoc,deleteDoc,doc,getDocs} from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "../../styles/userlist.css";
 import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable'
 
 
 
+
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
-    const doc=new jsPDF()
+    const document=new jsPDF()
     const userList=()=>{
         getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
             let user_list=[]
@@ -22,6 +23,11 @@ export default function UserList(){
         })
 
     }
+    const deleteUser=(userId)=>{
+        deleteDoc(doc(db,"user_signup_details",userId))
+        alert("deleted")
+        userList()
+    } 
     useEffect(()=>{
         userList()
     },[])
@@ -45,14 +51,10 @@ export default function UserList(){
     //     }}))
                 
     //         }
-    const deleteUser=(userId)=>{
-        deleteDoc(doc(db,"user_signup_details",userId))
-        alert("deleted")
-        userList()
-    } 
+   
     const generateUserPdf=()=>{
-        doc.autoTable({html:'#userlist-table'})
-        doc.save("users.pdf")
+        document.autoTable({html:'#userlist-table'})
+        document.save("list-of-users.pdf")
     }      
     return(
         <>
@@ -93,7 +95,7 @@ export default function UserList(){
             </div>
             <br/>
             <center>
-        <button className="btn btn-warning" onClick={generateUserPdf}>DownLoad Pdf</button>
+        <button className="btn btn-warning" onClick={generateUserPdf}>DownLoad PDF</button>
         </center>    
            
 

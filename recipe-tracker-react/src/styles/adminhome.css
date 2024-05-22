@@ -2,7 +2,8 @@
     .sidenav{
         width: 300px;;
         background: #011627;
-        position:absolute;
+        position:fixed;
+        left:0;
         height:120vh;
         padding: 0 30px;
             

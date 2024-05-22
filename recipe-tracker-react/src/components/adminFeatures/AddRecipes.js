@@ -28,14 +28,18 @@ const AddRecipes=()=>{
     const submitRecipe=()=>{
         console.log("detailed recipe",adminFeaturesSliceData.addRecipes.recipe_details)
         const addDefaultRecipes=addDoc(dbref,{category:isSelected.label,
-            ingredients:adminFeaturesSliceData. addRecipes.ingredients,
+            ingredients:adminFeaturesSliceData.addRecipes.ingredients,
             instructions:adminFeaturesSliceData.addRecipes.recipe_details,
             recipe_name:adminFeaturesSliceData.addRecipes.recipe_title,
             recipe_image:image,
-            recipe_url:adminFeaturesSliceData.addRecipes.recipe_url    
+            recipe_url:adminFeaturesSliceData.addRecipes.recipe_url,
+            recipe_iframe:adminFeaturesSliceData.addRecipes.recipe_iframe   
       })
+      
       alert("Recipe added")
-    }  
+      
+     
+          }  
 
     const handleChange=(selected)=>{
         setIsSelected(selected)
@@ -96,10 +100,19 @@ const AddRecipes=()=>{
                             recipe_url:e.target.value
                         }))}/>
                     </div>
+                    <div className="input-group input-lg">
+                        <label>Recipe Iframe</label> 
+                        <input type="url" className="form-control" placeholder="Enter Recipe link" onKeyUp={(e)=>dispatch(setAddRecipes({
+                            ...adminFeaturesSliceData.addRecipes,
+                            recipe_iframe:e.target.value
+                        }))}/>
+                    </div>
                 </div>
+                <center>
                 <div className="recipe-submit-button">
-                    <button type="button" className="btn btn-warning" onClick={submitRecipe}>Submit</button>
+                    <button type="button" className="btn btn-warning" id="add-submit-btn" onClick={submitRecipe}>Submit</button>
                 </div>
+                </center>
             </div>
         </div>
     </>

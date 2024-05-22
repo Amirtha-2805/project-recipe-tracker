@@ -195,22 +195,31 @@ export default function Home(){
         
     const savedRecipe=(recipeId)=>{
       console.log("recipeid",recipeId)
-      defaultRecipes.forEach((datas)=>{
-        if(recipeId==datas.id){
-            addDoc(dbref,{
-                login_email:userLogin.userlogin.email,
-                recipe_category:datas.category,
-                recipe_image:datas.recipe_image,
-                recipe_ingredients:datas.ingredients,
-                recipe_instructions:datas.instructions,
-                recipe_name:datas.recipe_name,
-                recipe_url:datas.recipe_url
-            })
-           
-        }
-            
-    })
-        alert("saved")
+      if(userLogin.isLogged==false){
+        dispatch(setAiLog(true))
+        alert("Please Login First")
+        navigate("/userlogin")            
+    }
+      else{
+        defaultRecipes.forEach((datas)=>{
+            if(recipeId==datas.id){
+                addDoc(dbref,{
+                    login_email:userLogin.userlogin.email,
+                    recipe_category:datas.category,
+                    recipe_image:datas.recipe_image,
+                    recipe_ingredients:datas.ingredients,
+                    recipe_instructions:datas.instructions,
+                    recipe_name:datas.recipe_name,
+                    recipe_url:datas.recipe_url
+                })
+               
+            }
+                
+        })
+            alert("saved")
+
+      }
+      
     }
     const savedAiRecipe=()=>{
        
@@ -293,20 +302,22 @@ export default function Home(){
                     } */}
                 </div>
             </center>  
-            <h3 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h3> 
+            <h1 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h1>
+            <div className="veg"> 
             {
                 defaultRecipes.map((recipe,i)=>{
                     if(recipe.category=="Vegeterian"){
                         return(                            
                             <>
-                            <div className="veg" key={i}>
+                            
+                            <div key={i}>
                                 <Card className="cardbody" style={{ width: '18rem'}}>
                                     <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
                                     <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
                                         <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}</ListGroup.Item>
-                                        <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>  
+                                        <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>  
                                         <ListGroup.Item>
                                             <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
                                             <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>                                                                                         
@@ -319,15 +330,16 @@ export default function Home(){
                     }                    
                 })                
             }
+            </div>
             <hr className="ruler"/>
-            <h3 style={{textAlign:"center",color:"white"}}>Non Vegeterian</h3>
+            <h1 style={{textAlign:"center",color:"white"}}>Non Vegeterian</h1>
+            <div className="nonveg">
             {
                 defaultRecipes.map((recipe,i)=>{
                     if(recipe.category=="Non-vegeterian"){
                         return(
                             <>
-                            <div className="nonveg" key={i}>
-                            {/* <h3>{recipe.category}</h3> */}
+                            <div key={i}>
                             <Card className="cardbody" style={{ width: '18rem'}}>
                                 <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
                                 <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
@@ -335,7 +347,7 @@ export default function Home(){
                                     <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
                                     <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}                                    
                                     </ListGroup.Item>                                    
-                                    <ListGroup.Item><b>Url: </b><Link to={recipe.recipe_url}>Check Detailed Recipe</Link></ListGroup.Item>                                            
+                                    <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>                                            
                                     <ListGroup.Item>                                    
                                         <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
                                         <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
@@ -349,6 +361,7 @@ export default function Home(){
                     }
                 })
             }
+            </div>
         </div>
        
     </>
