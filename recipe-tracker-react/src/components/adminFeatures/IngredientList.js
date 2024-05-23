@@ -42,8 +42,26 @@ const IngredientList=()=>{
 
     }
     const generateIngPdf=()=>{
-        document.autoTable({html:'#ing-table'})
-        document.save("ingredients-list.pdf")
+        // document.autoTable({html:'#ing-table'})
+        // document.save("ingredients-list.pdf")
+
+        const title="Ingredient List";
+        const unit="pt";
+        const size="A4";
+        const orientation="potrait";
+        const marginLeft=40
+        const document=new jsPDF(orientation,unit,size)
+
+        const headers=[["Ingredients"]]
+        const data=ingredientList.map((ing)=> [ing.ingredients])
+        let content={
+            startY:50,
+            head:headers,
+            body:data
+        }
+            document.text(title,marginLeft,40)
+            document.autoTable(content)
+            document.save("ingredient_list.pdf")
     }  
     
        return(

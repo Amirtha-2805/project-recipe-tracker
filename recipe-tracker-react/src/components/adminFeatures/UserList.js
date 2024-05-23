@@ -1,18 +1,16 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import axios from 'axios';
 import { addDoc,collection,updateDoc,deleteDoc,doc,getDocs} from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "../../styles/userlist.css";
 import { db } from "../../firebase";
 import { jsPDF } from "jspdf";
-import autoTable from 'jspdf-autotable'
-
+import 'jspdf-autotable';
 
 
 
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
-    const document=new jsPDF()
     const userList=()=>{
         getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
             let user_list=[]
@@ -53,9 +51,28 @@ export default function UserList(){
     //         }
    
     const generateUserPdf=()=>{
-        document.autoTable({html:'#userlist-table'})
-        document.save("list-of-users.pdf")
-    }      
+    //     document.autoTable({html:"#userlist-table"})
+    //     document.save("list-of-users.pdf")
+
+        const title="User List";
+        const unit="pt";
+        const size="A4";
+        const orientation="potrait";
+        const marginLeft=40
+        const document=new jsPDF(orientation,unit,size)
+
+        const headers=[["Name","Email","Age","Gender","Address","Phone"]]
+        const data=getUser.map((users)=> [users.name,users.email,users.age,users.gender,users.address,users.phone])
+        let content={
+            startY:50,
+            head:headers,
+            body:data
+        }
+            document.text(title,marginLeft,40)
+            document.autoTable(content)
+            document.save("users_list.pdf")
+        } 
+
     return(
         <>
         <div className="user-body">

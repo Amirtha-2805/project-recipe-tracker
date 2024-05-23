@@ -54,8 +54,27 @@ export default function AllRecipes(){
             })
     }
     const generateRecipePdf=()=>{
-        document.autoTable({html:'#recipe-list-table'})
-        document.save("recipe-list.pdf")
+        // document.autoTable({html:'#recipe-list-table'})
+        // document.save("recipe-list.pdf")
+
+        const title="Recipe List";
+        const unit="pt";
+        const size="A4";
+        const orientation="potrait";
+        const marginLeft=40
+        const document=new jsPDF(orientation,unit,size)
+
+        const headers=[["RecipeName","Category","Ingredients","Instructions"]]
+        const data=getRecipe.map((recipe)=> [recipe.recipe_name,recipe.category,recipe.ingredients,recipe.instructions])
+        let content={
+            startY:50,
+            head:headers,
+            body:data
+        }
+            document.text(title,marginLeft,40)
+            document.autoTable(content)
+            document.save("recipe_list.pdf")
+
     }      
     useEffect(()=>{
         defaultRecipes()
