@@ -17,12 +17,13 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import noUser from "../styles/no-user.webp";
 import { useDispatch } from "react-redux";
 import { userFeature,setAiLog } from "../redux/slices/userSlice";
+import Footer from "./Footer";
 
 
 
 export default function Home(){
     const dbref=collection(db,"saved_recipes")
-    const question1="give me a recipe details with these ingredients and recipe image"  
+    const question="Recipe details only with these ingredients"  
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
@@ -101,7 +102,7 @@ export default function Home(){
             method:"POST",
             data:{
                 contents:[
-                    {parts:[{text:question1+recipe}]},
+                    {parts:[{text:recipe+question}]},
                 ]
             },
         }).then((response)=>{
@@ -234,6 +235,37 @@ export default function Home(){
        
 
     }
+   
+    const fetchData =() => {
+       
+
+            const options = {
+            method: 'GET',
+            url: 'https://img4me.p.rapidapi.com/',
+            params: {
+                text: 'Test Me',
+                font: 'trebuchet',
+                size: '12',
+                fcolor: '000000',
+                bcolor: 'FFFFFF',
+                type: 'png'
+            },
+            headers: {
+                'X-RapidAPI-Key': 'e5d60c81f5mshe7a9c742c01c3efp1cd495jsncac2fb52ec03',
+                'X-RapidAPI-Host': 'img4me.p.rapidapi.com'
+            }
+            };
+
+            try {
+                const response = axios.request(options);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+      }
+
+
+
     
     return(
         <>
@@ -250,6 +282,7 @@ export default function Home(){
                   </Nav>
               </Navbar.Collapse>
           </Navbar>:<NavBar/>}
+          {/* <button type="button" onClick={()=>fetchData()}>Generate Image</button> */}
             <center>
                 <div className="input-ingredients">        
                     <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
@@ -320,7 +353,7 @@ export default function Home(){
                                         <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>  
                                         <ListGroup.Item>
                                             <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
-                                            <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>More</Link>                                                                                         
+                                            <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>View</Link>                                                                                         
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card> 
@@ -350,7 +383,7 @@ export default function Home(){
                                     <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>                                            
                                     <ListGroup.Item>                                    
                                         <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
-                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>More</Link>
+                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>View</Link>
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
@@ -362,8 +395,10 @@ export default function Home(){
                 })
             }
             </div>
+
         </div>
-       
+       <Footer/>
+
     </>
     
     )

@@ -54,7 +54,7 @@ const updateRecipe=()=>{
         recipe_iframe:editedRecipe.edited_iframe
     })  
     alert("recipe updated")
-    // navigate("/adminhome")   
+    navigate("/adminhome")   
 }
 
 useEffect(()=>{

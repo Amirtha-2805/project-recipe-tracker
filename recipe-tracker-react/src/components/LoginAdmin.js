@@ -7,6 +7,7 @@ import Select from 'react-select'
 import { useEffect, useState } from 'react';
 import { setAdminId } from '../redux/slices/adminSlice';
 import { useSelector,useDispatch } from 'react-redux';
+import Footer from './Footer';
 
 
 export default function LoginAdmin(){
@@ -84,6 +85,7 @@ export default function LoginAdmin(){
                 </div>
             </div>
         </center>
+        <Footer/>
     </>
     
     )

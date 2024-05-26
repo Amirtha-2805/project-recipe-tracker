@@ -1,0 +1,11 @@
+.footer-box{
+    height: 15vh;
+    background-color: black;
+    color:white
+}
+.footer-content{
+    padding-top: 30px;
+}
+.footer-content:hover{
+    color: grey;    
+}

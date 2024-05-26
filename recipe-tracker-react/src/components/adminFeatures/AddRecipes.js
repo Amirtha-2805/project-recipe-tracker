@@ -8,6 +8,8 @@ import {v4} from 'uuid';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
+import { adminFeatures } from "../../redux/slices/adminSlice";
+import Footer from "../Footer";
 
 
 
@@ -22,8 +24,8 @@ const AddRecipes=()=>{
                     },
                     {value:"Non-vegeterian",
                      label:"Non-vegeterian"   
-                    }]
-      
+                    }
+                ]
                    
     const submitRecipe=()=>{
         console.log("detailed recipe",adminFeaturesSliceData.addRecipes.recipe_details)
@@ -37,7 +39,7 @@ const AddRecipes=()=>{
       })
       
       alert("Recipe added")
-      
+      dispatch(adminFeatures("addRecipes"))
      
           }  
 
@@ -115,6 +117,7 @@ const AddRecipes=()=>{
                 </center>
             </div>
         </div>
+        <Footer/>
     </>
     
     )

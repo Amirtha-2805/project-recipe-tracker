@@ -8,6 +8,7 @@ import { setToken,setIsLogged, setUserAllDetails,uLogin } from "../redux/slices/
 import { useEffect} from "react";
 import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
+import Footer from "./Footer";
 
 
 
@@ -94,6 +95,7 @@ export default function Userlogin(){
                     </div>
                 </div>
             </center>
+            <Footer/>
         </>
     )
 }

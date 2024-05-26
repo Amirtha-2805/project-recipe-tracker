@@ -1,5 +1,5 @@
 import NavBar from "./Menu"
-import "../styles/signup.css"
+import "../styles/signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { signup } from "../redux/slices/userSlice";
@@ -7,20 +7,22 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
-import { useEffect } from 'react';
-import { setToken,setIsLogged } from "../redux/slices/userSlice";
+import { useEffect, useState } from 'react';
+import { setToken,setIsLogged,setFinalPwd } from "../redux/slices/userSlice";
+import Footer from "./Footer";
 
 export default function SignUp(){
     const signupdata=useSelector((state)=>state.userDetails)    
     const navigate = useNavigate();
     const dispatch=useDispatch();
-    const dbref=collection(db,"user_signup_details")
+    const dbref=collection(db,"user_signup_details");
+    const[pwd,setPwd]=useState("")
    
     const register=()=>{
+        if(signupdata.usersignup.password==signupdata.usersignup.confirm_password){
          createUserWithEmailAndPassword(auth,signupdata.usersignup.email,signupdata.usersignup.password)
         .then((useCredential)=>{
-            const user =useCredential.user;
-            console.log("useCredential",useCredential)
+            const user =useCredential.user;            
             const addToFirebase= addDoc(dbref,{name:signupdata.usersignup.name,
                                               email:signupdata.usersignup.email,          
                                               password:signupdata.usersignup.password,
@@ -30,26 +32,30 @@ export default function SignUp(){
                                               phone:signupdata.usersignup.phone,
                                               uid:user.uid})
               
-            dispatch(setToken(user.accessToken)) 
-            
-            // console.log("token",user.accessToken)       
+            dispatch(setToken(user.accessToken))      
             alert("Successfully Registered")
             navigate(`/userlogin`)
-        })
-        .catch((error)=>{
+           
+        }).catch((error)=>{
             const errorCode=error.code;
             const errorMessage=error.message;
             console.log(errorCode,errorMessage)
-            if((signupdata.usersignup.email=="" || signupdata.usersignup.password==""||signupdata.usersignup.phone==""||signupdata.usersignup.age==""||signupdata.usersignup.name==""||signupdata.usersignup.gender=="")||(signupdata.usersignup.email=="" && signupdata.usersignup.password=="" && signupdata.usersignup.phone==""&&signupdata.usersignup.age=="" && signupdata.usersignup.name==""&& signupdata.usersignup.gender=="")){
+            if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){
                 alert("Please fill requirred details")
             }
         })
+    }
+    else{
+        alert("please enter valid password")
+    }
+       
     }       
     return(
         <>           
             <NavBar/>
             <center>
                 <div class="card-body">
+               
                     <div className="signup-input">
                         <h3 class="card-title" style={{color:"white"}}>Register</h3>
                         <br/>
@@ -75,6 +81,13 @@ export default function SignUp(){
                                     <input type="password" class="form-control" placeholder="Enter password..." onKeyUp={(e)=>dispatch(signup({
                                         ...signupdata.usersignup,
                                         password:e.target.value
+                                    }))}/>
+                                </div>
+                                <div class="input-group input-lg">
+                                    <label>Confirm Password</label> 
+                                    <input type="password" class="form-control" placeholder="Confirm password..." onKeyUp={(e)=>dispatch(signup({
+                                        ...signupdata.usersignup,
+                                        confirm_password:e.target.value
                                     }))}/>
                                 </div>
                                 <div class="input-group input-lg">
@@ -123,11 +136,12 @@ export default function SignUp(){
                                 <br/>                
                             </div>
                             <p className="para" style={{marginLeft:"-20px"}}>Already have an account?  <Link to={"/userlogin"} >Login</Link></p> 
+                           
                         </div>
                     </div>
                 </div>
             </center>
-
+             <Footer/>                       
         </>
 
     )

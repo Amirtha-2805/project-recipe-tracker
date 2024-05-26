@@ -6,11 +6,13 @@ export const userSlice=createSlice({
             name:"",
             email:"",
             password:"",
+            confirm_password:"",
             age:"",
             gender:"",
             phone:"",
             address:""
         },
+        final_password:"",
         userlogin:{
             email:"",
             password:""
@@ -81,9 +83,12 @@ export const userSlice=createSlice({
         },
         setTotalAiRecipes:(state,action)=>{
             state.totalAiRecipes=action.payload
+        },
+        setFinalPwd:(state,action)=>{
+            state.final_password=action.payload
         }       
     }
 })
-export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId,setUserAllDetails,setsavedRecipes,setRecipeName,setAiLog,setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes} = userSlice.actions
+export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId,setUserAllDetails,setsavedRecipes,setRecipeName,setAiLog,setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes,setFinalPwd} = userSlice.actions
 
 export default userSlice.reducer

@@ -2,12 +2,11 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
 import "../../styles/default-recipe-view.css";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Footer";
 
 
 const DefaultRecipeView=()=>{
@@ -69,9 +68,10 @@ const DefaultRecipeView=()=>{
                         <p><Link to={viewRecipe.view_url}>YouTube</Link></p>
                     </div>
                     <br/>
-                    <button type="button" className="btn btn-warning">Save</button>
+                    {/* <button type="button" className="btn btn-warning">Save</button> */}
                 </div>
             </center>
+            <Footer/>
         </>
 
     )
