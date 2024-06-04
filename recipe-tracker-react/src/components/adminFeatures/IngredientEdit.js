@@ -1,45 +1,47 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import "../../styles/ingredient_edit.css"
 import { useDispatch } from "react-redux";
 import { adminFeatures } from "../../redux/slices/adminSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 const IngredientEdit=()=>{
     const dispatch=useDispatch();
     let navigate=useNavigate();    
     let {id} = useParams();
+    const adminData=useSelector((state)=>state.adminDetails)
+   
+
 
     const[editedIngredient,setEditedIngredient]=useState({
         edited_ingredient:""
     })
 
-    const editIngredient=()=>{
-        getDoc(doc(db,"ingredients",id)).then((docSnap)=>{
-            if(docSnap.exists()){
-                setEditedIngredient({
-                    edited_ingredient:docSnap.data()['ingredients']
-                }
-                )
-            }
+    const editIngredient=async(paramId)=>{
+        let getExisting=await axios.get(`https://amirtha14.pythonanywhere.com/geting/${paramId}`)
+        getExisting.data.forEach((data)=>{
+           setEditedIngredient({
+            edited_ingredient:data.ingName
+           })
         })
     }
     useEffect(()=>{
-        editIngredient()
-    },[])
+        editIngredient(id)
+    },[id])
 
-    const updateIngredient=()=>{
-       updateDoc(doc(db,"ingredients",id),{
-         ingredients:editedIngredient.edited_ingredient
-       })
-       alert("Ingredient updated")
-       dispatch(adminFeatures("ingredientList"))
-       navigate("/adminhome")
-       
+    let formData=new FormData()
+    formData.append("ingName",editedIngredient.edited_ingredient)
+
+    const updateIng=()=>{
+        axios.put(`https://amirtha14.pythonanywhere.com/editing/${id}`,formData) 
+        alert("Updated")  
+        // dispatch(adminFeatures("ingredientList"))
+        navigate("/adminhome")   
     }
+   
     return(
         <>
         <center>
@@ -56,7 +58,7 @@ const IngredientEdit=()=>{
                     </div>
                 </div>
                 <br/>
-                <button type="button" className="btn btn-danger" onClick={updateIngredient}>Update</button>
+                <button type="button" className="btn btn-danger" onClick={()=>updateIng()}>Update</button>
                 </div>
 
             </div>

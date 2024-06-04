@@ -1,5 +1,5 @@
 .input-ingredient{
-    width:30%;
+    /* width:50%; */
     margin-left: 300px; 
     margin-top: 10px;
     /* margin-bottom: 40px;    */
@@ -9,8 +9,14 @@
     padding-top: 200px;
     color: white;
 }
-.submitbtn{
+.input-form{
+    width:100%;
+    margin-left: -100px;
+}
+#submitbtn{
     margin-top: 20px;
+    margin-right: 100px;
+    /* margin-left: -330px; */
 }
 .ingredient-container{
     width:163%;
@@ -26,9 +32,6 @@
 }
 .ing-input{
     width:50%;
-    margin-left: 300px;
+    margin-left: 430px;
     margin-top: 20px;
-}
-#dnbtn{
-    margin-left: 500px;
 }

@@ -19,9 +19,7 @@ import { useDispatch } from "react-redux";
 import { userFeature,setAiLog } from "../redux/slices/userSlice";
 import Footer from "./Footer";
 
-
-
-export default function Home(){
+const Home=()=>{
     const dbref=collection(db,"saved_recipes")
     const question="Recipe details only with these ingredients"  
     const[ingredientsInput,setIngredientsInput]=useState([])
@@ -41,9 +39,13 @@ export default function Home(){
     let navigate=useNavigate()
     const userLogin=useSelector((state)=>state.userDetails)
     
-   
+    useEffect(()=>{
+        firebaseFunction()
+        defaultRecipesList()
+    },[])
+
     const firebaseFunction=()=>{
-        const getData= getDocs(collection(db,"ingredients")).then(docSnap=>{   
+        getDocs(collection(db,"ingredients")).then((docSnap)=>{   
         let firebase_data=[]
 
         docSnap.forEach((doc)=>{
@@ -57,11 +59,7 @@ export default function Home(){
     })
     }   
     
-        useEffect(()=>{
-            firebaseFunction()
-            defaultRecipesList()
-        },[])
-    
+       
         let mapped_data=fireBase.map((data,i)=>{
             return({
                 value: data,
@@ -403,3 +401,4 @@ export default function Home(){
     
     )
     }
+    export default Home;

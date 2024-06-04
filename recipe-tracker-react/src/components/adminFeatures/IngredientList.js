@@ -1,13 +1,12 @@
 import "../../styles/ingredientlist.css"
-import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Ingredients from "./Ingredients";
 import { useSelector,useDispatch } from 'react-redux';
 import { adminFeatures } from "../../redux/slices/adminSlice";
 import { Link } from "react-router-dom";
 import { jsPDF } from "jspdf";
-import autoTable from 'jspdf-autotable'
+import autoTable from 'jspdf-autotable';
+import axios from "axios";
 
 
 
@@ -19,32 +18,21 @@ const IngredientList=()=>{
 
     const admin=useSelector((state)=>state.adminDetails)
 
-    const getIngredients=()=>{       
-        getDocs(collection(db,"ingredients")).then((docSnap)=>{
-            let list=[]
-            docSnap.forEach((doc)=>{
-                list.push({...doc.data(),id:doc.id})
-            })
-            setIngredientList(list)
-
-        })
-        // console.log(ingredientList)
-
+    const getIngredients=async()=>{           
+        let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+        setIngredientList(getIngData.data)
     }
     useEffect(()=>{
         getIngredients()
     },[])
    
-    const deleteIngredient=(ingId)=>{
-        deleteDoc(doc(db,"ingredients",ingId))
+    const deleteIngredient=(id)=>{
+        axios.delete(`https://amirtha14.pythonanywhere.com/deleteingredient/${id}`)
         alert("ingredient deleted")
         getIngredients()
 
     }
     const generateIngPdf=()=>{
-        // document.autoTable({html:'#ing-table'})
-        // document.save("ingredients-list.pdf")
-
         const title="Ingredient List";
         const unit="pt";
         const size="A4";
@@ -53,7 +41,7 @@ const IngredientList=()=>{
         const document=new jsPDF(orientation,unit,size)
 
         const headers=[["Ingredients"]]
-        const data=ingredientList.map((ing)=> [ing.ingredients])
+        const data=ingredientList.map((ing)=> [ing.ingName])
         let content={
             startY:50,
             head:headers,
@@ -87,9 +75,9 @@ const IngredientList=()=>{
                             ingredientList.map((list) => {
                                 return (
                                     <tr>
-                                        <td>{list.ingredients}</td>
-                                        <td><Link to={`/ingredientedit/${list.id}`}>Edit</Link></td>
-                                        <td><Link onClick={() => deleteIngredient(list.id)}>Delete</Link></td>
+                                        <td>{list.ingName}</td>
+                                        <td><Link to={`/ingredientedit/${list.ingId}`}>Edit</Link></td>
+                                        <td><Link onClick={()=>deleteIngredient(list.ingId)}>Delete</Link></td>
                                     </tr>
                                 )
                             })

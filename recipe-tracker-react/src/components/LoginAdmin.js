@@ -27,7 +27,7 @@ export default function LoginAdmin(){
     //     })
     // })
     // console.log("idd",adminFirerbaseId.adminId)
-    console.log("admin",adminEmailPwd)
+    // console.log("admin",adminEmailPwd)
     const getAdminData=()=>{
                getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
                        docSnap.forEach((doc)=>{
