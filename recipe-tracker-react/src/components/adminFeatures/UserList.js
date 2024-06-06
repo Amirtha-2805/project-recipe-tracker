@@ -1,9 +1,7 @@
-import { useState,useEffect,useRef } from "react";
+import { useState,useEffect} from "react";
 import axios from 'axios';
-import { addDoc,collection,updateDoc,deleteDoc,doc,getDocs} from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "../../styles/userlist.css";
-import { db } from "../../firebase";
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
@@ -11,45 +9,19 @@ import 'jspdf-autotable';
 
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
-    const userList=()=>{
-        getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
-            let user_list=[]
-            docSnap.forEach((doc)=>{
-                user_list.push({...doc.data(),id:doc.id})
-            })
-        setGetUser(user_list)
-        })
-
+    const userList=async()=>{
+        let getUserData=await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
+        console.log("get",getUserData.data)
+        setGetUser(getUserData.data)
     }
-    const deleteUser=(userId)=>{
-        deleteDoc(doc(db,"user_signup_details",userId))
+    const deleteUser=async (id)=>{
+        await axios.delete(`https://amirtha14.pythonanywhere.com/deleteuser/${id}`)
         alert("deleted")
         userList()
     } 
     useEffect(()=>{
         userList()
-    },[])
-    // console.log("user",getUser)
-    // useEffect(()=>{      
-    //     getUserList()       
-    // },[])
-    // const getUserList=()=>{
-    //     axios({
-    //         method:"GET",
-    //                     url:"https://jsonplaceholder.typicode.com/posts"
-    //                 }).then((response)=>{
-    //                     setGetUser(response.data)
-    //                     console.log(response)                                        
-    //         })        
-    // }
-    // const deleteUser=async(id)=>{
-    //     const deleteData=await axios.delete(`https:jsonplaceholder.typicode.com/posts/${id}`)       
-    //     setGetUser(getUser.filter((post)=>{if(post.id!=id){
-    //         return true
-    //     }}))
-                
-    //         }
-   
+    },[])   
     const generateUserPdf=()=>{
     //     document.autoTable({html:"#userlist-table"})
     //     document.save("list-of-users.pdf")
@@ -93,6 +65,7 @@ export default function UserList(){
                     <tbody>
                         {
                             getUser.map((users, i) => {
+                                console.log("users",users)
                                 return(
                                     <tr key={i}>
                                         <td>{users.name}</td>
@@ -101,7 +74,7 @@ export default function UserList(){
                                         <td>{users.gender}</td>
                                         <td>{users.address}</td> 
                                         <td>{users.phone}</td> 
-                                        <td><Link onClick={()=>deleteUser(users.id)}>Delete</Link></td> 
+                                        <td><Link onClick={()=>deleteUser(users.user_id)}>Delete</Link></td> 
                                     </tr>
                                 )
                             })

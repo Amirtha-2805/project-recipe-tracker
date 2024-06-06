@@ -1,14 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import "../styles/userlogin.css";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import NavBar from "./Menu";
 import { setToken,setIsLogged, setUserAllDetails,uLogin } from "../redux/slices/userSlice";
-import { useEffect} from "react";
-import { db } from "../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
+import { useEffect, useReducer} from "react";
 import Footer from "./Footer";
+import axios from "axios";
 
 
 
@@ -18,45 +15,29 @@ export default function Userlogin(){
     const dispatch=useDispatch();
     const userLoginData=useSelector((state)=>state.userDetails);
 
-    const userLogin=()=>{       
-       signInWithEmailAndPassword(auth,userLoginData.userlogin.email,userLoginData.userlogin.password) 
-        .then((useCredential)=>{
-            const user=useCredential.user
-            // console.log(useCredential) 
-            if(user.email==userLoginData.userlogin.email){
-                alert("Logged in successfully")
-                dispatch(setToken(user.accessToken)) 
-                getDocs(collection(db,"user_signup_details")).then((docSnap)=>{  
-                    docSnap.forEach((doc)=>{
-                        if(user.email==doc.data().email){
-                        dispatch(setUserAllDetails({
-                            user_name:doc.data().name,
-                            user_email:doc.data().email,
-                            user_pasword:doc.data().password,
-                            user_age:doc.data().age,
-                            user_gender:doc.data().gender,
-                            user_address:doc.data().address,
-                            user_phone:doc.data().phone
-                          }))                            
-                        }
-                    })               
-                }) 
-                dispatch(setIsLogged(true))
-                 if(userLoginData.aiLog==true){
-                         navigate(`/`)                    
-                 }
-                 else{
-                    navigate("/userhome")
-                 }
-            } 
-            
-           
-         }) 
-        .catch((error)=>{
-            const errorCode=error.code;
-            const errorMessage=error.message;
-            alert("Invalid email or password")
-        })            
+    const userLogin=async()=>{          
+            let loginForm=new FormData()
+            loginForm.append("email",userLoginData.userlogin.email)
+            loginForm.append("password",userLoginData.userlogin.password)
+            let getUser= await axios.post("https://amirtha14.pythonanywhere.com/getuser",loginForm)
+            console.log("user",getUser)
+           dispatch(setUserAllDetails({
+                                    user_name:getUser.data[0].name,
+                                    user_email:getUser.data[0].email,
+                                    user_pasword:getUser.data[0].password,
+                                    user_age:getUser.data[0].age,
+                                    user_gender:getUser.data[0].gender,
+                                    user_address:getUser.data[0].address,
+                                    user_phone:getUser.data[0].phone
+                                  }))
+            dispatch(setIsLogged(true))
+            alert("Logged in successfully")
+            if(userLoginData.aiLog==true){
+                    navigate(`/`)                    
+                }
+            else{
+                navigate("/userhome")
+                }
     }
         
     return(
@@ -70,6 +51,7 @@ export default function Userlogin(){
                         <div className="login-box">
                             <br/>
                             <div className="login-body">
+                                <form>
                                 <div className="input-group input-lg">               
                                     <label>Email</label>    
                                     <input type="text" className="form-control" placeholder="Enter email..." onKeyUp={(e)=>dispatch(uLogin({
@@ -83,11 +65,12 @@ export default function Userlogin(){
                                         ...userLoginData.userlogin,
                                         password:e.target.value
                                     }))}/>
-                                </div>    
+                                </div>
+                                </form>    
                             </div>   
                             <br/>          
                             <div className="loginbtn">
-                                <button className='btn btn-primary' onClick={userLogin}>Login</button>
+                                <button className='btn btn-primary' type="button" onClick={()=>userLogin()}>Login</button>
                                 <br/>
                                 <p className="user-para"> Not Registered yet? <Link to={"/signup"}>Register</Link></p>
                             </div>

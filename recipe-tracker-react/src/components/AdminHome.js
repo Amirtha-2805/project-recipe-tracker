@@ -3,7 +3,7 @@ import "../styles/adminhome.css"
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
-import { adminFeatures } from "../redux/slices/adminSlice";
+import { adminFeatures, setAdmin, setAdminDetails } from "../redux/slices/adminSlice";
 import AddRecipes from "./adminFeatures/AddRecipes";
 import UserList from "./adminFeatures/UserList"; 
 import { IconName } from "react-icons/ai";
@@ -21,46 +21,42 @@ import noUser from "../styles/no-user.webp"
 import IngredientList from "./adminFeatures/IngredientList";
 import { IoOptions } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
+import axios from "axios";
 
 
 export default function AdminHome(){
     const adminSlice=useSelector((state)=>state.adminDetails)
     const dispatch=useDispatch()
     const navigate = useNavigate();
-    const[adminEmail,setAdminEmail]=useState("")
-    const[adminName,setAdminName]=useState("")
-
     const adminLogOut=()=>{
-        dispatch(setAdminId(""))
+        dispatch(setAdminDetails({
+            admin_id:"",
+            admin_name:"",
+            admin_email:""
+        }))
+        dispatch(setAdmin({
+            adminId:"", 
+            admin_name:"",
+            admin_email:"",
+            admin_pwd:""
+        }))
         navigate("/")
         alert("You are logged out")
     }
-
-    const setDetails=()=>{
-        getDocs(collection(db,"admin_login_details")).then((docSnap)=>{
-            docSnap.forEach((doc)=>{
-                dispatch(setAdminId(doc.id))
-                setAdminEmail(doc.data().email)
-                setAdminName(doc.data().name)
-            })
-        })
-     }
-   
     
-    useEffect(()=>{
+    // useEffect(()=>{
 
-            if(adminSlice.adminId){
-                navigate("/adminhome")
-            }        
-            else{            
-                navigate("/")
-            }
-           },[])
+    //         if(adminSlice.admin_details.adminId){
+    //             navigate("/adminhome")
+    //         }        
+    //         else{            
+    //             navigate("/")
+    //         }
+    //        },[])
            
            
     useEffect(()=>{
         dispatch(adminFeatures("adminHome"))
-        setDetails()
     },[])
     
        return(
@@ -70,8 +66,8 @@ export default function AdminHome(){
             <div className="sidenav">
                 <div className="no-user">
                     <img src={noUser} className="admin-no-user"/>
-                    <h6  className="admin-name">{adminName}</h6>
-                    <h6 className="admin-email">{adminEmail}</h6>
+                    <h6  className="admin-name">{adminSlice.admin_details.admin_name}</h6>
+                    <h6 className="admin-email">{adminSlice.admin_details.admin_email}</h6>
                 </div>
                 <h4 className="adminhometitle"><b>Features</b>  </h4>
                     <ul>

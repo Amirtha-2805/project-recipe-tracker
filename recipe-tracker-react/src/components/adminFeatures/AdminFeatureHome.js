@@ -2,47 +2,39 @@ import "../../styles/admin_feature_home.css";
 import { db } from "../../firebase";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const AdminFeatureHome=()=>{
-const[noOfUsers,setNoOfUsers]=useState("") 
-const[noOfIngredients,setNoOfIngredients]=useState("")
+const[noOfUsers,setNoOfUsers]=useState([]) 
+const[noOfIngredients,setNoOfIngredients]=useState([])
 const[noOfMales,setNoOfMales]=useState("")  
 const[noOfFemales,setNoOfFemales]=useState("")
 const[totalRecipes,setTotalRecipes]=useState("")
 const[veg,setVeg]=useState("")
 const[nonVeg,setNonVeg]=useState("")
 
-const numberOfUsers=()=>{
-    getDocs(collection(db,"user_signup_details")).then((docSnap)=>{
-        let total_users=[]
-        let no_of_males=[]
-        let no_of_females=[]
-         docSnap.forEach((doc)=>{
-             // console.log("data",doc.data())
-             total_users.push(doc.data())
-             if(doc.data().gender=="male"){
-                 no_of_males.push(doc.data())
-             }
-             if(doc.data().gender=="female"){
-                 no_of_females.push(doc.data())
-             }
-             
-         })
-         setNoOfUsers(total_users.length)
-         setNoOfMales(no_of_males.length)
-         setNoOfFemales(no_of_females.length)     
-     })
+const numberOfUsers=async()=>{
+    let getUserData= await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
+    let no_of_males=[]
+    let no_of_females=[]
+    console.log("no",getUserData)
+    setNoOfUsers(getUserData.data)
+    getUserData.data.forEach((each)=>{
+       if(each.gender=="male"){
+           no_of_males.push(each)
+       }
+       if(each.gender=="female"){
+        no_of_females.push(each)
+       }
+    })
+    setNoOfMales(no_of_males.length)
+    setNoOfFemales(no_of_females.length)
      
 } 
-const totalIngredients=()=>{
-    getDocs(collection(db,"ingredients")).then((docSnap)=>{
-        let total_ingredients=[]
-        docSnap.forEach((doc)=>{
-            // console.log(doc.data())
-            total_ingredients.push(doc.data())
-        })
-        setNoOfIngredients(total_ingredients.length)
-    })
+const totalIngredients=async()=>{
+    let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+    console.log("ing",getIngData)
+    setNoOfIngredients(getIngData.data)
 }
 
 const totalDefaultRecipes=()=>{
@@ -79,13 +71,13 @@ return(
         <div className="dash-board-body">
             <div className="total">
                     <p className="total-head"><b>Total Users</b></p>
-                    <h2 className="number"><b>{noOfUsers}</b></h2>
+                    <h2 className="number"><b>{noOfUsers.length}</b></h2>
                     <p className="male-para">Males {noOfMales}</p>                   
                     <p className="female-para" >Females {noOfFemales}</p>
             </div>
             <div className="total-ingredients">
                     <p className="total-head"><b>Total ingredients</b></p>
-                    <h2 className="number-of-ing"><b>{noOfIngredients}</b></h2>
+                    <h2 className="number-of-ing"><b>{noOfIngredients.length}</b></h2>
             </div>
             <div className="total-recipe">
                     <p className="total-head"><b>Total Recipes</b></p>

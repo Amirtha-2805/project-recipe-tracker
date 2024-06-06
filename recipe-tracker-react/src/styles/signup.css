@@ -34,7 +34,9 @@ label{
     width:22%
 }
 .form-control{
-    border-radius: 20px;
+    /* border-radius: 20px; */
+    margin-top: 10px;
+
 }
 #gender{
     display: flex;
@@ -42,5 +44,8 @@ label{
 }
 #gender-text{
     color:white;
+    margin-top: 5px;
+}
+#signup-form{
     margin-top: 5px;
 }

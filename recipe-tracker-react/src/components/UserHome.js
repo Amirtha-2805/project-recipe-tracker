@@ -54,14 +54,14 @@ export default function UserHome(){
         dispatch(userFeature("savedRecipe"))      
     },[])
     
-    useEffect(()=>{        
-        if(userSlice.token){
-            navigate("/userhome")
-        }
-        else{           
-            navigate("/")
-        }
-    },[])
+    // useEffect(()=>{        
+    //     if(userSlice.token){
+    //         navigate("/userhome")
+    //     }
+    //     else{           
+    //         navigate("/")
+    //     }
+    // },[])
   
     
     return(       

@@ -25,7 +25,7 @@ const Home=()=>{
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
-    const[fireBase,setFireBase]=useState([])
+    const[ingredients,setIngredients]=useState([])
     const[recipe,setRecipe]=useState("")
     const[defaultRecipes,setDefaultRecipes]=useState([])
     let dispatch=useDispatch()
@@ -44,26 +44,14 @@ const Home=()=>{
         defaultRecipesList()
     },[])
 
-    const firebaseFunction=()=>{
-        getDocs(collection(db,"ingredients")).then((docSnap)=>{   
-        let firebase_data=[]
-
-        docSnap.forEach((doc)=>{
-            firebase_data.push({...doc.data(),id:doc.id})
-        })
-
-        let firebase_map=firebase_data.map((fire,i)=>{
-           return(fire.ingredients)
-        })       
-        setFireBase(firebase_map)
-    })
-    }   
-    
-       
-        let mapped_data=fireBase.map((data,i)=>{
+    const firebaseFunction=async()=>{    
+        let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+        setIngredients(getIngData.data)  
+    }          
+        let mapped_data=ingredients.map((data,i)=>{
             return({
-                value: data,
-                label: data               
+                value: data.ingName,
+                label: data.ingName               
             })
         }) 
 
@@ -73,7 +61,6 @@ const Home=()=>{
                 docSnap.forEach((doc)=>{
                     array.push({...doc.data(),id:doc.id})
                 })
-                //  console.log("state recipe",array)
                  setDefaultRecipes(array)
             })
     
@@ -234,36 +221,33 @@ const Home=()=>{
 
     }
    
-    const fetchData =() => {
+    // const fetchData =() => {
        
 
-            const options = {
-            method: 'GET',
-            url: 'https://img4me.p.rapidapi.com/',
-            params: {
-                text: 'Test Me',
-                font: 'trebuchet',
-                size: '12',
-                fcolor: '000000',
-                bcolor: 'FFFFFF',
-                type: 'png'
-            },
-            headers: {
-                'X-RapidAPI-Key': 'e5d60c81f5mshe7a9c742c01c3efp1cd495jsncac2fb52ec03',
-                'X-RapidAPI-Host': 'img4me.p.rapidapi.com'
-            }
-            };
+    //         const options = {
+    //         method: 'GET',
+    //         url: 'https://img4me.p.rapidapi.com/',
+    //         params: {
+    //             text: 'Test Me',
+    //             font: 'trebuchet',
+    //             size: '12',
+    //             fcolor: '000000',
+    //             bcolor: 'FFFFFF',
+    //             type: 'png'
+    //         },
+    //         headers: {
+    //             'X-RapidAPI-Key': 'e5d60c81f5mshe7a9c742c01c3efp1cd495jsncac2fb52ec03',
+    //             'X-RapidAPI-Host': 'img4me.p.rapidapi.com'
+    //         }
+    //         };
 
-            try {
-                const response = axios.request(options);
-                console.log(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-      }
-
-
-
+    //         try {
+    //             const response = axios.request(options);
+    //             console.log(response.data);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //   }
     
     return(
         <>
