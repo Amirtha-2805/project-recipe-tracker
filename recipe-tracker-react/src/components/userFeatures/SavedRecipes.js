@@ -7,31 +7,34 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux";
 import { userFeature,setsavedRecipes,setRecipeName } from "../../redux/slices/userSlice";
+import axios from "axios";
 const SavedRecipes=()=>{
-    const userSlice=useSelector((state)=>state.userDetails)
+    const userSliceDetails=useSelector((state)=>state.userDetails)
     let dispatch=useDispatch()
 
     const getSavedRecipes=()=>{
-        getDocs(collection(db,"saved_recipes")).then((docSnap)=>{
-            let saved_recipes=[]
-            docSnap.forEach((doc)=>{
-              if(doc.data().login_email==userSlice.userlogin.email){
-                    saved_recipes.push({...doc.data(),id:doc.id})
-              }
-            })
-          dispatch(setsavedRecipes(saved_recipes))            
-        })
+        axios.get(`https://amirtha14.pythonanywhere.com/getsavedrecipes/${userSliceDetails.userAllDetails.id}`).then((res)=>{
+            console.log("res",res)
+            dispatch(setsavedRecipes(res.data))
+        })  
+
     }
-    
+    const deleteSavedRecipe=(recId)=>{
+            axios.post(`https://amirtha14.pythonanywhere.com/deletesaveddata/${recId}`)     
+            getSavedRecipes()
+
+
+    }
+    const deleteSavedAiRecipe=(ainame)=>{
+        axios.delete(`https://amirtha14.pythonanywhere.com/deletesavedaidata/${ainame}`).then((res)=>{
+            getSavedRecipes()
+    })
+    }
     useEffect(()=>{
         getSavedRecipes()
     },[])
 
-    const deleteSaved=(savedId)=>{
-        deleteDoc(doc(db,"saved_recipes",savedId))
-        alert("deleted")
-        getSavedRecipes()
-    }
+   
 
     const savedContent=(rec_name)=>{
         dispatch(setRecipeName(rec_name))
@@ -46,14 +49,14 @@ const SavedRecipes=()=>{
                 <div className="saved-recipelist-table" >
                        
                             {
-                               userSlice.savedRecipes.map((saved,i)=>{
+                               userSliceDetails.savedRecipes.map((saved,i)=>{
                                     return(
                                             <div id="recipe-box" key={i}>
                                                  <div className="recipe-content">
                                                     <h4><Link onClick={()=>savedContent(saved.recipe_name)}>{saved.recipe_name}</Link></h4>
                                                     <h5>Category : {saved.recipe_category}</h5>                                                    
                                                     <h5>Ingredients : {saved.recipe_ingredients}</h5>
-                                                    <h5><Button type="button" variant="danger" onClick={()=>deleteSaved(saved.id)}>Delete</Button></h5>
+                                                    <h5><Button type="button" variant="danger" onClick={()=>deleteSavedRecipe(saved.savedId)}>Delete</Button></h5>
                                                  </div>
                                                 
                                             </div>

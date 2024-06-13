@@ -27,8 +27,7 @@ export default function SignUp(){
         signupForm.append("address",signupdata.usersignup.address)
         signupForm.append("phone",signupdata.usersignup.phone)
 
-
-   
+        
     const register=async()=>{
         
         if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){

@@ -17,7 +17,7 @@ const numberOfUsers=async()=>{
     let getUserData= await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
     let no_of_males=[]
     let no_of_females=[]
-    console.log("no",getUserData)
+    // console.log("no",getUserData)
     setNoOfUsers(getUserData.data)
     getUserData.data.forEach((each)=>{
        if(each.gender=="male"){
@@ -33,30 +33,26 @@ const numberOfUsers=async()=>{
 } 
 const totalIngredients=async()=>{
     let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
-    console.log("ing",getIngData)
+    // console.log("ing",getIngData)
     setNoOfIngredients(getIngData.data)
 }
 
 const totalDefaultRecipes=()=>{
-    getDocs(collection(db,"default_recipes")).then((docSnap)=>{
-        let total_recipes=[]
+    axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
         let no_of_veg=[]
         let no_of_nonveg=[]
-         docSnap.forEach((doc)=>{
-             // console.log("data",doc.data())
-             total_recipes.push(doc.data())
-             if(doc.data().category=="Vegeterian"){
-                 no_of_veg.push(doc.data())
-             }
-             if(doc.data().category=="Non-vegeterian"){
-                 no_of_nonveg.push(doc.data())
-             }
-             
-         })
-         setTotalRecipes(total_recipes.length)
-         setVeg(no_of_veg.length)
-         setNonVeg(no_of_nonveg.length)     
-     })
+        setTotalRecipes(res.data)
+        res.data.forEach((category)=>{
+            if(category.recipe_category=="Vegeterian"){
+                no_of_veg.push(category)
+            }
+           else if(category.recipe_category=="Non-vegeterian"){
+                no_of_nonveg.push(category)
+           }
+        })
+        setVeg(no_of_veg.length)
+        setNonVeg(no_of_nonveg.length)
+    })
 
 
 }
@@ -81,7 +77,7 @@ return(
             </div>
             <div className="total-recipe">
                     <p className="total-head"><b>Total Recipes</b></p>
-                    <h2 className="number"><b>{totalRecipes}</b></h2>
+                    <h2 className="number"><b>{totalRecipes.length}</b></h2>
                     <p className="veg-para">Veg {veg}</p>                   
                     <p className="nonveg-para">Non-veg {nonVeg}</p>
             </div>

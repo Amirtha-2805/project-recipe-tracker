@@ -22,6 +22,7 @@ export default function Userlogin(){
             let getUser= await axios.post("https://amirtha14.pythonanywhere.com/getuser",loginForm)
             console.log("user",getUser)
            dispatch(setUserAllDetails({
+                                    id:getUser.data[0].user_id,
                                     user_name:getUser.data[0].name,
                                     user_email:getUser.data[0].email,
                                     user_pasword:getUser.data[0].password,

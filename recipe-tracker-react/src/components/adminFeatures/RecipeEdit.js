@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import AllRecipes from "./AllRecipes";
 import { useDispatch } from "react-redux";
 import { adminFeatures } from "../../redux/slices/adminSlice";
+import axios from "axios";
 const RecipeEdit=()=>{
     let {id} = useParams();
     let dispatch=useDispatch()
@@ -26,52 +27,73 @@ const RecipeEdit=()=>{
         edited_url:"",
         edited_iframe:""
     })
-    const edit=()=>{
-    getDoc(doc(db,"default_recipes",id)).then((docSnap)=>{
-       if(docSnap.exists()){
-        setEditedRecipe(
-            {
-                edited_recipe_name:docSnap.data()['recipe_name'],
-                edited_recipe_category:docSnap.data()['category'],
-                edited_Recipe_ingredients:docSnap.data()['ingredients'],
-                edited_recipe_instructions:docSnap.data()['instructions'],
-                edited_image:docSnap.data()['recipe_image'],
-                edited_url:docSnap.data()['recipe_url'],
-                edited_iframe:docSnap.data()['recipe_iframe']
-            }
-        ) 
-       }
-    })
+
+    const edit=(paramid)=>{
+        axios.get(`https://amirtha14.pythonanywhere.com/viewrecipe/${paramid}`).then((res)=>{
+            setEditedRecipe({
+                edited_recipe_name:res.data[0].recipe_name,
+                edited_recipe_category:res.data[0].recipe_category,
+                edited_Recipe_ingredients:res.data[0].recipe_ingredients,
+                edited_recipe_instructions:res.data[0].recipe_instructions,
+                edited_image:res.data[0].recipe_image,
+                edited_url:res.data[0].recipe_url,
+                edited_iframe:res.data[0].recipe_iframe
+            })
+        })
+
 }
+let editForm= new FormData()
 const updateRecipe=()=>{
-    updateDoc(doc(db,"default_recipes",id),{
-        recipe_name:editedRecipe.edited_recipe_name,
-        category:editedRecipe.edited_recipe_category,
-        ingredients:editedRecipe.edited_Recipe_ingredients,
-        instructions:editedRecipe.edited_recipe_instructions,
-        recipe_image:recipeImage,
-        recipe_url:editedRecipe.edited_url,
-        recipe_iframe:editedRecipe.edited_iframe
-    })  
-    alert("recipe updated")
-    navigate("/adminhome")   
+    // updateDoc(doc(db,"default_recipes",id),{
+    //     recipe_name:editedRecipe.edited_recipe_name,
+    //     category:editedRecipe.edited_recipe_category,
+    //     ingredients:editedRecipe.edited_Recipe_ingredients,
+    //     instructions:editedRecipe.edited_recipe_instructions,
+    //     recipe_image:recipeImage,
+    //     recipe_url:editedRecipe.edited_url,
+    //     recipe_iframe:editedRecipe.edited_iframe
+    // })  
+    // alert("recipe updated")
+    // navigate("/adminhome")   
+
+
 }
+
 
 useEffect(()=>{
-    edit()
-},[])
+    edit(id)
+},[id])
 
-const handleUpload=(e)=>{
-    // console.log("image",e.target.files[0])
-    const imgs=ref(imagesDb,`recipe_images/${v4()}`)
-    uploadBytes(imgs,e.target.files[0]).then(data=>{
-        // console.log("images",data)
-        getDownloadURL(data.ref).then((imgUrl)=>{
-            setRecipeImage(imgUrl)
-        })
-    })
-}
 
+        const [selectedFile, setSelectedFile] = useState(null);  
+
+        const handleFileChange = (event) => {
+            setSelectedFile(event.target.files[0]);
+        };
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('file', selectedFile)
+            formData.append("recipe_name",editedRecipe.edited_recipe_name)
+            formData.append("recipe_category",editedRecipe.edited_recipe_category)
+            formData.append("recipe_ingredients",editedRecipe.edited_Recipe_ingredients)
+            formData.append("recipe_instructions",editedRecipe.edited_recipe_instructions)
+            formData.append("recipe_url",editedRecipe.edited_url)
+            formData.append("recipe_iframe",editedRecipe.edited_iframe)
+
+            try {
+            
+            const response = await axios.put(`https://amirtha14.pythonanywhere.com/editdefault/${id}`, formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            });
+            console.log('Response:', response.data);
+            console.log('File uploaded successfully');
+            } catch (error) {
+            console.error('Error uploading file:', error);
+            }
+        }
 
 return(
         <>
@@ -82,6 +104,7 @@ return(
                         <br/>
                         <div className="box">     
                             <div className="input-edit">
+                               <form method="PUT" encType="multipart/form-data" onSubmit={handleSubmit}> 
                                 <div className="input-group input-lg">                             
                                     <label>Recipe</label>          
                                     <input type="text" className="form-control" defaultValue={editedRecipe.edited_recipe_name} onKeyUp={(e)=>setEditedRecipe({
@@ -114,7 +137,7 @@ return(
 
                                     <label>Image</label> 
                                     <img src={editedRecipe.edited_image} width={"20%"}/>                                      
-                                    <input type="file" className="form-control" onChange={(e)=>handleUpload(e)} />
+                                    <input type="file" className="form-control"  onChange={handleFileChange} />
                                 </div>
                                 <div className="input-group input-lg">             
                                     <label>Recipe url</label>      
@@ -130,11 +153,14 @@ return(
                                         edited_iframe:e.target.value
                                     })}/>
                                 </div> 
+                                <div>
+                                    <button type="submit" className="btn btn-danger">Update</button>
+                                 </div>
+                            
+                                </form>
                             </div> 
                             <br/>
-                            <div>
-                                <button type="button" className="btn btn-danger" onClick={updateRecipe}>Update</button>
-                            </div>
+                           
                             <br/>
                         </div>
                     </div>

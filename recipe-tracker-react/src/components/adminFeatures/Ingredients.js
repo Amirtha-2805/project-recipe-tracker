@@ -5,11 +5,11 @@ import axios from "axios";
 const Ingredients=()=>{
 
     const[inputIngredients,setInputIngredients]=useState({ingredients:""})
-    let formData=new FormData
-    formData.append("ingredients",inputIngredients.ingredients)
+    let ingformData=new FormData();
+    ingformData.append("ingredients",inputIngredients.ingredients)
            
     const submitIngredients=()=>{
-        axios.post("https://amirtha14.pythonanywhere.com/setingList",formData)           
+        axios.post("https://amirtha14.pythonanywhere.com/setingList",ingformData)           
         alert("ingredient added")
         document.getElementById("ingInputBox").value=""         
     }

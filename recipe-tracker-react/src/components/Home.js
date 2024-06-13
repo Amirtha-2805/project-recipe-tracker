@@ -18,16 +18,17 @@ import noUser from "../styles/no-user.webp";
 import { useDispatch } from "react-redux";
 import { userFeature,setAiLog } from "../redux/slices/userSlice";
 import Footer from "./Footer";
+import { setDefaultRecipes } from "../redux/slices/adminSlice";
 
 const Home=()=>{
-    const dbref=collection(db,"saved_recipes")
+    let defaultDetails=useSelector((state)=>state.adminDetails.defaultRecipes);
     const question="Recipe details only with these ingredients"  
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
     const[ingredients,setIngredients]=useState([])
     const[recipe,setRecipe]=useState("")
-    const[defaultRecipes,setDefaultRecipes]=useState([])
+    // const[defaultRecipes,setDefaultRecipes]=useState([])
     let dispatch=useDispatch()
     const [messages, setMessages] = useState([
         {
@@ -39,37 +40,31 @@ const Home=()=>{
     let navigate=useNavigate()
     const userLogin=useSelector((state)=>state.userDetails)
     
-    useEffect(()=>{
-        firebaseFunction()
-        defaultRecipesList()
-    },[])
+   
+    const getAllIng=async()=>{    
+       let getIng= await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+        setIngredients(getIng.data)    
+    } 
 
-    const firebaseFunction=async()=>{    
-        let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
-        setIngredients(getIngData.data)  
-    }          
-        let mapped_data=ingredients.map((data,i)=>{
+    let mapped_data=ingredients.map((data)=>{
             return({
                 value: data.ingName,
                 label: data.ingName               
             })
         }) 
 
-        const defaultRecipesList=()=>{
-            getDocs(collection(db,"default_recipes")).then((docSnap)=>{
-                let array=[]    
-                docSnap.forEach((doc)=>{
-                    array.push({...doc.data(),id:doc.id})
-                })
-                 setDefaultRecipes(array)
-            })
-    
-        }
-             
-    
-    // useEffect(()=>{
-    //     getRecipe()   
-    //    },[])
+    const getDefault=()=>{
+        axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
+            console.log("res",res.data)
+           dispatch(setDefaultRecipes(res.data))
+        })
+    }
+
+    useEffect(()=>{
+            getAllIng()
+            getDefault()
+    },[])
+        
 
     const submitIngredients=async(event)=>{
         if(userLogin.isLogged==false){
@@ -178,8 +173,8 @@ const Home=()=>{
                 })
                 setRecipe(selected)
         }
-        
-    const savedRecipe=(recipeId)=>{
+
+    const saveRecipe=(recipeId)=>{
       console.log("recipeid",recipeId)
       if(userLogin.isLogged==false){
         dispatch(setAiLog(true))
@@ -187,38 +182,49 @@ const Home=()=>{
         navigate("/userlogin")            
     }
       else{
-        defaultRecipes.forEach((datas)=>{
-            if(recipeId==datas.id){
-                addDoc(dbref,{
-                    login_email:userLogin.userlogin.email,
-                    recipe_category:datas.category,
-                    recipe_image:datas.recipe_image,
-                    recipe_ingredients:datas.ingredients,
-                    recipe_instructions:datas.instructions,
-                    recipe_name:datas.recipe_name,
-                    recipe_url:datas.recipe_url
-                })
-               
-            }
+        defaultDetails.forEach((datas)=>{
+            if(recipeId==datas.recipeId){
+                let saveForm=new FormData()        
+                saveForm.append("user_id",userLogin.userAllDetails.id)
+                saveForm.append("recipe_name",datas.recipe_name)
+                saveForm.append("recipe_category",datas.recipe_category)
+                saveForm.append("recipe_ingredients",datas.recipe_ingredients)
+                saveForm.append("recipe_instructions",datas.recipe_instructions)
+                saveForm.append("recipe_url",datas.recipe_url)
+                saveForm.append("recipe_image",datas.image_name)
+                saveForm.append("recipe_iframe",datas.recipe_iframe)
                 
+                axios.post("https://amirtha14.pythonanywhere.com/saverecipe",saveForm).then((res)=>{
+                    console.log("res",res)
+                    alert("saved")
+                })    
+                   
+            }               
         })
-            alert("saved")
-
-      }
-      
+      }      
     }
-    const savedAiRecipe=()=>{
-       
-            addDoc(dbref,{
-                login_email:userLogin.userlogin.email,
-                recipe_category:"AI",                
-                recipe_name:`Recipe with ${recipe}`,
-                recipe_ingredients:recipe,
-                recipe_instructions:result
-            })
-            alert("saved")
-       
+    // let saveAiForm=new FormData()
+    // saveAiForm.append("login_email",userLogin.userlogin.email)
+    // saveAiForm.append("recipe_category","AI")
+    // saveAiForm.append("recipe_name",`Recipe with ${recipe}`)
+    // saveAiForm.append("recipe_ingredients",recipe)
+    // saveAiForm.append("recipe_instructions",result)
 
+    const saveAiRecipe=()=>{
+        let saveAiForm=new FormData()        
+        saveAiForm.append("user_id",userLogin.userAllDetails.id)
+        saveAiForm.append("recipe_name",`Recipe with ${recipe}`)
+        saveAiForm.append("recipe_category","AI")
+        saveAiForm.append("recipe_ingredients",recipe)
+        saveAiForm.append("recipe_instructions",result)
+        saveAiForm.append("recipe_url","")
+        saveAiForm.append("recipe_image","")
+        saveAiForm.append("recipe_iframe","")
+        
+        axios.post("https://amirtha14.pythonanywhere.com/saverecipe",saveAiForm).then((res)=>{
+            console.log("res",res)
+            alert("saved")
+        })
     }
    
     // const fetchData =() => {
@@ -266,6 +272,7 @@ const Home=()=>{
           </Navbar>:<NavBar/>}
           {/* <button type="button" onClick={()=>fetchData()}>Generate Image</button> */}
             <center>
+                <form>
                 <div className="input-ingredients">        
                     <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
                     <br/> 
@@ -288,7 +295,7 @@ const Home=()=>{
                         <div className="resultbox">
                             <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
                             <p className="result-para">{result}</p>
-                            <button type="button" className="btn btn-warning" onClick={()=>savedAiRecipe()}>save</button>
+                            <button type="button" className="btn btn-warning" onClick={()=>saveAiRecipe()}>save</button>
                         </div>
                         : null
                     }  
@@ -316,29 +323,33 @@ const Home=()=>{
                         : null
                     } */}
                 </div>
+                </form>
             </center>  
             <h1 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h1>
             <div className="veg"> 
             {
-                defaultRecipes.map((recipe,i)=>{
-                    if(recipe.category=="Vegeterian"){
+                defaultDetails.map((recipe,i)=>{
+                    if(recipe.recipe_category=="Vegeterian"){
                         return(                            
                             <>
-                            
                             <div key={i}>
+                            <form>
+
                                 <Card className="cardbody" style={{ width: '18rem'}}>
                                     <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
                                     <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                     <ListGroup variant="flush">
-                                        <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
-                                        <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}</ListGroup.Item>
+                                        <ListGroup.Item><b>Category: </b>{recipe.recipe_category}</ListGroup.Item>
+                                        <ListGroup.Item><b>Ingredients: </b>{recipe.recipe_ingredients}</ListGroup.Item>
                                         <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>  
                                         <ListGroup.Item>
-                                            <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
-                                            <Link to={`defaultrecipeview/${recipe.id}`}  style={{marginLeft:"50px"}}>View</Link>                                                                                         
+                                            <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} type="button" onClick={()=>saveRecipe(recipe.recipeId)}>save</button>
+                                            <Link to={`defaultrecipeview/${recipe.recipeId}`}  style={{marginLeft:"50px"}}>View</Link>                                                                                         
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card> 
+                            </form>
+
                             </div>
                             </>
                         )                
@@ -350,25 +361,29 @@ const Home=()=>{
             <h1 style={{textAlign:"center",color:"white"}}>Non Vegeterian</h1>
             <div className="nonveg">
             {
-                defaultRecipes.map((recipe,i)=>{
-                    if(recipe.category=="Non-vegeterian"){
+                defaultDetails.map((recipe,i)=>{
+                    if(recipe.recipe_category=="Non-vegeterian"){
                         return(
                             <>
                             <div key={i}>
+                            <form>
+
                             <Card className="cardbody" style={{ width: '18rem'}}>
                                 <ListGroup.Item><img src={recipe.recipe_image} width={"100%"}/></ListGroup.Item>                                
                                 <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                 <ListGroup variant="flush">
-                                    <ListGroup.Item><b>Category: </b>{recipe.category}</ListGroup.Item>
+                                    <ListGroup.Item><b>Category: </b>{recipe.recipe_category}</ListGroup.Item>
                                     <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}                                    
                                     </ListGroup.Item>                                    
                                     <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>                                            
                                     <ListGroup.Item>                                    
-                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} onClick={()=>savedRecipe(recipe.id)}>save</button>
-                                        <Link to={`defaultrecipeview/${recipe.id}`} style={{marginLeft:"50px"}}>View</Link>
+                                        <button className="btn btn-warning" width="5%" style={{marginLeft:"20px"}} type="button" onClick={()=>saveRecipe(recipe.recipeId)}>save</button>
+                                        <Link to={`defaultrecipeview/${recipe.recipeId}`} style={{marginLeft:"50px"}}>View</Link>
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
+                            </form>
+
                                 </div> 
                             </>
     
@@ -377,6 +392,7 @@ const Home=()=>{
                 })
             }
             </div>
+           
 
         </div>
        <Footer/>

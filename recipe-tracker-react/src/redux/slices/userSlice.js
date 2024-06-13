@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice=createSlice({
     name:"userDetails",    
     initialState:{
-       usersignup:{
+       usersignup:{            
             name:"",
             email:"",
             password:"",
@@ -18,6 +18,7 @@ export const userSlice=createSlice({
             password:""
         },
         userAllDetails:{
+            id:"",
             user_name:"",
             user_email:"",
             user_password:"",

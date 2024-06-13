@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { db } from "../../firebase";
 import { jsPDF } from "jspdf";
 import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
-
 import autoTable from 'jspdf-autotable'
 
 
@@ -15,42 +14,16 @@ export default function AllRecipes(){
     const[getRecipe,setGetRecipe]=useState([])
     const document=new jsPDF({orientation:"landscape"})
 
-    const deleteRecipe=(recipeId)=>{
-        deleteDoc(doc(db,"default_recipes",recipeId))
-        alert("recipe deleted")
+    const deleteRecipe=(recipeid)=>{
+        axios.delete(`https://amirtha14.pythonanywhere.com/deletedefault/${recipeid}`)
+        alert("Recipe deleted")
         defaultRecipes()
-
     }
 
 
-
-    // useEffect(()=>{      
-    //     getRecipeList()       
-    // },[])
-    // const dispatch=useDispatch()
-    // const getRecipeList=()=>{
-    //     axios({
-    //         method:"GET",
-    //                     url:"https://jsonplaceholder.typicode.com/posts"
-    //                 }).then((response)=>{
-    //                     setGetRecipe(response.data)
-    //                     console.log(response)                                        
-    //         })        
-    // }
-    // const deleteRecipe=async(id)=>{
-    //     const deleteData=await axios.delete(`https:jsonplaceholder.typicode.com/posts/${id}`)       
-    //     setGetRecipe(getRecipe.filter((post)=>{if(post.id!=id){
-    //         return true
-    //     }}))
-                
-    //         }       
     const defaultRecipes=()=>{
-            getDocs(collection(db,"default_recipes")).then((docSnap)=>{
-                let recipes=[]
-                docSnap.forEach((doc)=>{
-                    recipes.push({...doc.data(),id:doc.id})
-                })
-                setGetRecipe(recipes)
+            axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
+                setGetRecipe(res.data)
             })
     }
     const generateRecipePdf=()=>{
@@ -64,8 +37,8 @@ export default function AllRecipes(){
         const marginLeft=40
         const document=new jsPDF(orientation,unit,size)
 
-        const headers=[["RecipeName","Category","Ingredients","Instructions"]]
-        const data=getRecipe.map((recipe)=> [recipe.recipe_name,recipe.category,recipe.ingredients,recipe.instructions])
+        const headers=[["Recipe Name","Category","Ingredients","Instructions"]]
+        const data=getRecipe.map((recipe)=> [recipe.recipe_name,recipe.recipe_category,recipe.recipe_ingredients,recipe.recipe_instructions])
         let content={
             startY:50,
             head:headers,
@@ -114,14 +87,14 @@ export default function AllRecipes(){
                                     {recipes.recipe_name}
                                 </td>
                                 <td>
-                                    {recipes.category}
+                                    {recipes.recipe_category}
                                 </td>
                                 <td>
-                                    {recipes.ingredients}
+                                    {recipes.recipe_ingredients}
                                     
                                 </td>
                                 <td>
-                                    {recipes.instructions}                                
+                                    {recipes.recipe_instructions}                                
                                 </td>
                                 <td>
                                     {recipes.recipe_image}                                
@@ -133,10 +106,10 @@ export default function AllRecipes(){
                                     {recipes.recipe_iframe}                                
                                 </td>
                                 <td>
-                                    <Link to={`/recipeedit/${recipes.id}`}>Edit</Link>                                
+                                    <Link to={`/recipeedit/${recipes.recipeId}`}>Edit</Link>                                
                                 </td>
                                 <td>
-                                    <Link onClick={()=>deleteRecipe(recipes.id)}>Delete</Link>                                
+                                    <Link onClick={()=>deleteRecipe(recipes.recipeId)}>Delete</Link>                                
                                 </td>                            
                             </tr>
                         </>

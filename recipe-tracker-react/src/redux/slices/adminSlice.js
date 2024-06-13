@@ -19,9 +19,11 @@ export const adminSlice=createSlice({
             recipe_title:"",
             ingredients:"",
             recipe_details:"",
+            recipe_image:"",
             recipe_url:"",
             recipe_iframe:""
         },
+        defaultRecipes:[]
               
     },
         reducers:{
@@ -40,9 +42,12 @@ export const adminSlice=createSlice({
             setAdminId:(state,action)=>{
                 state.adminId=action.payload
             },
+            setDefaultRecipes:(state,action)=>{
+                state.defaultRecipes=action.payload
+            }
            
     }
 })
-export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails } = adminSlice.actions
+export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails,setDefaultRecipes } = adminSlice.actions
 
 export default adminSlice.reducer

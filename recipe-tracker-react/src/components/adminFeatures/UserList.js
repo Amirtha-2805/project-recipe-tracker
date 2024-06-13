@@ -11,7 +11,7 @@ export default function UserList(){
     const[getUser,setGetUser]=useState([])
     const userList=async()=>{
         let getUserData=await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
-        console.log("get",getUserData.data)
+        // console.log("get",getUserData.data)
         setGetUser(getUserData.data)
     }
     const deleteUser=async (id)=>{
@@ -65,7 +65,6 @@ export default function UserList(){
                     <tbody>
                         {
                             getUser.map((users, i) => {
-                                console.log("users",users)
                                 return(
                                     <tr key={i}>
                                         <td>{users.name}</td>

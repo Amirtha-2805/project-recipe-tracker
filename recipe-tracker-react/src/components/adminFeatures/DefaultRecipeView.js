@@ -1,13 +1,11 @@
 import { useParams } from "react-router-dom";
-import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/default-recipe-view.css";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
-
+import axios from "axios";
 
 const DefaultRecipeView=()=>{
     let navigate=useNavigate()
@@ -22,24 +20,21 @@ const DefaultRecipeView=()=>{
          view_recipe_iframe:""
 
     })
-    const viewDetails=()=>{
-        getDoc(doc(db,"default_recipes",id)).then((docSnap)=>{
-            if(docSnap.exists()){
-                setViewRecipe({
-                    view_recipe_name:docSnap.data()['recipe_name'],
-                    view_category:docSnap.data()['category'],
-                    view_recipe_ingredients:docSnap.data()['ingredients'],
-                    view_recipe_instructions:docSnap.data()['instructions'],
-                    view_recipe_image:docSnap.data()['recipe_image'],
-                    view_url:docSnap.data()['recipe_url'],
-                    view_recipe_iframe:docSnap.data()['recipe_iframe']
-                })
-            }
-            console.log("view",viewRecipe)
+    const viewDetails=async(paramId)=>{
+       await axios.get(`https://amirtha14.pythonanywhere.com/viewrecipe/${paramId}`).then((res)=>{
+        setViewRecipe({
+            view_recipe_name:res.data[0].recipe_name,
+            view_category:res.data[0].recipe_category,
+            view_recipe_ingredients:res.data[0].recipe_ingredients,
+            view_recipe_instructions:res.data[0].recipe_instructions,
+            view_url:res.data[0].recipe_url,
+            view_recipe_image:res.data[0].recipe_image,
+            view_recipe_iframe:res.data[0].recipe_iframe
         })
+       })            
     }
     useEffect(()=>{
-        viewDetails()
+        viewDetails(id)
     },[])
 
     return(
@@ -68,7 +63,6 @@ const DefaultRecipeView=()=>{
                         <p><Link to={viewRecipe.view_url}>YouTube</Link></p>
                     </div>
                     <br/>
-                    {/* <button type="button" className="btn btn-warning">Save</button> */}
                 </div>
             </center>
             <Footer/>
