@@ -32,6 +32,7 @@ export const userSlice=createSlice({
         id:"",
         isLogged:false,
         savedRecipes:[],
+        userTodoList:[],
         recipe_name:"",
         aiLog:false,
         totalNo:[],
@@ -87,9 +88,12 @@ export const userSlice=createSlice({
         },
         setFinalPwd:(state,action)=>{
             state.final_password=action.payload
+        },
+        setUserTodoList:(state,action)=>{
+            state.userTodoList=action.payload
         }       
     }
 })
-export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId,setUserAllDetails,setsavedRecipes,setRecipeName,setAiLog,setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes,setFinalPwd} = userSlice.actions
+export const { signup,uLogin,userFeature,setToken ,setIsLogged,setId,setUserAllDetails,setsavedRecipes,setRecipeName,setAiLog,setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes,setFinalPwd,setUserTodoList} = userSlice.actions
 
 export default userSlice.reducer

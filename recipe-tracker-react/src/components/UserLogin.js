@@ -8,7 +8,6 @@ import Footer from "./Footer";
 import axios from "axios";
 
 
-
 export default function Userlogin(){
     
     const navigate = useNavigate();
@@ -21,7 +20,8 @@ export default function Userlogin(){
             loginForm.append("password",userLoginData.userlogin.password)
             let getUser= await axios.post("https://amirtha14.pythonanywhere.com/getuser",loginForm)
             console.log("user",getUser)
-           dispatch(setUserAllDetails({
+            localStorage.setItem("user_token",JSON.stringify(getUser.data[0].user_token))
+            dispatch(setUserAllDetails({
                                     id:getUser.data[0].user_id,
                                     user_name:getUser.data[0].name,
                                     user_email:getUser.data[0].email,
@@ -39,8 +39,7 @@ export default function Userlogin(){
             else{
                 navigate("/userhome")
                 }
-    }
-        
+    }        
     return(
         <>
             <NavBar/> 

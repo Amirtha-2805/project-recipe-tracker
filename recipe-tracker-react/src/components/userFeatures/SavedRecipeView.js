@@ -8,17 +8,17 @@ import jsPDF from "jspdf";
 const SavedRecipeView=()=>{
     const userSlice=useSelector((state)=>state.userDetails)
 
-    const saveAsPdf=()=>{
-        const input=document.querySelector("#exportToPdf")
-        html2canvas(input,{logging: true, letterRendering: 1, useCORS: true}).then(function(canvas){
-            const imgData=canvas.toDataURL("image/jpeg")
-            const pdf=new jsPDF("p","pt","a4");
-            // const imgProps=pdf.getImageProperties(imgData)
-            pdf.addImage(imgData,"JPG",0,0)
-            pdf.save("saved-recipe.pdf")
-        })
+    // const saveAsPdf=()=>{
+    //     const input=document.querySelector("#exportToPdf")
+    //     html2canvas(input,{logging: true, letterRendering: 1, useCORS: true}).then(function(canvas){
+    //         const imgData=canvas.toDataURL("image/jpeg")
+    //         const pdf=new jsPDF("p","pt","a4");
+    //         // const imgProps=pdf.getImageProperties(imgData)
+    //         pdf.addImage(imgData,"JPG",0,0)
+    //         pdf.save("saved-recipe.pdf")
+    //     })
         
-    }
+    // }
 
    
     return(
@@ -53,7 +53,7 @@ const SavedRecipeView=()=>{
                                     <p><Link to={recipes.recipe_url}>Watch Video</Link></p>
                                 </div>
 
-                                <button className="btn btn-warning" onClick={()=>saveAsPdf()}>DownLoad PDF</button>
+                                {/* <button className="btn btn-warning" onClick={()=>saveAsPdf()}>DownLoad PDF</button> */}
                                 </div>
 
 

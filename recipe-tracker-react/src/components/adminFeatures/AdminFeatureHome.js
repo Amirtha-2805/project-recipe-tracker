@@ -1,6 +1,4 @@
 import "../../styles/admin_feature_home.css";
-import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -14,10 +12,12 @@ const[veg,setVeg]=useState("")
 const[nonVeg,setNonVeg]=useState("")
 
 const numberOfUsers=async()=>{
-    let getUserData= await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
+    let admin_token=localStorage.getItem("admin_token")
+    let parsed_admin_token=JSON.parse(admin_token) 
+    const headers={"Authorization":`Bearer ${parsed_admin_token}`}
+    let getUserData= await axios.get("https://amirtha14.pythonanywhere.com/getalluser",{headers})
     let no_of_males=[]
     let no_of_females=[]
-    // console.log("no",getUserData)
     setNoOfUsers(getUserData.data)
     getUserData.data.forEach((each)=>{
        if(each.gender=="male"){
@@ -32,13 +32,20 @@ const numberOfUsers=async()=>{
      
 } 
 const totalIngredients=async()=>{
-    let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+    let admin_token=localStorage.getItem("admin_token")
+    let parsed_admin_token=JSON.parse(admin_token) 
+    const headers={"Authorization":`Bearer ${parsed_admin_token}`}
+    let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients",{headers})
     // console.log("ing",getIngData)
     setNoOfIngredients(getIngData.data)
 }
 
 const totalDefaultRecipes=()=>{
-    axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
+    let admin_token=localStorage.getItem("admin_token")
+    let parsed_admin_token=JSON.parse(admin_token) 
+    const headers={"Authorization":`Bearer ${parsed_admin_token}`}
+
+    axios.get("https://amirtha14.pythonanywhere.com/getdefault",{headers}).then((res)=>{
         let no_of_veg=[]
         let no_of_nonveg=[]
         setTotalRecipes(res.data)

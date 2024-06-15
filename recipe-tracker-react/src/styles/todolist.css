@@ -1,0 +1,21 @@
+
+.todo-body{
+    width:163%;
+    padding-top: 40px;
+    background: linear-gradient(#0c0e1d,#2b2c28);
+    background-size: cover;
+    height: 190vh;     
+}
+.recipe-list-head{
+    color:white;
+    padding-left: 500px;
+}
+.selectsaved-box{
+    margin-top: -80px;
+}
+#savedrec-submit-btn{
+    margin-left: 300px;
+}
+#todotable{
+    margin-left: 200px;
+}

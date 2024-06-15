@@ -3,8 +3,6 @@ import "../styles/home.css"
 import React from 'react'
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import { db } from "../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import Select from 'react-select'
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
@@ -18,17 +16,26 @@ import noUser from "../styles/no-user.webp";
 import { useDispatch } from "react-redux";
 import { userFeature,setAiLog } from "../redux/slices/userSlice";
 import Footer from "./Footer";
-import { setDefaultRecipes } from "../redux/slices/adminSlice";
+import { setDefaultRecipes,setIngredientList } from "../redux/slices/adminSlice";
 
 const Home=()=>{
     let defaultDetails=useSelector((state)=>state.adminDetails.defaultRecipes);
-    const question="Recipe details only with these ingredients"  
+    let ingredientListglobal=useSelector((state)=>state.adminDetails.ingredientList)
+    const[recipe,setRecipe]=useState("")
+    // const question="Recipe details only with these ingredients and provide the recipe name in bold"  
+    const question=`Generate recipe with preparation using below ingredients. Recipe Title should be Bold and below format ingredients:${recipe} Recipe Title Format : RECIPE_TITLE : =>TITLE<=`
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
     const[ingredients,setIngredients]=useState([])
-    const[recipe,setRecipe]=useState("")
-    // const[defaultRecipes,setDefaultRecipes]=useState([])
+
+    const content = result;
+    const matches = content.match(/=>(.*?)</);
+    const recipeName = matches ? matches[1].trim() : null;
+    console.log("recipe_name",recipeName)
+
+console.log(result);
+   
     let dispatch=useDispatch()
     const [messages, setMessages] = useState([
         {
@@ -41,21 +48,24 @@ const Home=()=>{
     const userLogin=useSelector((state)=>state.userDetails)
     
    
-    const getAllIng=async()=>{    
-       let getIng= await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
-        setIngredients(getIng.data)    
+    const getAllIng=async()=>{ 
+        let admin_token=localStorage.getItem("admin_token")
+        let parsed_admin_token=JSON.parse(admin_token) 
+        const headers={"Authorization":`Bearer ${parsed_admin_token}`}                
+       await axios.get("https://amirtha14.pythonanywhere.com/gethomeingredients",{headers}).then((res)=>{
+            dispatch(setIngredientList(res.data))
+       })
     } 
 
-    let mapped_data=ingredients.map((data)=>{
+    let mapped_data=ingredientListglobal.map((data)=>{
             return({
                 value: data.ingName,
                 label: data.ingName               
             })
         }) 
 
-    const getDefault=()=>{
-        axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
-            console.log("res",res.data)
+    const getDefault=()=>{               
+        axios.get("https://amirtha14.pythonanywhere.com/gethomerecipes").then((res)=>{
            dispatch(setDefaultRecipes(res.data))
         })
     }
@@ -82,7 +92,7 @@ const Home=()=>{
             method:"POST",
             data:{
                 contents:[
-                    {parts:[{text:recipe+question}]},
+                    {parts:[{text:question}]},
                 ]
             },
         }).then((response)=>{
@@ -195,7 +205,6 @@ const Home=()=>{
                 saveForm.append("recipe_iframe",datas.recipe_iframe)
                 
                 axios.post("https://amirtha14.pythonanywhere.com/saverecipe",saveForm).then((res)=>{
-                    console.log("res",res)
                     alert("saved")
                 })    
                    
@@ -203,13 +212,7 @@ const Home=()=>{
         })
       }      
     }
-    // let saveAiForm=new FormData()
-    // saveAiForm.append("login_email",userLogin.userlogin.email)
-    // saveAiForm.append("recipe_category","AI")
-    // saveAiForm.append("recipe_name",`Recipe with ${recipe}`)
-    // saveAiForm.append("recipe_ingredients",recipe)
-    // saveAiForm.append("recipe_instructions",result)
-
+   
     const saveAiRecipe=()=>{
         let saveAiForm=new FormData()        
         saveAiForm.append("user_id",userLogin.userAllDetails.id)
@@ -222,7 +225,6 @@ const Home=()=>{
         saveAiForm.append("recipe_iframe","")
         
         axios.post("https://amirtha14.pythonanywhere.com/saverecipe",saveAiForm).then((res)=>{
-            console.log("res",res)
             alert("saved")
         })
     }
@@ -270,6 +272,20 @@ const Home=()=>{
                   </Nav>
               </Navbar.Collapse>
           </Navbar>:<NavBar/>}
+
+          {/* {adminLoginStatus.adminisLogged==true?  <Navbar expand="lg" className="custom-navbar">
+              <Navbar.Brand href="/">Recipe Tracker</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="ml-auto">
+                      <div className="user-data">
+                      <img src={noUser} className="user-no-userhome"/>
+                     <Link to={"/userhome"} className="user-mail" >{adminLoginStatus.adminlogin.admin_email}</Link>
+                     </div>
+                  </Nav>
+              </Navbar.Collapse>
+          </Navbar>:<NavBar/>}   */}
+
           {/* <button type="button" onClick={()=>fetchData()}>Generate Image</button> */}
             <center>
                 <form>

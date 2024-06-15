@@ -5,13 +5,13 @@ import "../../styles/userlist.css";
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
-
-
 export default function UserList(){
     const[getUser,setGetUser]=useState([])
     const userList=async()=>{
-        let getUserData=await axios.get("https://amirtha14.pythonanywhere.com/getalluser")
-        // console.log("get",getUserData.data)
+        let admin_token=localStorage.getItem("admin_token")
+        let parsed_admin_token=JSON.parse(admin_token) 
+        const headers={"Authorization":`Bearer ${parsed_admin_token}`}    
+        let getUserData=await axios.get("https://amirtha14.pythonanywhere.com/getalluser",{headers})
         setGetUser(getUserData.data)
     }
     const deleteUser=async (id)=>{
@@ -23,9 +23,6 @@ export default function UserList(){
         userList()
     },[])   
     const generateUserPdf=()=>{
-    //     document.autoTable({html:"#userlist-table"})
-    //     document.save("list-of-users.pdf")
-
         const title="User List";
         const unit="pt";
         const size="A4";

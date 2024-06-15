@@ -21,6 +21,7 @@ import RecipeEdit from './components/adminFeatures/RecipeEdit';
 import IngredientEdit from './components/adminFeatures/IngredientEdit';
 import DefaultRecipeView from './components/adminFeatures/DefaultRecipeView';
 import SavedRecipeView from './components/userFeatures/SavedRecipeView';
+import EditTodo from './components/userFeatures/EditTodo';
 
 function App() {
     const user_token=useSelector((state)=>state.userDetails.token)
@@ -53,6 +54,9 @@ function App() {
             <Route path='/ingredientedit/:id' element={<IngredientEdit/>}></Route>
             <Route path='/defaultrecipeview/:id' element={<DefaultRecipeView/>}></Route>
             <Route path='/savedrecipeview/:id' element={<SavedRecipeView/>}></Route>
+            <Route path='/todoedit/:id' element={<EditTodo/>}></Route>
+
+            
 
 
 

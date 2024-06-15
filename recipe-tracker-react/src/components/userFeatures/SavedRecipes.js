@@ -13,14 +13,17 @@ const SavedRecipes=()=>{
     let dispatch=useDispatch()
 
     const getSavedRecipes=()=>{
-        axios.get(`https://amirtha14.pythonanywhere.com/getsavedrecipes/${userSliceDetails.userAllDetails.id}`).then((res)=>{
-            console.log("res",res)
+        let getToken= localStorage.getItem("user_token")
+        let parsedToken=JSON.parse(getToken)
+        const headers={'Authorization':`Bearer ${parsedToken}`}
+        axios.get(`https://amirtha14.pythonanywhere.com/getsavedrecipes/${userSliceDetails.userAllDetails.id}`,{headers}).then((res)=>{
             dispatch(setsavedRecipes(res.data))
         })  
 
     }
     const deleteSavedRecipe=(recId)=>{
-            axios.post(`https://amirtha14.pythonanywhere.com/deletesaveddata/${recId}`)     
+            axios.post(`https://amirtha14.pythonanywhere.com/deletesaveddata/${recId}`)
+            alert("deleted")     
             getSavedRecipes()
 
 

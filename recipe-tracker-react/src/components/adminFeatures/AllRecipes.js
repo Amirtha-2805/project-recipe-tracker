@@ -1,12 +1,8 @@
-import { setAddRecipes } from "../../redux/slices/adminSlice"
-import { useSelector,useDispatch } from 'react-redux';
 import { useState,useEffect } from "react";
 import axios from 'axios'
 import "../../styles/allrecipes.css"
 import { Link } from "react-router-dom";
-import { db } from "../../firebase";
 import { jsPDF } from "jspdf";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import autoTable from 'jspdf-autotable'
 
 
@@ -22,14 +18,14 @@ export default function AllRecipes(){
 
 
     const defaultRecipes=()=>{
-            axios.get("https://amirtha14.pythonanywhere.com/getdefault").then((res)=>{
+            let admin_token=localStorage.getItem("admin_token")
+            let parsed_admin_token=JSON.parse(admin_token) 
+            const headers={"Authorization":`Bearer ${parsed_admin_token}`}
+            axios.get("https://amirtha14.pythonanywhere.com/getdefault",{headers}).then((res)=>{
                 setGetRecipe(res.data)
             })
     }
     const generateRecipePdf=()=>{
-        // document.autoTable({html:'#recipe-list-table'})
-        // document.save("recipe-list.pdf")
-
         const title="Recipe List";
         const unit="pt";
         const size="A4";

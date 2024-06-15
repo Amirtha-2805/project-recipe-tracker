@@ -3,7 +3,7 @@ import "../styles/userhome.css"
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { setRecipeName, setsavedRecipes, userFeature } from "../redux/slices/userSlice";
-import RecipeList from "./userFeatures/RecipeList";
+import RecipeList from "./userFeatures/TodoList";
 import SavedRecipes from "./userFeatures/SavedRecipes";
 import { AiFillHome } from "react-icons/ai";
 import { BiSolidFoodMenu } from "react-icons/bi";
@@ -11,12 +11,11 @@ import { RiSaveFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import UserFeatureHome from "./userFeatures/UserFeatureHome";
 import noUser from "../styles/no-user.webp";
-import { db } from "../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc,getDoc } from "firebase/firestore";
 import { signup,setId,uLogin, setIsLogged,setUserAllDetails  } from "../redux/slices/userSlice";
 import Button from 'react-bootstrap/Button';
 import SavedRecipeView from "./userFeatures/SavedRecipeView";
 import { FaHome } from "react-icons/fa";
+import TodoList from "./userFeatures/TodoList";
 
 
 export default function UserHome(){
@@ -41,14 +40,10 @@ export default function UserHome(){
         dispatch(setsavedRecipes([]))
         dispatch(setRecipeName(""))
         dispatch(setIsLogged(false))
+        localStorage.removeItem("user_token")
         alert("You are logged out!")
             navigate("/")
     }
-    
-    
-   
-    
-    // console.log(fireBaseUserData.id)
        
     useEffect(()=>{
         dispatch(userFeature("savedRecipe"))      
@@ -77,7 +72,7 @@ export default function UserHome(){
                         <ul>
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("savedRecipe"))}><RiSaveFill className="icons" /> Saved Recipes</Link></li>                   
                             <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("Dashboard"))}> <AiFillHome className="icons"/> Dashboard</Link></li>                            
-                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("recipeList"))}><BiSolidFoodMenu className="icons"/> Recipe List</Link></li>
+                            <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("todoList"))}><BiSolidFoodMenu className="icons"/> Todo List</Link></li>
                         </ul>
                                 
                     <div className="userlogout">
@@ -86,10 +81,10 @@ export default function UserHome(){
             </div>
             <div className="userhomebody">
                      <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
-                    {userSlice.userFeatureStatus=="recipeList" ? <RecipeList/>:null}
+                    {userSlice.userFeatureStatus=="todoList" ? <TodoList/>:null}
                     {userSlice.userFeatureStatus=="savedRecipe" ? <SavedRecipes/>:null} 
                     {userSlice.userFeatureStatus=="Dashboard" ? <UserFeatureHome/>:null} 
-                    {userSlice.userFeatureStatus=="viewSaved" ? <SavedRecipeView />:null}                               
+                    {userSlice.userFeatureStatus=="viewSaved" ? <SavedRecipeView />:null}                              
             </div>
                
         </>

@@ -18,8 +18,11 @@ const IngredientList=()=>{
 
     const admin=useSelector((state)=>state.adminDetails)
 
-    const getIngredients=async()=>{           
-        let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients")
+    const getIngredients=async()=>{ 
+        let admin_token=localStorage.getItem("admin_token")
+        let parsed_admin_token=JSON.parse(admin_token) 
+        const headers={"Authorization":`Bearer ${parsed_admin_token}`}           
+        let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients",{headers})
         setIngredientList(getIngData.data)
     }
     useEffect(()=>{

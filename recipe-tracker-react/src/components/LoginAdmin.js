@@ -6,14 +6,11 @@ import { setAdmin, setAdminDetails, setAdminId, setName } from '../redux/slices/
 import { useSelector,useDispatch } from 'react-redux';
 import Footer from './Footer';
 import axios from 'axios';
+import { setAdminIsLogged } from '../redux/slices/adminSlice';
 
 
 export default function LoginAdmin(){
     const navigate = useNavigate();
-    const[adminEmailPwd,setAdminEmailPwd]=useState({
-        email:"",
-        name:""
-    })
     const adminGlobal=useSelector((state)=>state.adminDetails)
     let dispatch=useDispatch()
 
@@ -22,12 +19,15 @@ export default function LoginAdmin(){
         adminForm.append("admin_email",adminGlobal.adminLogin.admin_email)
         adminForm.append("admin_pwd",adminGlobal.adminLogin.admin_pwd)
         let getAdmin= await axios.post("https://amirtha14.pythonanywhere.com/adminlogin",adminForm)
+        console.log("responseadmin",getAdmin)
+        localStorage.setItem("admin_token",JSON.stringify(getAdmin.data[0].admin_token))
         dispatch(setAdminDetails({
             admin_id:getAdmin.data[0].admin_id,
             admin_name:getAdmin.data[0].admin_name,
             admin_email:getAdmin.data[0].admin_email
         }))        
             alert("Logged in succesfully")
+            dispatch(setAdminIsLogged(true))
                 navigate("/adminhome")        
      }
     

@@ -23,7 +23,9 @@ export const adminSlice=createSlice({
             recipe_url:"",
             recipe_iframe:""
         },
-        defaultRecipes:[]
+        defaultRecipes:[],
+        ingredientList:[],
+        isadminLogged:false,
               
     },
         reducers:{
@@ -44,10 +46,16 @@ export const adminSlice=createSlice({
             },
             setDefaultRecipes:(state,action)=>{
                 state.defaultRecipes=action.payload
+            },
+            setIngredientList:(state,action)=>{
+                state.ingredientList=action.payload
+            },
+            setAdminIsLogged:(state,action)=>{
+                state.isadminLogged=action.payload
             }
            
     }
 })
-export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails,setDefaultRecipes } = adminSlice.actions
+export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails,setDefaultRecipes,setAdminIsLogged,setIngredientList } = adminSlice.actions
 
 export default adminSlice.reducer

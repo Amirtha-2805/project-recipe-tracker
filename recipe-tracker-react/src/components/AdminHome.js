@@ -40,8 +40,10 @@ export default function AdminHome(){
             admin_email:"",
             admin_pwd:""
         }))
-        navigate("/")
+        localStorage.removeItem("admin_token")
         alert("You are logged out")
+        navigate("/")
+
     }
     
     // useEffect(()=>{

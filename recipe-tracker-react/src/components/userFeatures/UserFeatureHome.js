@@ -8,9 +8,7 @@ import { setTotalNo,setTotalVeg,setTotalNonVeg,setTotalAiRecipes,setsavedRecipes
 
 const UserFeatureHome=()=>{
     const userSlice=useSelector((state)=>state.userDetails)
-
-    let dispatch=useDispatch()
-   
+    let dispatch=useDispatch()  
     const totalSavedRecipes=()=>{
         let recipe_array_total=[]
         let total_veg_recipes=[]

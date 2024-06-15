@@ -42,39 +42,7 @@ export default function SignUp(){
         
         else{
             alert("Error")
-        }
-       
-       
-        // if(signupdata.usersignup.password==signupdata.usersignup.confirm_password){
-        //  createUserWithEmailAndPassword(auth,signupdata.usersignup.email,signupdata.usersignup.password)
-        // .then((useCredential)=>{
-        //     const user =useCredential.user;            
-        //     const addToFirebase= addDoc(dbref,{name:signupdata.usersignup.name,
-        //                                       email:signupdata.usersignup.email,          
-        //                                       password:signupdata.usersignup.password,
-        //                                       age:signupdata.usersignup.age,
-        //                                       gender:signupdata.usersignup.gender,
-        //                                       address:signupdata.usersignup.address,
-        //                                       phone:signupdata.usersignup.phone,
-        //                                       uid:user.uid})
-              
-        //     dispatch(setToken(user.accessToken))      
-        //     alert("Successfully Registered")
-        //     navigate(`/userlogin`)
-           
-        // }).catch((error)=>{
-        //     const errorCode=error.code;
-        //     const errorMessage=error.message;
-        //     console.log(errorCode,errorMessage)
-        //     if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){
-        //         alert("Please fill requirred details")
-        //     }
-        // })
-    // }
-    // else{
-    //     alert("please enter valid password")
-    // }
-       
+        }       
     }       
     return(
         <>           
@@ -127,13 +95,6 @@ export default function SignUp(){
                                         age:e.target.value
                                     }))}/>
                                 </div>
-                                {/* <div class="input-group input-lg">
-                                    <label>Gender</label>
-                                    <input type="text" class="form-control" placeholder="Enter gender..." onKeyUp={(e)=>dispatch(signup({
-                                        ...signupdata.usersignup,
-                                        gender:e.target.value
-                                    }))}/>
-                                </div> */}
                                  <div class="input-group input-lg" id="gender">
                                     <label>Gender</label>
                                     <input type="radio" name="gender" value="male" id="inputData" onChange={(e)=>dispatch(signup({

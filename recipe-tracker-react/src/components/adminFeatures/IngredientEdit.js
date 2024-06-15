@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/ingredient_edit.css"
-import { useDispatch } from "react-redux";
-import { adminFeatures } from "../../redux/slices/adminSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 
 const IngredientEdit=()=>{
-    const dispatch=useDispatch();
     let navigate=useNavigate();    
     let {id} = useParams();
     const adminData=useSelector((state)=>state.adminDetails)
    
-
-
     const[editedIngredient,setEditedIngredient]=useState({
         edited_ingredient:""
     })
@@ -38,7 +33,6 @@ const IngredientEdit=()=>{
     const updateIng=()=>{
         axios.put(`https://amirtha14.pythonanywhere.com/editing/${id}`,formData) 
         alert("Updated")  
-        // dispatch(adminFeatures("ingredientList"))
         navigate("/adminhome")   
     }
    
