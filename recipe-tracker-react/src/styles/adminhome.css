@@ -23,13 +23,13 @@
         border-radius: 60px;
         text-decoration: none;
     }
-    ul .userlist:hover,
+    /* ul .userlist:hover,
     ul .userlist .link .active{
         background: #172b4d;
         text-decoration: none;
         color:white;
         border-radius: 6px;
-    }
+    } */
     .adminhometitle{
         color:white;
         margin-top: 40px;
@@ -75,14 +75,19 @@
         margin-left: 10px;
     }
     .admin-name{
-        color: white;
+        color: black;
         margin-left: 63px;
-        margin-top: -45px;
+        text-transform: none;
+        margin-top: -10px;
+
     }
     .admin-email{
         color:grey;
         font-size: 15px;
         margin-left: 63px;
+        text-transform: lowercase;
+        margin-top: -10px;
+
     }
     #home-link{
         margin-left: 950px;

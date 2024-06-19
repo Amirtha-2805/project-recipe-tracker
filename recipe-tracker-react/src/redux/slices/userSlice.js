@@ -14,8 +14,8 @@ export const userSlice=createSlice({
         },
         final_password:"",
         userlogin:{
-            email:"",
-            password:""
+            email:"ammu@gmail.com",
+            password:"123456"
         },
         userAllDetails:{
             id:"",

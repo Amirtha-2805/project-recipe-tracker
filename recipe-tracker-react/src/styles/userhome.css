@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
-    .sidenav{
-        width: 300px;;
+    #sidenav{
+        width: 300px;
         background: #011627;
         position:fixed;
         left:0;
@@ -16,25 +16,25 @@
     }
     ul .userfeaturelist{
         list-style: none;
-        color: white;
+        color:black;
         margin: 40px 0;
         
         
     }
     ul .userfeaturelist .link{
-        color: white;
+        color: black;
         display: block;
         padding: 10px 15px;
         border-radius: 60px;
         text-decoration: none;
     }
-    ul .userfeaturelist:hover,
+    /* ul .userfeaturelist:hover,
     ul .userfeaturelist .link .active{
         background: #172b4d;
         text-decoration: none;
         color:white;
         border-radius: 6px;
-    }
+    } */
     .userhometitle{
         color:white;
         margin-top: 40px;
@@ -52,13 +52,13 @@
 
     }
     .userlogout{
-        margin-top: 200px;
+        /* margin-top: 200px; */
         text-align: center;
       
     } 
     .userhomebody{
         width:50%;
-        margin-left: 250px;
+        /* margin-left: 250px; */
         position: relative;
     }  
     .user-no-user{
@@ -67,20 +67,29 @@
         margin-top: 20px;
         margin-left: 10px;
     }
+    .no-user{
+        margin-top: 50px;
+    }
+    #user-details{
+        /* border: 1px solid black; */
+        margin-top: 20px;
+    }
     .user-name{
-        color: white;
+        color: black;
         margin-left: 63px;
-        margin-top: -45px;
+        text-transform:none;
+        margin-top: -10px;
     }
     .user-email{
-        color:grey;
+        color: black;
         font-size: 15px;
         margin-left: 63px;
+        text-transform: lowercase;
+        margin-top: -10px;
     }
     
     #home-link{
-        margin-left: 950px;
-        /* margin-top: 10px; */
+        margin-left: 950px;       
         border-radius: 20px;
         background-color: #01192e;
         color:white;
@@ -90,7 +99,7 @@
         position: absolute;
         top:0;
         border-style: none;
-        /* left:50px */
+        
     }
     #home-link:hover{
        background-color: grey;

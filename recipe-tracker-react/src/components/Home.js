@@ -23,19 +23,57 @@ const Home=()=>{
     let ingredientListglobal=useSelector((state)=>state.adminDetails.ingredientList)
     const[recipe,setRecipe]=useState("")
     // const question="Recipe details only with these ingredients and provide the recipe name in bold"  
-    const question=`Generate recipe with preparation using below ingredients. Recipe Title should be Bold and below format ingredients:${recipe} Recipe Title Format : RECIPE_TITLE : =>TITLE<=`
+    const question=`ingredients:${recipe}.\n Generate recipe with recipe details using only with the given ingredients and the format must be in the below sample format                      
+                    RECIPE_TITLE: SAMPLE_TEXT
+                    INSTRUCTIONS: SAMPLE_TEXT                    
+                    `
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
-    const[ingredients,setIngredients]=useState([])
+    const [recipeNameForImage,setRecipeNameForImage]=useState("")
+    // const content = result;
+    // const matches = content.match(`RECIPE_TITLE(.*?)PREPARATION_CONTENT`);
+    // const recipeName = matches ? matches[1].trim() : null;
+    // console.log("recipe_name",recipeName)
 
-    const content = result;
-    const matches = content.match(/=>(.*?)</);
-    const recipeName = matches ? matches[1].trim() : null;
-    console.log("recipe_name",recipeName)
+// const aiResponse = result
+// const startMarker1 = "RECIPE_TITLE :";
+// const startMarker2 = "RECIPE_TITLE:";
+// const endMarker1 = " INSTRUCTIONS :";
+// const endMarker2 = " INSTRUCTIONS:";
 
-console.log(result);
-   
+// function extractRecipeName(response) {
+//   let startIndex = -1;
+//   let endIndex = -1;
+
+//   if (response.includes(startMarker1)) {
+//     startIndex = response.indexOf(startMarker1) + startMarker1.length;
+//   } else if (response.includes(startMarker2)) {
+//     startIndex = response.indexOf(startMarker2) + startMarker2.length;
+//   }
+
+//   if (response.includes(endMarker1)) {
+//     endIndex = response.indexOf(endMarker1);
+//   } else if (response.includes(endMarker2)) {
+//     endIndex = response.indexOf(endMarker2);
+//   }
+
+//   if (startIndex !== -1 && endIndex !== -1) {
+//     const recipeName = response.substring(startIndex, endIndex).trim();
+//     return recipeName;
+//   } else {
+//     return null;
+//   }
+
+// }
+
+//     let result_recipe=extractRecipeName(aiResponse);
+//     console.log("RecipeName",result_recipe)
+
+
+
+
+
     let dispatch=useDispatch()
     const [messages, setMessages] = useState([
         {
@@ -97,6 +135,7 @@ console.log(result);
             },
         }).then((response)=>{
             console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
+
             const text=response['data']['candidates'][0]['content']['parts'][0]['text']
             
             let responseArray=text.split("*");
@@ -108,11 +147,24 @@ console.log(result);
                 else{
                     newResponse=newResponse+responseArray[i]
                 }
-            }       
+            }  
+            let recipeTitle = "";
+
+            if (newResponse) {
+                const splitIndex = newResponse.indexOf(":");                
+                if (splitIndex !== -1) {
+                    recipeTitle= newResponse.slice(splitIndex + 1).trim();
+                } else {
+                    recipeTitle = newResponse;
+                }
+            }     
             setResult(newResponse)
             setLoading(false)
+            setRecipeNameForImage(recipeTitle)
+            console.log("Recipe Nameeeee:", recipeTitle);
         })
     }
+    console.log("state",recipeNameForImage)
         
          //open ai      
         // const newMessage = {
@@ -259,49 +311,39 @@ console.log(result);
     
     return(
         <>
-        <div className="home-body">
-        {userLogin.isLogged==true?  <Navbar expand="lg" className="custom-navbar">
-              <Navbar.Brand href="/">Recipe Tracker</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="ml-auto">
-                      <div className="user-data">
-                      <img src={noUser} className="user-no-userhome"/>
-                     <Link to={"/userhome"} className="user-mail" >{userLogin.userlogin.email}</Link>
-                     </div>
-                  </Nav>
-              </Navbar.Collapse>
-          </Navbar>:<NavBar/>}
+        <div className="home-body">          
+           {userLogin.isLogged==true?  <Nav className="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" id="navbar-box" >
+        <div className="container-fluid" id="custom-navbar">
+          <div className="navbar-wrapper">
+            <Link className="navbar-brand" to={"/"}>Recipe Tracker</Link>
+          </div>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-end" id="navigation">
+          <img src={noUser} className="user-no-userhome"/>
+          <Link to={"/userhome"} className="user-mail" >{userLogin.userlogin.email}</Link>
+          </div>
+        </div>
+      </Nav>:<NavBar/>}
 
-          {/* {adminLoginStatus.adminisLogged==true?  <Navbar expand="lg" className="custom-navbar">
-              <Navbar.Brand href="/">Recipe Tracker</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="ml-auto">
-                      <div className="user-data">
-                      <img src={noUser} className="user-no-userhome"/>
-                     <Link to={"/userhome"} className="user-mail" >{adminLoginStatus.adminlogin.admin_email}</Link>
-                     </div>
-                  </Nav>
-              </Navbar.Collapse>
-          </Navbar>:<NavBar/>}   */}
-
-          {/* <button type="button" onClick={()=>fetchData()}>Generate Image</button> */}
             <center>
                 <form>
                 <div className="input-ingredients">        
-                    <label className="homelabel">Enter ingredients to get your special recipe..!</label>                        
+                    <label className="homelabel" >Enter ingredients to get your special recipe..!<i className="fa fa-heart heart"></i></label>                        
                     <br/> 
-                    <br/>                   
-                    <Select value={ingredientsInput} onChange={handleChange} onkeyUp={(e)=>setIngredientsInput(e.target.value)} isMulti options={mapped_data} placeholder="Select your ingredients"/>
-                    <br/>
-                    
+                   
+                    <div className="container-fluid-md">                                     
+                        <Select value={ingredientsInput} id="selectbox" onChange={handleChange} onkeyUp={(e)=>setIngredientsInput(e.target.value)} isMulti options={mapped_data} placeholder="Select your ingredients" />       
+                    </div>
                     <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
                     <br/> 
                     <br/>                            
                     {isLoading==true ? 
                         <>
-                        <Spinner animation="border" role="status" style={{color:"white"}}>
+                        <Spinner animation="border" role="status" style={{color:"black"}}>
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>
                         </>
@@ -341,7 +383,7 @@ console.log(result);
                 </div>
                 </form>
             </center>  
-            <h1 style={{textAlign:"center",color:"white",marginTop:"10px"}}>Vegeterian</h1>
+            <h1 style={{textAlign:"center",color:"black",marginTop:"10px"}}>Vegeterian</h1>
             <div className="veg"> 
             {
                 defaultDetails.map((recipe,i)=>{
@@ -373,8 +415,8 @@ console.log(result);
                 })                
             }
             </div>
-            <hr className="ruler"/>
-            <h1 style={{textAlign:"center",color:"white"}}>Non Vegeterian</h1>
+            <hr className="ruler" style={{color:"white"}}/>
+            <h1 style={{textAlign:"center",color:"black"}}>Non Vegeterian</h1>
             <div className="nonveg">
             {
                 defaultDetails.map((recipe,i)=>{

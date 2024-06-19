@@ -57,12 +57,13 @@ export default function UserHome(){
     //         navigate("/")
     //     }
     // },[])
-  
+   
+
     
     return(       
         <>  
 
-            <div className="sidenav">
+         {/* <div className="sidenav">
                     <div className="no-user">
                             <img src={noUser} className="user-no-user"/>
                             <h6 className="user-name">{userSlice.userAllDetails.user_name}</h6>
@@ -78,15 +79,66 @@ export default function UserHome(){
                     <div className="userlogout">
                         <button className="btn btn-danger btn-sm " onClick={userLogOut}>Logout</button>
                     </div>                
+            </div>  */}
+             <div className="sidebar" data-color="default" data-active-color="danger">
+     
+     
+      <div className="sidebar-wrapper">
+        <div className="user">
+          <div className="photo">
+            <img src={noUser}/>
+          </div>
+          <div className="info" id="user-details">
+            <a data-toggle="collapse" href="#collapseExample" className="collapsed">
+              <span>
+              <div className="no-user">
+                  <h6 className="user-name">{userSlice.userAllDetails.user_name}</h6>
+                  <h6 className="user-email">{userSlice.userAllDetails.user_email}</h6>                                                        
+              </div>            
+              </span>
+            </a>
+           
+          </div>
+        </div>
+        <ul className="nav">
+       
+          <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("savedRecipe"))}><RiSaveFill className="icons" /> Saved Recipes</Link></li>                   
+
+          <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("Dashboard"))}> <AiFillHome className="icons"/> Dashboard</Link></li>                            
+
+          <li className="userfeaturelist"><Link className="link" onClick={()=>dispatch(userFeature("todoList"))}><BiSolidFoodMenu className="icons"/> Todo List</Link></li>         
+        </ul>
+        <div className="userlogout">
+                        <button className="btn btn-danger btn-sm " onClick={userLogOut}>Logout</button>
+                    </div>      
+      </div>
+    </div>
+
+    <nav className="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div className="container-fluid">
+          <div className="navbar-wrapper">
+            <div className="navbar-toggle">
+              <button type="button" className="navbar-toggler">
+                <span className="navbar-toggler-bar bar1"></span>
+                <span className="navbar-toggler-bar bar2"></span>
+                <span className="navbar-toggler-bar bar3"></span>
+              </button>
             </div>
+          </div>
+        </div>
+      </nav>
+    <div className="main-panel">
             <div className="userhomebody">
-                     <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
+                    <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome classNameName="home-icon" /> Home</button>
                     {userSlice.userFeatureStatus=="todoList" ? <TodoList/>:null}
                     {userSlice.userFeatureStatus=="savedRecipe" ? <SavedRecipes/>:null} 
                     {userSlice.userFeatureStatus=="Dashboard" ? <UserFeatureHome/>:null} 
                     {userSlice.userFeatureStatus=="viewSaved" ? <SavedRecipeView />:null}                              
             </div>
                
+    </div>
+ 
+          
         </>
     )
 }

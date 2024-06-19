@@ -14,8 +14,6 @@ import {useSelector,useDispatch} from 'react-redux'
 import { useEffect } from 'react';
 import {  setToken, signup } from './redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
 import AdminFeatureHome from './components/adminFeatures/AdminFeatureHome';
 import RecipeEdit from './components/adminFeatures/RecipeEdit';
 import IngredientEdit from './components/adminFeatures/IngredientEdit';

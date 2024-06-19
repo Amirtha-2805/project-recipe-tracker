@@ -25,27 +25,26 @@
 .signupbtn{
     margin-left: 70px;
 }
-.para{
-    color: white;
-}
+
 label{
     color:white;
     margin-right: 40px;
     width:22%
 }
-.form-control{
-    /* border-radius: 20px; */
-    margin-top: 10px;
 
-}
 #gender{
     display: flex;
     gap:5px
 }
-#gender-text{
-    color:white;
-    margin-top: 5px;
-}
+
 #signup-form{
     margin-top: 5px;
 }
+
+#reg-bg{
+    background-image: url('../../public/assets/img/bg/loginbg.jpg');
+    size: cover;
+    height: 150vh;
+    margin-top: 0;
+    /* opacity: 0.9.5; */
+  }

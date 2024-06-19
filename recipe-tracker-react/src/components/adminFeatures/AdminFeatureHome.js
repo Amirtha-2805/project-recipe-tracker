@@ -71,7 +71,7 @@ useEffect(()=>{
 // console.log("total",noOfIngredients)
 return(
     <>
-        <div className="dash-board-body">
+     <div className="dash-board-body">
             <div className="total">
                     <p className="total-head"><b>Total Users</b></p>
                     <h2 className="number"><b>{noOfUsers.length}</b></h2>
@@ -89,7 +89,9 @@ return(
                     <p className="nonveg-para">Non-veg {nonVeg}</p>
             </div>
 
-        </div>
+        </div>       
+    
+        
     </>
 
 

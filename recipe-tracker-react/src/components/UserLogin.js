@@ -43,41 +43,57 @@ export default function Userlogin(){
     return(
         <>
             <NavBar/> 
-            <center>
-                <div className="card-body">
-                    <div className="login-input">       
-                        <h3 className="card-title" style={{color:"white"}}>Login</h3>
-                        <br/>
-                        <div className="login-box">
-                            <br/>
-                            <div className="login-body">
-                                <form>
-                                <div className="input-group input-lg">               
-                                    <label>Email</label>    
-                                    <input type="text" className="form-control" placeholder="Enter email..." onKeyUp={(e)=>dispatch(uLogin({
+            <div class="wrapper wrapper-full-page ">
+<div className="full-page section-image" id="user-bg" filter-color="black" data-image="">
+<div className="content">
+
+
+    <div className="container">
+        <div className="col-lg-4 col-md-6 ml-auto mr-auto">
+            <form className="form" method="" action="">
+                <div className="card card-login">
+                    <div className="card-header ">
+                        <div className="card-header ">
+                            <h3 className="header text-center">Login</h3>
+                        </div>
+                    </div>
+                    <div className="card-body ">
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">
+                                    <i className="nc-icon nc-single-02"></i>
+                                </span>
+                            </div>
+                            <input type="email" className="form-control" placeholder="Enter Email..." onKeyUp={(e)=>dispatch(uLogin({
                                         ...userLoginData.userlogin,
                                         email:e.target.value
                                     }))}/>
-                                </div>
-                                <div className="input-group input-lg">             
-                                    <label>Password</label> 
-                                    <input type="password" className="form-control" placeholder="Enter Password..." onKeyUp={(e)=>dispatch(uLogin({
+                        </div>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">
+                                    <i className="nc-icon nc-key-25"></i>
+                                </span>
+                            </div>
+                            <input type="password" placeholder="Enter Password" className="form-control" onKeyUp={(e)=>dispatch(uLogin({
                                         ...userLoginData.userlogin,
                                         password:e.target.value
                                     }))}/>
-                                </div>
-                                </form>    
-                            </div>   
-                            <br/>          
-                            <div className="loginbtn">
-                                <button className='btn btn-primary' type="button" onClick={()=>userLogin()}>Login</button>
-                                <br/>
-                                <p className="user-para"> Not Registered yet? <Link to={"/signup"}>Register</Link></p>
-                            </div>
                         </div>
                     </div>
+                    <div className="card-footer ">
+                        <button type='button' href="javascript:;" className="btn btn-warning btn-round btn-block mb-3" onClick={()=>userLogin()}>Login</button>
+                        <br/>
+                        <p className="user-para"> Not Registered yet? <Link to={"/signup"}>Register</Link></p>            
+                    </div>
                 </div>
-            </center>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
             <Footer/>
         </>
     )

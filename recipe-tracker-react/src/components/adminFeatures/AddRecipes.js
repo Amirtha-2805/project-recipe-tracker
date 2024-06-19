@@ -19,15 +19,6 @@ const AddRecipes=()=>{
                      label:"Non-vegeterian"   
                     }
                 ]
-    let defaultForm=new FormData()
-    defaultForm.append("recipe_name",adminFeaturesSliceData.addRecipes.recipe_title)
-    defaultForm.append("recipe_category",isSelected.label) 
-    defaultForm.append("recipe_ingredients",adminFeaturesSliceData.addRecipes.ingredients)
-    defaultForm.append("recipe_instructions",adminFeaturesSliceData.addRecipes.instructions)
-    defaultForm.append("recipe_image",image)
-    defaultForm.append("recipe_url",adminFeaturesSliceData.addRecipes.recipe_url)
-    defaultForm.append("recipe_iframe",adminFeaturesSliceData.addRecipes.recipe_iframe)
-
    
 const handleChange=(selected)=>{
     setIsSelected(selected)

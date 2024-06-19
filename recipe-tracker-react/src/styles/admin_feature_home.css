@@ -1,6 +1,5 @@
 .dash-board-body{
-    /* border: 1px solid black; */
-    width:162.9%;
+    width:100%;
     height:100vh;
     margin-left: 1500x;
     padding-top: 30px;
@@ -31,7 +30,7 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
     margin-left: 20px;
     margin-top: 200px;
     border-radius: 10px;
-    color: white;
+    color: black;
     -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
 -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
@@ -41,22 +40,26 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
     margin-left: 10px;
     font-size: 15px;
     margin-top: 10px;
-    color: white;
+    color: black;
+    
 }
 .number{
     text-align: center;
     margin-top: 5px;
-    color: white;
+    color: black;
+
 }
 .male-para{
    
     text-align: center;
-    color: white;
+    color: black;
+
 }
 .female-para{
    text-align: center;
    margin-top: -10px;
-   color: white;
+   color: black;
+
 }
 .number-of-ing{
     text-align: center;
@@ -70,7 +73,8 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
     margin-left:20px;
     margin-top: 200px;
     border-radius: 10px;
-    color: white;
+    color: black;
+
     -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
 -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
@@ -78,11 +82,13 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 .veg-para{
    
     text-align: center;
-    color: white;
+    color: black;
+
 }
 .nonveg-para{
    text-align: center;
    margin-top: -10px;
-   color: white;
+   color: black;
+
 }
 
