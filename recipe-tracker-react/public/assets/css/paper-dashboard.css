@@ -13251,16 +13251,20 @@ img {
   width: 260px;
   left: 0;
   z-index: 999;
+ 
+
 }
 
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
   height: calc(100vh - 75px);
-  overflow: auto;
+  /* overflow: auto; */
   width: 260px;
   z-index: 4;
   padding-bottom: 100px;
+  background-color: #141E30 !important;
+  color:white !important
 }
 
 .sidebar .sidebar-wrapper .dropdown .dropdown-backdrop,
@@ -13845,9 +13849,9 @@ img {
 }
 
 .main-panel>.content {
-  padding: 0 30px 30px;
+  /* padding: 0 30px 30px; */
   min-height: calc(100vh - 160px);
-  margin-top: 93px;
+  margin-top: 70px;
 }
 
 .main-panel>.navbar {

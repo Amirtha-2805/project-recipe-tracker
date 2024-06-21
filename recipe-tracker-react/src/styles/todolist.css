@@ -1,21 +1,59 @@
 
-.todo-body{
-    width:163%;
-    padding-top: 40px;
-    background: linear-gradient(#0c0e1d,#2b2c28);
+.todo-body {
+    background: linear-gradient(#0c0e1d, #2b2c28);
     background-size: cover;
-    height: 190vh;     
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
 }
-.recipe-list-head{
-    color:white;
-    padding-left: 500px;
+.recipe-input{
+    margin-left: 200px
 }
-.selectsaved-box{
-    margin-top: -80px;
-}
-#savedrec-submit-btn{
-    margin-left: 300px;
-}
-#todotable{
-    margin-left: 200px;
-}
+.input-container-todo{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    width:80%;
+    }
+
+ 
+  .selectsaved-box {
+    text-align: center; 
+    margin-top: 20px; 
+  }
+  
+  #savedrec-submit-btn {
+    margin: 20px auto; /* Center button horizontally with vertical space */
+    display: block; /* Ensure button takes full width */
+  }
+  
+  #todotable {
+    margin: 20px auto; 
+    margin-left: 100px;
+     /* Full width table */
+  }
+  #category{
+    color: black;
+  }
+  @media (max-width: 768px) {
+    .todo-body {
+      padding: 20px; /* Reduce padding on smaller screens */
+    }
+  
+    .recipe-list-head {
+      font-size: 24px; /* Decrease font size */
+    }
+    .input-container-todo{
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+        width:100%;
+        margin-left: -200px;
+    }
+    #savedrec-submit-btn,
+    #todotable {
+      margin: 10px auto; /* Center elements with reduced space */
+    }
+  }
+  
+  

@@ -20,21 +20,13 @@ import IngredientEdit from './components/adminFeatures/IngredientEdit';
 import DefaultRecipeView from './components/adminFeatures/DefaultRecipeView';
 import SavedRecipeView from './components/userFeatures/SavedRecipeView';
 import EditTodo from './components/userFeatures/EditTodo';
+import CustomSearch from './components/CustomSearch';
 
 function App() {
     const user_token=useSelector((state)=>state.userDetails.token)
 
     let dispatch=useDispatch()
-  // const navigate=useNavigate()
-      
-  // const checkAuth=async ()=>{
-  //   await onAuthStateChanged(auth,(currentuser)=>{
-  //     dispatch(setToken(currentuser.accessToken))
-  //     dispatch(signup(currentuser))
-     
-  //     dispatch(setIsLogged(true))
-  //   })
-  // }
+ 
   return (
     
     <div className="App">
@@ -53,6 +45,7 @@ function App() {
             <Route path='/defaultrecipeview/:id' element={<DefaultRecipeView/>}></Route>
             <Route path='/savedrecipeview/:id' element={<SavedRecipeView/>}></Route>
             <Route path='/todoedit/:id' element={<EditTodo/>}></Route>
+            <Route path='/customsearch' element={<CustomSearch />}/>
 
             
 

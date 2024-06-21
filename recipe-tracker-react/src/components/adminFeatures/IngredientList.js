@@ -57,7 +57,7 @@ const IngredientList=()=>{
     
        return(
         <>
-        <center>
+       
             <div className="ing-heading">
                 <h1 className="ing-list">Ingredient List</h1>
             </div>
@@ -65,7 +65,7 @@ const IngredientList=()=>{
                 <button type="button" className="btn btn-warning" id="addbtn" onClick={() => dispatch(adminFeatures("addIngredients"))}>Add Ingredients</button>
             </div>
             <div className="inglist-body">
-                <table border="1" className="table table-striped" id="ing-table">
+                <table border="1" className="table table-dark table-striped-columns" id="ing-table">
                     <thead>
                         <tr>
                             <th>Ingredients</th>
@@ -89,7 +89,7 @@ const IngredientList=()=>{
                 </table>
             </div>
             
-        </center>
+        
         <br/>
         <center>
         <button className="btn btn-warning" id="dnbtn" onClick={generateIngPdf}>DownLoad PDF</button>

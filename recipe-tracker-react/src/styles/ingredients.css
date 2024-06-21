@@ -5,7 +5,7 @@
     /* margin-bottom: 40px;    */
 }
 .ing-head{
-    margin-left: 500px;
+    margin-left: 712px;
     padding-top: 200px;
     color: white;
 }
@@ -14,12 +14,12 @@
     margin-left: -100px;
 }
 #submitbtn{
-    margin-top: 20px;
+    margin-top: 24px;
     margin-right: 100px;
-    /* margin-left: -330px; */
+    margin-left: -95px;
 }
 .ingredient-container{
-    width:163%;
+    width:100%;
     display: flex;
     flex-direction: column;
     background: linear-gradient(#0c0e1d,#2b2c28);
@@ -31,7 +31,28 @@
     display: flex;
 }
 .ing-input{
-    width:50%;
-    margin-left: 430px;
+    width:20%;
+    margin-left: 740px;
     margin-top: 20px;
+}
+@media (max-width:768px) {
+    .ingredient-container{
+        width:150%;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(#0c0e1d,#2b2c28);
+        background-size: cover;
+        height: 120vh; 
+        
+    }
+    .ing-head{
+        margin-left: 505px;
+        padding-top: 200px;
+        color: white;
+    }
+    .ing-input{
+        width:20%;
+        margin-left: 538px;
+        margin-top: 20px;
+    }
 }

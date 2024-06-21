@@ -33,11 +33,16 @@ const TodoList=()=>{
     todoForm.append("user_id",userSliceId.userAllDetails.id)
     todoForm.append("selected_recipe",selectedRecipe.label)
     todoForm.append("selected_datetime",dateTimeValue)
-    const selectedRecipeSubmit=()=>{       
-        axios.post("https://amirtha14.pythonanywhere.com/storetodolist",todoForm)
-        alert("submitted")
-        get_user_todo()
-    }
+
+    // const selectedRecipeSubmit=()=>{       
+    //     axios.post("https://amirtha14.pythonanywhere.com/storetodolist",todoForm)
+    //     alert("submitted")
+    //     get_user_todo()
+    // }
+    // const selectedRecipeSubmit=()=>{       
+    //     axios.get("https://www.googleapis.com/customsearch/v?key=AIzaSyAVM_7fMOBtHxwNfBb_7aXa5VohS0dZewY&q=Lemon Rice&searchType=image")
+    //    // get_user_todo()
+    // }
        
     const get_user_todo=()=>{
         axios.get(`https://amirtha14.pythonanywhere.com/getusertodo/${userSliceId.userAllDetails.id}`).then((res)=>{
@@ -47,7 +52,6 @@ const TodoList=()=>{
     useEffect(()=>{
         get_user_todo()
     },[])
-
    
     const deleteTodo=(todoid)=>{
         axios.delete(`https://amirtha14.pythonanywhere.com/deletetodo/${todoid}`).then((res)=>{
@@ -61,18 +65,22 @@ const TodoList=()=>{
     
     return(
         <>
+        <center>
             <div className="todo-body">
+            <div className="container">               
+
             <h1 className="recipe-list-head">Todo List</h1>
  
-            <div className="input-container">           
+            <div className="input-container-todo"> 
+                
                 <div className="recipe-input">
-                  <form>
+                           <form>
                      <div className="select">
-                         <label>Select Saved Recipes</label>
                          <div className="selectsaved-box">
                          <Select options={showoptions} placeholder="Select recipe" onChange={handleChange} id="category"/>                                
                          </div>
                      </div>
+                     <br/>
                     <div className="input-group input-lg">
                         <label>Date and Time</label>
                         <input type="datetime-local" className="form-control" onChange={handleDateTimeChange}/>
@@ -81,12 +89,16 @@ const TodoList=()=>{
                         <button type="button" className="btn btn-warning" id="savedrec-submit-btn" onClick={()=>selectedRecipeSubmit()}>Submit</button>
                     </div>
                     </form>
+                    </div>
+
                 </div>
             </div>
         <hr/>
         <div className="container" >
-            <div className="row">  
+           
+           
             <div className="col-md-8">   
+                <center>
             <table border={1}  className="table table-dark table-striped-columns" id="todotable">
                 <thead>
                     <tr>
@@ -115,11 +127,13 @@ const TodoList=()=>{
                 </tbody>
                 
             </table> 
+            </center>
+            
             </div>
             </div> 
             </div>      
-        </div>  
-            
+          
+        </center>
         </>
     )
 

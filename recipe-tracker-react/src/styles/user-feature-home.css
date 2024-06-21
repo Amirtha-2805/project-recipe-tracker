@@ -1,26 +1,34 @@
-.user-dash-board-body{
-    width:162.9%;
+
+.user-dash-board-body {
     padding-top: 30px;
     display: flex;
     justify-content: center;
-    background: linear-gradient(#0c0e1d,#2b2c28);
+    background: linear-gradient(#0c0e1d, #2b2c28);
     background-size: cover;
-    height: 120vh; 
-    width:157%;
-    margin-left: 40px;
-
+    min-height: 100vh; /* Changed to min-height for full viewport height */
 }
 
-
-.saved-total-recipe{
+.saved-total-recipe {
     border: 1px solid black;
-    width:18%;
-    height:30vh;
-    margin-left:20px;
-    margin-top: 200px;
+    width: 18%;
+    height: 35vh;
+    margin-left: 200px;
+    margin-top: 200px; /* Adjusted margin for better spacing */
     border-radius: 10px;
     color: white;
-    -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
-    -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
-    box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+    box-shadow: 0px 0px 14px 0px rgba(215, 221, 224, 0.58);
+}
+
+@media (max-width: 768px) {
+    .user-dash-board-body {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: center; /* Center items horizontally */
+        padding: 20px;
+        height: auto; /* Allow content to dictate height */
+    }
+
+    .saved-total-recipe {
+        width: 80%; /* Adjusted width for better fit on smaller screens */
+        margin: 20px 0; /* Adjusted margin for spacing */
+    }
 }

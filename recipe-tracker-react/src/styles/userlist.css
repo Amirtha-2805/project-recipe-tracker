@@ -4,12 +4,12 @@
     /* width:100%; */
     height: 80vh;
     overflow-y: scroll;
-    margin-left: 130px;
-    width:80%;
+    margin-left: 450px;
+    width:50%;
     margin-top: 30px;
 }
 .user-list-head{
-    margin-left: 490px;
+    margin-left: 700px;
     padding-top: 30px;
     color: white;
 
@@ -18,5 +18,27 @@
     background: linear-gradient(#0c0e1d,#2b2c28);
     background-size: cover;
     height: 120vh; 
-    width:163%
+    /* width:163% */
+}
+@media (max-width:768px) {
+    .user-body{
+        background: linear-gradient(#0c0e1d,#2b2c28);
+        background-size: cover;
+        height: 120vh; 
+        width:100%
+    }
+    .user-list-head{
+        margin-left: 335px;
+        padding-top: 30px;
+        color: white;
+    
+    }   
+    .user-list-table{
+        border: 1px solid black;
+        height: 80vh;
+        overflow-y: scroll;
+        margin-left: 125px;
+        width:70%;
+        margin-top: 30px;
+    }
 }

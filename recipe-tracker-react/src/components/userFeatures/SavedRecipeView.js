@@ -23,20 +23,20 @@ const SavedRecipeView=()=>{
    
     return(
         <>
-            <center>
+            <center>   
+                <div className="saved-view-body">
+                <h2 className="view-saved-head">Here is a detailed Recipe..!</h2>
+                    <div className="view-table">
                 {
                     userSlice.savedRecipes.map((recipes)=>{
                         if(recipes.recipe_name==userSlice.recipe_name){
                             return(
-                                <div id="exportToPdf">
-                                <div className="saved-view-body">
-                                <h2 className="view-head">Here is a detailed Recipe..!</h2>
-                                
+                                  <div className="saved-view-box">                           
                                 <img src={recipes.recipe_image} width={"30%"} className="saved-recipe-image" />
                                 
                                
                                 <h3 className="recipe-name">{recipes.recipe_name}</h3>
-                                <div>
+                                <div className="saved-category">
                                 {recipes.recipe_category!="AI" ? <h5>Category: {recipes.recipe_category}</h5>:null  }
 
                                    
@@ -49,22 +49,25 @@ const SavedRecipeView=()=>{
                                     <h4>Instructions</h4>
                                     <p className="saved-instruction-para">{recipes.recipe_instructions}</p>
                                 </div>
-                                <div>
+                                <div className="recipe-video">
                                     <p><Link to={recipes.recipe_url}>Watch Video</Link></p>
                                 </div>
 
-                                {/* <button className="btn btn-warning" onClick={()=>saveAsPdf()}>DownLoad PDF</button> */}
-                                </div>
-
+                                </div> 
+                                
 
 
                             
-                            </div>
+                           
                             )
                         }
                     })
                 }
+                </div>
+                        
+                        </div>
                         </center>
+
                 
 
         </>

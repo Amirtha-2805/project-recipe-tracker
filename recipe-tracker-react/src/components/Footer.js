@@ -17,7 +17,7 @@ const Footer=()=>{
             <div className="credits ml-auto">
               <span className="copyright">
                 <b>
-               <h5> © made with <i className="fa fa-heart heart"></i> by Amirtha </h5></b>
+               <h5> © made by Amirtha </h5></b>
               </span>
             </div>
           </div>

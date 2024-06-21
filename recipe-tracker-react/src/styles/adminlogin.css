@@ -27,11 +27,9 @@
  .adminloginbtn{
     margin-left: 100px;
  }
- #admin-bg{
+ /* #admin-bg{
    background-image: url('../../public/assets/img/bg/loginbg.jpg');
    size:cover;
    height: 100vh;
    margin-top: 0;
-   
-   /* opacity: 0.9; */
- }
+ } */

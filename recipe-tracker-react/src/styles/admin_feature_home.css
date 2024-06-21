@@ -1,20 +1,18 @@
 .dash-board-body{
     width:100%;
-    height:100vh;
-    margin-left: 1500x;
+    height:100vh;   
     padding-top: 30px;
     display: flex;
     justify-content: center;
     background: linear-gradient(#0c0e1d,#2b2c28);
     background-size: cover;
     height: 120vh; 
-    width:163%
-}
+    }
 .total{
     border: 1px solid black;
-    width:18%;
+    width:20%;
     height:28vh;
-    margin-left: 60px;
+    margin-left: 250px;
     margin-top: 200px;
     border-radius: 10px;
     color: white;
@@ -25,12 +23,12 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 
 .total-ingredients{
     border: 1px solid black;
-    width:18%;
+    width:20%;
     height:28vh;
-    margin-left: 20px;
+    margin-left: 30px;
     margin-top: 200px;
     border-radius: 10px;
-    color: black;
+    color: white;
     -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
 -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
@@ -40,25 +38,25 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
     margin-left: 10px;
     font-size: 15px;
     margin-top: 10px;
-    color: black;
+    color: white;
     
 }
 .number{
     text-align: center;
     margin-top: 5px;
-    color: black;
+    color: white;
 
 }
 .male-para{
    
     text-align: center;
-    color: black;
+    color:white;
 
 }
 .female-para{
    text-align: center;
    margin-top: -10px;
-   color: black;
+   color:white;
 
 }
 .number-of-ing{
@@ -68,12 +66,12 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 
 .total-recipe{
     border: 1px solid black;
-    width:18%;
+    width:20%;
     height:28vh;
-    margin-left:20px;
+    margin-left:30px;
     margin-top: 200px;
     border-radius: 10px;
-    color: black;
+    color: white;
 
     -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
 -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
@@ -82,13 +80,67 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
 .veg-para{
    
     text-align: center;
-    color: black;
+    color:white;
 
 }
 .nonveg-para{
    text-align: center;
    margin-top: -10px;
-   color: black;
+   color:white;
 
 }
 
+  
+  @media (max-width:768px) {
+    .dash-board-body{
+        width:100%; 
+        /* padding-top: 30px; */
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(#0c0e1d,#2b2c28);
+        background-size: cover;
+        min-height: 150vh; 
+        }
+        .total{
+            border: 1px solid black;
+            width:50%;
+            height:28vh;
+            margin-left: -10px;
+            margin-top: -200px;
+            border-radius: 10px;
+            color: white;
+            -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
+        -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        }
+        
+        .total-ingredients{
+            border: 1px solid black;
+            width:50%;
+            height:28vh;
+            margin-left: -10px;
+            margin-top: 50px;
+            border-radius: 10px;
+            color: white;
+            -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
+        -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        
+        }
+        .total-recipe{
+            border: 1px solid black;
+            width:50%;
+            height:28vh;
+            margin-left:-10px;
+            margin-top: 50px;
+            border-radius: 10px;
+            color: white;
+        
+            -webkit-box-shadow:0px 0px 14px 0px rgba(215,221,224,0.58);
+        -moz-box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
+        }
+  } 
+ 

@@ -5,11 +5,11 @@
     /* position: relative; */
 }
 
-.instruction-para{
+.instruction-para-default{
     margin-top: 10px;   
 }
 
-.recipe-image{
+.recipe-image-default{
     border:1px solid white;
     border-radius: 10px;
     margin-top: 15px;
@@ -17,19 +17,20 @@
 
 .view-head{
     padding-top: 50px;
+    
 }
 
-.instruction{
+.instruction-default{
     width:60%;
     /* margin-top: 40px; */
 }
 
-.ingredients-container{
+.ingredients-container-default{
     width:60%;
     margin-top: 40px;    
 }
 
-.ingredients-para{
+.ingredients-para-default{
     margin-top: 10px;
     padding: 10px;
     
@@ -55,4 +56,14 @@
 }
 .home-icon{
     margin-top: -4px;
+}
+@media (max-width:768px) {
+    .view-body{
+        background: linear-gradient(#0c0e1d,#2b2c28);
+        color:white;
+        height:250vh;
+        width:130%
+        /* position: relative; */
+    }
+    
 }

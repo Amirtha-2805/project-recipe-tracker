@@ -1,39 +1,37 @@
-.saved-recipelist-table{
-    height: 70vh;
-    margin-left: 50px;
-    width:80%;
-    margin-top: 30px;   
-}
-.saved-recipe-head{
-    margin-left: 70px;
-    padding-top: 30px;
-    color: white;
-
-}
-.saved-body{
-    background: linear-gradient(#0c0e1d,#2b2c28);
-    background-size: cover;
-    height: 300vh; 
-    width:157%;
-    color: black;
-    margin-left: 40px;
-}
-#instructions{
-   width:20%
-}
-#recipe-box{
-    display: flex;
-    flex-direction: column;
+    .saved-body {
+        background: linear-gradient(#0c0e1d, #2b2c28);
+        background-size: cover;
+        color: white;
+        padding: 20px;
+        margin-left: 298px; /* Adjusted for sidebar width */
+    }
     
-}
-.recipe-content{
-    border:1px solid white;
-    margin-top: 10px;
-    width:60%;
-    border-radius: 20px;
-    margin-right: 20px;
-    color:white;
-    padding: 5px;
-    margin-left: 180px;
-
-}
+    .saved-recipe-head {
+        margin-left: 0; /* Adjusted for padding in .saved-body */
+        padding-top: 30px;
+        color: white;
+    }
+    
+    .saved-recipelist-table {
+        margin-top: 30px;
+        width: 50%;
+    }
+    
+    .recipe-content {
+        border: 1px solid white;
+        margin-top: 10px;
+        border-radius: 20px;
+        color: white;
+        padding: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .saved-body {
+            margin-left: 0;
+        }
+    
+        .saved-recipe-head {
+            margin-left: 0;
+        }
+    }
+    

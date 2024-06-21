@@ -10,6 +10,7 @@
 }
 #navbar-box{
     position: fixed;
+    height:20px
 }
 .nav-link dropdown-toggle{
     margin-top: 20px;

@@ -22,6 +22,7 @@ import IngredientList from "./adminFeatures/IngredientList";
 import { IoOptions } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import axios from "axios";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 
 export default function AdminHome(){
@@ -65,7 +66,8 @@ export default function AdminHome(){
 
         <>
     
-            {/* <div className="sidenav">
+            
+    <div className="sidenav">
                 <div className="no-user">
                     <img src={noUser} className="admin-no-user"/>
                     <h6  className="admin-name">{adminSlice.admin_details.admin_name}</h6>
@@ -84,11 +86,21 @@ export default function AdminHome(){
                    <button className="btn btn-danger btn-sm " onClick={adminLogOut}>Logout</button>
                 </div>
 
-            </div> */}
+            </div>
+            
+            <div className="adminhomebody">  
+                <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
+                {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
+                {adminSlice.adminFeatureStatus=="allUsers" ? <UserList/>:null}
+                {adminSlice.adminFeatureStatus=="allRecipes" ? <AllRecipes/>:null} 
+                {adminSlice.adminFeatureStatus=="ingredientList" ? <IngredientList/>:null} 
+                {adminSlice.adminFeatureStatus=="adminHome" ? <AdminFeatureHome/>:null} 
+                {adminSlice.adminFeatureStatus=="addIngredients"? <Ingredients/>:null}
+            </div>
             
            
                 
-            <div className="sidebar" data-color="default" data-active-color="danger">
+            {/* <div className="sidebar" data-color="default" data-active-color="danger">
      
      
      <div className="sidebar-wrapper">
@@ -105,8 +117,7 @@ export default function AdminHome(){
              </div>            
              </span>
            </a>
-           {/* <div className="clearfix"></div> */}
-          
+         
          </div>
        </div>
        <ul className="nav">
@@ -123,9 +134,9 @@ export default function AdminHome(){
                 </div>
      </div>
    </div>
-
-   <nav className="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-       <div className="container-fluid">
+<div className="main-panel">
+   <Nav className="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+       <div className="container-fluid" id="custom-navbar">
          <div className="navbar-wrapper">          
            <div className="navbar-toggle">
              <button type="button" className="navbar-toggler">
@@ -134,18 +145,35 @@ export default function AdminHome(){
                <span className="navbar-toggler-bar bar3"></span>
              </button>
            </div>
+           <Link className="navbar-brand" to={"/"} style={{color:"white"}}>Recipe Tracker</Link>           
          </div>
+         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+            <span className="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link btn-magnify" to={"/"}>
+                 <p >Home</p>
+                </Link>
+              </li>             
+            </ul>
+          </div>
        </div>
-     </nav>
+     </Nav>
+     <div className="content">
      <div className="adminhomebody">  
-                <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
-                {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
+                               {adminSlice.adminFeatureStatus=="addRecipes" ? <AddRecipes/>:null}
                 {adminSlice.adminFeatureStatus=="allUsers" ? <UserList/>:null}
                 {adminSlice.adminFeatureStatus=="allRecipes" ? <AllRecipes/>:null} 
                 {adminSlice.adminFeatureStatus=="ingredientList" ? <IngredientList/>:null} 
                 {adminSlice.adminFeatureStatus=="adminHome" ? <AdminFeatureHome/>:null} 
                 {adminSlice.adminFeatureStatus=="addIngredients"? <Ingredients/>:null}
             </div>
+            </div>
+            </div> */}
         </>
         
     )

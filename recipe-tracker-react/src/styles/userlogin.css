@@ -22,10 +22,9 @@
  .user-para{
     color:black
  }
- #user-bg{
+ /* #user-bg{
    background-image: url('../../public/assets/img/bg/loginbg.jpg');
    size: cover;
    height: 100vh;
    margin-top: 0;
-   /* opacity: 0.9; */
- }
+ } */

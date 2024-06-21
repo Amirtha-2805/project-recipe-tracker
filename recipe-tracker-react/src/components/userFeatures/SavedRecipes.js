@@ -46,7 +46,36 @@ const SavedRecipes=()=>{
 
     return(
         <>
-           <center>
+       
+            {/* <div className="saved-body">
+                <h1 className="saved-recipe-head">Saved Recipes</h1>
+                <div className="saved-recipelist-table" >
+                       
+                            {
+                               userSliceDetails.savedRecipes.map((saved,i)=>{
+                                    return(
+                                            <div id="recipe-box" key={i}>
+                                                 <div className="recipe-content">
+                                                    <h4><Link onClick={()=>savedContent(saved.recipe_name)}>{saved.recipe_name}</Link></h4>
+                                                    <h5>Category : {saved.recipe_category}</h5>                                                    
+                                                    <h5>Ingredients : {saved.recipe_ingredients}</h5>
+                                                    <h5><Button type="button" variant="danger" onClick={()=>deleteSavedRecipe(saved.savedId)}>Delete</Button></h5>
+                                                 </div>
+                                                
+                                            </div>
+                                        )
+                                    }
+                                )
+                            }
+                       
+                   
+                    </div>
+
+
+              
+                </div> */}
+
+                <center>
             <div className="saved-body">
                 <h1 className="saved-recipe-head">Saved Recipes</h1>
                 <div className="saved-recipelist-table" >
@@ -75,6 +104,7 @@ const SavedRecipes=()=>{
               
                 </div>
             </center>
+       
         </>
     )
 

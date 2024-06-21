@@ -1,113 +1,131 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+.sidenav {
+    width: 300px;
+    background: #011627;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 100;
+}
 
-    #sidenav{
-        width: 300px;
-        background: #011627;
-        position:fixed;
-        left:0;
-        height:120vh;
-        padding: 0 30px;
-            
-    }
-    ul{
-        padding: 0;
-        
-    }
-    ul .userfeaturelist{
-        list-style: none;
-        color:black;
-        margin: 40px 0;
-        
-        
-    }
-    ul .userfeaturelist .link{
-        color: black;
-        display: block;
-        padding: 10px 15px;
-        border-radius: 60px;
-        text-decoration: none;
-    }
-    /* ul .userfeaturelist:hover,
-    ul .userfeaturelist .link .active{
-        background: #172b4d;
-        text-decoration: none;
-        color:white;
-        border-radius: 6px;
-    } */
-    .userhometitle{
-        color:white;
-        margin-top: 40px;
-        margin-left: 20px;
-    }
-    .menuicon{
-        color:black;
-        margin-top: 50px;
-        font-size: 35px;
-        
-    }
-    .icons{
-        font-size: 25px;
-        margin-top: -5px;
+#user-side-ul{
+    padding: 0;
+    margin-top: 20px;
+}
 
-    }
-    .userlogout{
-        /* margin-top: 200px; */
-        text-align: center;
-      
-    } 
-    .userhomebody{
-        width:50%;
-        /* margin-left: 250px; */
+#user-side-ul .userfeaturelist {
+    list-style: none;
+    color: white;
+    margin-bottom: 20px;
+}
+
+#user-side-ul .userfeaturelist .link {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 60px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#user-side-ul .userfeaturelist .link:hover {
+    background: #172b4d;
+}
+
+.userhometitle {
+    color: white;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.userlogout {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.user-no-user {
+    width: 60px;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.user-name {
+    color: white;
+    margin-top: -50px;
+    margin-left: 80px;
+    text-transform: none;
+}
+
+.user-email {
+    color: grey;
+    font-size: 15px;
+    margin-left: 80px;
+    text-transform: lowercase;
+}
+
+#home-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #01192e;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+}
+
+#home-link:hover {
+    background-color: grey;
+    color: black;
+}
+
+.home-icon {
+    margin-top: -4px;
+}
+.userhomebody{
+    width: 100%;
+}
+@media (max-width: 768px) {
+    .sidenav {
+        width: 150%;
+        height: auto;
         position: relative;
-    }  
-    .user-no-user{
-        width:20%;
-        border-radius: 50%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .userhometitle {
         margin-top: 20px;
-        margin-left: 10px;
+        margin-bottom: 20px;
     }
-    .no-user{
-        margin-top: 50px;
+
+    .user-no-user {
+        margin: 0 auto;
     }
-    #user-details{
-        /* border: 1px solid black; */
+
+    .userlogout {
         margin-top: 20px;
+        margin-left: -500px;
     }
-    .user-name{
-        color: black;
-        margin-left: 63px;
-        text-transform:none;
-        margin-top: -10px;
+
+    #user-side-ul .userfeaturelist .link {
+        padding: 10px;
+        justify-content: center;
     }
-    .user-email{
-        color: black;
-        font-size: 15px;
-        margin-left: 63px;
-        text-transform: lowercase;
-        margin-top: -10px;
+    #user-side-ul {
+        padding: 0;
+        margin-top: 20px;
+        margin-left: -500px;
     }
-    
-    #home-link{
-        margin-left: 950px;       
-        border-radius: 20px;
-        background-color: #01192e;
-        color:white;
-        width:100px;
-        height:40px;
-        font-family: "Poppins", sans-serif;
-        position: absolute;
-        top:0;
-        border-style: none;
-        
-    }
-    #home-link:hover{
-       background-color: grey;
-       color:black;
-       border-style: none;
-    }
-    .home-icon{
-        margin-top: -4px;
-    }
-    
+}
+
 

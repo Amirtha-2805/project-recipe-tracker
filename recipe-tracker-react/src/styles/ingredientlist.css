@@ -5,30 +5,57 @@
 } */
 .ing-heading{
     /* border:1px solid black; */
-    width:100%;
-    margin-left: 250px;
+    /* width:100%; */
+    margin-left: 196px;
     text-align: center;
     padding-top: 20px;
 }
 #addbtn{
-    margin-left: 350px;
+    margin-left: 445px;
     width:65%;
     margin-top: -5px;
 }
 
 .add-ing-btn{
-   margin-left: 450px;
+   margin-left: 570px;
    margin-top: -50px;
+   width: 23%;
   
 }
 .inglist-body{
     border:1px solid black;
     height:60vh;
-    width:100%;
-    margin-left: 250px;
+    width:50%;
+    margin-left: 455px;
     margin-top: 50px;
     overflow-y: scroll;
 }
 #dnbtn{
-    margin-left: 300px;
+    margin-left: 280px;
+}
+@media (max-width:768px) {
+    .ing-heading{
+        /* border:1px solid black; */
+        /* width:100%; */
+        margin-left: 350px;
+        text-align: center;
+        padding-top: 20px;
+    }
+    #addbtn{
+        margin-left: 233px;
+        width:91%;
+        
+    }
+    .inglist-body{
+        border:1px solid black;
+        height:60vh;
+        width:50%;
+        margin-left: 375px;
+        margin-top: 50px;
+        overflow-y: scroll;
+    }
+    #dnbtn{
+        margin-left: 356px;
+    }
+    
 }

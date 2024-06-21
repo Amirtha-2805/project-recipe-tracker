@@ -1,4 +1,4 @@
-
+/* 
     .sidenav{
         width: 300px;;
         background: #011627;
@@ -23,13 +23,7 @@
         border-radius: 60px;
         text-decoration: none;
     }
-    /* ul .userlist:hover,
-    ul .userlist .link .active{
-        background: #172b4d;
-        text-decoration: none;
-        color:white;
-        border-radius: 6px;
-    } */
+   
     .adminhometitle{
         color:white;
         margin-top: 40px;
@@ -50,16 +44,10 @@
         text-align: center;      
     } 
     .adminhomebody{
-        width:50%;
-        margin-left: 250px;
+        width:100%;
+       
     }  
-    .input-container{
-        width:70%;
-        margin-left: 200px;
-        margin-top: 50px;
-        line-height: 50px;
-        
-    } 
+   
     .add-recipe-heading{
         margin-left: 420px;
         
@@ -104,8 +92,128 @@
        color:black;
        border-style: none;
     }
-    
-    
+ */
+
+ .sidenav {
+    width: 300px;
+    background: #011627;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+ul {
+    padding: 0;
+    margin-top: 20px;
+}
+
+ul .userlist {
+    list-style: none;
+    color: white;
+    margin-bottom: 20px;
+}
+
+ul .userlist .link {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 60px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+ul .userlist .link:hover {
+    background: #172b4d;
+}
+
+.adminhometitle {
+    color: white;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.adminlogout {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.admin-no-user {
+    width: 60px;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.admin-name {
+    color: white;
+    margin-top: -50px;
+    margin-left: 80px;
+    text-transform: none;
+}
+
+.admin-email {
+    color: grey;
+    font-size: 15px;
+    margin-left: 80px;
+    text-transform: lowercase;
+}
+
+#home-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #01192e;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+}
+
+#home-link:hover {
+    background-color: grey;
+    color: black;
+}
+
+.home-icon {
+    margin-top: -4px;
+}
+
+@media (max-width: 768px) {
+    .sidenav {
+        width: 150%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .adminhometitle {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .admin-no-user {
+        margin: 0 auto;
+    }
+
+    .adminlogout {
+        margin-top: 20px;
+    }
+
+    ul .userlist .link {
+        padding: 10px;
+        justify-content: center;
+    }
+}
 
 
 
@@ -113,7 +221,10 @@
 
 
 
-  
+
+
+
+
 
 
 

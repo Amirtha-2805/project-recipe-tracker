@@ -2,12 +2,12 @@
     /* border: 1px solid black; */
     height:80vh;
     overflow-y: scroll;
-    margin-left: 130px;
-    width:80%;
+    margin-left: 460px;
+    width:50%;
     margin-top: 30px;
 }
 .allrecipe-head{
-    margin-left: 450px;
+    margin-left: 688px;
     padding-top: 30px;
     color: white;
 }
@@ -15,6 +15,26 @@
     background: linear-gradient(#0c0e1d,#2b2c28);
     background-size: cover;
     height: 120vh;
-    width:163% 
+    /* width:163%  */
 }
-
+@media (max-width:768px) {
+    .allrecipe-body{
+        background: linear-gradient(#0c0e1d,#2b2c28);
+        background-size: cover;
+        height: 120vh;
+        width:110%
+    }
+    .allrecipe-head{
+        margin-left: 340px;
+        padding-top: 30px;
+        color: white;
+    }
+    .all-recipe-table{
+        /* border: 1px solid black; */
+        height:80vh;
+        overflow-y: scroll;
+        margin-left: 133px;
+        width:70%;
+        margin-top: 30px;
+    }
+}

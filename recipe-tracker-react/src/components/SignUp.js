@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { setToken,setIsLogged,setFinalPwd } from "../redux/slices/userSlice";
 import Footer from "./Footer";
 import axios from "axios";
+import emailjs from 'emailjs-com';
 
 export default function SignUp(){
     const signupdata=useSelector((state)=>state.userDetails)    
@@ -30,20 +31,65 @@ export default function SignUp(){
         
     const register=async()=>{
         
-        if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){
-            alert("Please fill requirred details")
-        }
+    //     if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){
+    //         alert("Please fill requirred details")
+    //     }
        
-       else if (signupdata.usersignup.password==signupdata.usersignup.confirm_password){
-            await axios.post("https://amirtha14.pythonanywhere.com/usersignup",signupForm)
-            alert("Registered succesfully")
-            navigate(`/userlogin`)
-        }
+    //    else if (signupdata.usersignup.password==signupdata.usersignup.confirm_password){
+    //         await axios.post("https://amirtha14.pythonanywhere.com/usersignup",signupForm)
+    //         alert("Registered succesfully")
+    //         navigate(`/userlogin`)
+    //     }
         
-        else{
-            alert("Error")
-        }       
-    }       
+    //     else{
+    //         alert("Error")
+    //     }       
+    if (
+        signupdata.usersignup.email == "" ||
+        signupdata.usersignup.password == "" ||
+        signupdata.usersignup.confirm_password == "" ||
+        signupdata.usersignup.phone == "" ||
+        signupdata.usersignup.age == "" ||
+        signupdata.usersignup.name == "" ||
+        signupdata.usersignup.gender == ""
+    ) {
+        alert("Please fill required details");
+        return;
+    }
+
+    if (signupdata.usersignup.password != signupdata.usersignup.confirm_password) {
+        alert("Password and confirm password do not match");
+        return;
+    }
+
+    axios.post("https://amirtha14.pythonanywhere.com/usersignup", signupForm)
+        .then(() => {
+            const emailParams = {
+                to_name: signupdata.usersignup.name,
+                from_name: "Recipe_tracker",
+                message: `WELCOME ${signupdata.usersignup.name} to my website, You can enter a ingredients which what you have then I will provide you a recipe only with that ingredients and 
+                also you can save that recipe for your future purpose
+                `, // Replace with your verification URL
+                to_email: signupdata.usersignup.email,
+            };
+
+            emailjs.send('service_o69448o', 'template_2vuhhov', emailParams, 'lJD7UWIBI2q1ZIA3_')
+                .then((response) => {
+                    console.log('Email sent successfully:', response);
+                    alert("Registered successfully");
+                    navigate(`/userlogin`);
+                })
+                .catch((error) => {
+                    console.error('Error sending email:', error);
+                    alert("Error sending email");
+                });
+        })
+        .catch((error) => {
+            console.error('Error registering user:', error);
+            alert("Error registering user");
+        });
+
+}       
     return(
         <>           
             <NavBar/>

@@ -31,49 +31,17 @@ const Home=()=>{
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
     const [recipeNameForImage,setRecipeNameForImage]=useState("")
-    // const content = result;
-    // const matches = content.match(`RECIPE_TITLE(.*?)PREPARATION_CONTENT`);
-    // const recipeName = matches ? matches[1].trim() : null;
-    // console.log("recipe_name",recipeName)
-
-// const aiResponse = result
-// const startMarker1 = "RECIPE_TITLE :";
-// const startMarker2 = "RECIPE_TITLE:";
-// const endMarker1 = " INSTRUCTIONS :";
-// const endMarker2 = " INSTRUCTIONS:";
-
-// function extractRecipeName(response) {
-//   let startIndex = -1;
-//   let endIndex = -1;
-
-//   if (response.includes(startMarker1)) {
-//     startIndex = response.indexOf(startMarker1) + startMarker1.length;
-//   } else if (response.includes(startMarker2)) {
-//     startIndex = response.indexOf(startMarker2) + startMarker2.length;
-//   }
-
-//   if (response.includes(endMarker1)) {
-//     endIndex = response.indexOf(endMarker1);
-//   } else if (response.includes(endMarker2)) {
-//     endIndex = response.indexOf(endMarker2);
-//   }
-
-//   if (startIndex !== -1 && endIndex !== -1) {
-//     const recipeName = response.substring(startIndex, endIndex).trim();
-//     return recipeName;
-//   } else {
-//     return null;
-//   }
-
-// }
-
-//     let result_recipe=extractRecipeName(aiResponse);
-//     console.log("RecipeName",result_recipe)
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
+    const [loading, setisLoading] = useState(false);
+    const cx = "87a79793f07984bb1"
+    const cloud_apiKey="AIzaSyAUUXWKF7J3lEkfJcUgIon2We3ORZfEcZg"
+    const[imageLink,setImageLink]=useState("")
 
 
 
 
-
+    
     let dispatch=useDispatch()
     const [messages, setMessages] = useState([
         {
@@ -110,9 +78,48 @@ const Home=()=>{
 
     useEffect(()=>{
             getAllIng()
-            getDefault()
+            getDefault()         
+            
     },[])
-        
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          if (!recipeNameForImage) return;
+          setisLoading(true);
+          setErrorMessage(null);
+    
+          try {
+            const encodedTerm = encodeURIComponent(recipeNameForImage);
+            const url = `https://www.googleapis.com/customsearch/v1?key=${cloud_apiKey}&cx=${cx}&q=${encodedTerm}&searchType=image`;
+            const response = await fetch(url);
+    
+            if (!response.ok) {
+              throw new Error(`Error fetching search results: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            setSearchResults(data.items || []);
+          } catch (error) {
+            setErrorMessage(error.message);
+          } finally {
+            setisLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, [recipeNameForImage]);
+
+
+
+      let link_array=[]
+      const setLink=()=>{
+        searchResults.forEach((result) => {
+            link_array.push(result.link)           
+        }) 
+        console.log("array",link_array)
+        setImageLink(link_array[0])
+      }
+   
 
     const submitIngredients=async(event)=>{
         if(userLogin.isLogged==false){
@@ -135,7 +142,6 @@ const Home=()=>{
             },
         }).then((response)=>{
             console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
-
             const text=response['data']['candidates'][0]['content']['parts'][0]['text']
             
             let responseArray=text.split("*");
@@ -154,17 +160,18 @@ const Home=()=>{
                 const splitIndex = newResponse.indexOf(":");                
                 if (splitIndex !== -1) {
                     recipeTitle= newResponse.slice(splitIndex + 1).trim();
+                    setRecipeNameForImage(recipeTitle)
+                    console.log("Recipe Nameeeee:", recipeTitle);
                 } else {
                     recipeTitle = newResponse;
                 }
             }     
             setResult(newResponse)
-            setLoading(false)
-            setRecipeNameForImage(recipeTitle)
-            console.log("Recipe Nameeeee:", recipeTitle);
+            setLink()
+            setLoading(false)           
         })
     }
-    console.log("state",recipeNameForImage)
+    
         
          //open ai      
         // const newMessage = {
@@ -340,7 +347,7 @@ const Home=()=>{
                     </div>
                     <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
                     <br/> 
-                    <br/>                            
+                    <br/>    
                     {isLoading==true ? 
                         <>
                         <Spinner animation="border" role="status" style={{color:"black"}}>
@@ -353,6 +360,8 @@ const Home=()=>{
                         <div className="resultbox">
                             <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
                             <p className="result-para">{result}</p>
+                            <img src= {imageLink} width={"30%"}/>
+                            <br/>
                             <button type="button" className="btn btn-warning" onClick={()=>saveAiRecipe()}>save</button>
                         </div>
                         : null

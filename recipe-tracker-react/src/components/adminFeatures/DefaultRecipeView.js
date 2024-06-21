@@ -45,18 +45,18 @@ const DefaultRecipeView=()=>{
 
                 <div className="view-body">
                     <h2 className="view-head">Here is a detailed Recipe..!</h2>
-                    <img src={viewRecipe.view_recipe_image} width={"30%"} className="recipe-image"/>
+                    <img src={viewRecipe.view_recipe_image} width={"30%"} className="recipe-image-default"/>
                     <h3>{viewRecipe.view_recipe_name}</h3>
                     <div>
                         <h4>Category: {viewRecipe.view_category}</h4>
                     </div>
-                    <div className="ingredients-container">                    
+                    <div className="ingredients-container-default">                    
                         <h4>Ingredients</h4>                     
-                        <p className="ingredients-para">{viewRecipe.view_recipe_ingredients}</p>
+                        <p className="ingredients-para-default">{viewRecipe.view_recipe_ingredients}</p>
                     </div>
-                    <div className="instruction">
+                    <div className="instruction-default">
                         <h4>Instructions</h4>
-                        <p className="instruction-para">{viewRecipe.view_recipe_instructions}</p>
+                        <p className="instruction-para-default">{viewRecipe.view_recipe_instructions}</p>
                     </div>
                     <div>
                         <iframe width="560" height="315" src={viewRecipe.view_recipe_iframe}></iframe>
