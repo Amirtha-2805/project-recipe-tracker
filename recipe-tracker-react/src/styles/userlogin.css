@@ -1,5 +1,4 @@
 .login-input{
-    /* background: linear-gradient(#0c0e1d,#2b2c28); */
     background-size: cover;
     height: 120vh;    
 }
@@ -22,9 +21,4 @@
  .user-para{
     color:black
  }
- /* #user-bg{
-   background-image: url('../../public/assets/img/bg/loginbg.jpg');
-   size: cover;
-   height: 100vh;
-   margin-top: 0;
- } */
+ 

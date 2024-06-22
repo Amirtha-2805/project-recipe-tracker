@@ -1,11 +1,6 @@
 
-/* .ing-list{
-    padding-top: 20px;
-    margin-left: 400px;
-} */
+
 .ing-heading{
-    /* border:1px solid black; */
-    /* width:100%; */
     margin-left: 196px;
     text-align: center;
     padding-top: 20px;
@@ -35,16 +30,13 @@
 }
 @media (max-width:768px) {
     .ing-heading{
-        /* border:1px solid black; */
-        /* width:100%; */
         margin-left: 350px;
         text-align: center;
         padding-top: 20px;
     }
     #addbtn{
         margin-left: 233px;
-        width:91%;
-        
+        width:91%;        
     }
     .inglist-body{
         border:1px solid black;

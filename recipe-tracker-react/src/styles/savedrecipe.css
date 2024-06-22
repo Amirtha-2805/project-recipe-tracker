@@ -3,11 +3,10 @@
         background-size: cover;
         color: white;
         padding: 20px;
-        margin-left: 298px; /* Adjusted for sidebar width */
-    }
+        margin-left: 298px;    }
     
     .saved-recipe-head {
-        margin-left: 0; /* Adjusted for padding in .saved-body */
+        margin-left: 0; 
         padding-top: 30px;
         color: white;
     }

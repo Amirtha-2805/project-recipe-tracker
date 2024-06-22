@@ -3,23 +3,14 @@ import "../../styles/saved-recipe-view.css";
 import { Link } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useEffect } from "react";
 
 
 const SavedRecipeView=()=>{
     const userSlice=useSelector((state)=>state.userDetails)
-
-    // const saveAsPdf=()=>{
-    //     const input=document.querySelector("#exportToPdf")
-    //     html2canvas(input,{logging: true, letterRendering: 1, useCORS: true}).then(function(canvas){
-    //         const imgData=canvas.toDataURL("image/jpeg")
-    //         const pdf=new jsPDF("p","pt","a4");
-    //         // const imgProps=pdf.getImageProperties(imgData)
-    //         pdf.addImage(imgData,"JPG",0,0)
-    //         pdf.save("saved-recipe.pdf")
-    //     })
-        
-    // }
-
+    useEffect(()=>{
+        console.log("saved",userSlice.savedRecipes)
+    },[])
    
     return(
         <>
@@ -32,8 +23,8 @@ const SavedRecipeView=()=>{
                         if(recipes.recipe_name==userSlice.recipe_name){
                             return(
                                   <div className="saved-view-box">                           
-                                <img src={recipes.recipe_image} width={"30%"} className="saved-recipe-image" />
-                                
+                               { recipes.recipe_category=="AI"? <img src={recipes.recipe_iframe} width={"30%"} className="saved-recipe-image" />: <img src={recipes.recipe_image} width={"30%"} className="saved-recipe-image" />}
+                               
                                
                                 <h3 className="recipe-name">{recipes.recipe_name}</h3>
                                 <div className="saved-category">
@@ -53,12 +44,7 @@ const SavedRecipeView=()=>{
                                     <p><Link to={recipes.recipe_url}>Watch Video</Link></p>
                                 </div>
 
-                                </div> 
-                                
-
-
-                            
-                           
+                                </div>                            
                             )
                         }
                     })

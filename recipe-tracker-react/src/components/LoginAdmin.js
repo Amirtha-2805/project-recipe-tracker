@@ -16,20 +16,26 @@ export default function LoginAdmin() {
     let dispatch = useDispatch()
 
     const adminLogin = async () => {
-        let adminForm = new FormData()
-        adminForm.append("admin_email", adminGlobal.adminLogin.admin_email)
-        adminForm.append("admin_pwd", adminGlobal.adminLogin.admin_pwd)
-        let getAdmin = await axios.post("https://amirtha14.pythonanywhere.com/adminlogin", adminForm)
-        console.log("responseadmin", getAdmin)
-        localStorage.setItem("admin_token", JSON.stringify(getAdmin.data[0].admin_token))
-        dispatch(setAdminDetails({
-            admin_id: getAdmin.data[0].admin_id,
-            admin_name: getAdmin.data[0].admin_name,
-            admin_email: getAdmin.data[0].admin_email
-        }))
-        alert("Logged in succesfully")
-        dispatch(setAdminIsLogged(true))
-        navigate("/adminhome")
+        if(adminGlobal.adminLogin.admin_email=="" || adminGlobal.adminLogin.admin_pwd=="" ){
+            alert("Please Enter Requirred detais")
+        }
+        else{
+            let adminForm = new FormData()
+            adminForm.append("admin_email", adminGlobal.adminLogin.admin_email)
+            adminForm.append("admin_pwd", adminGlobal.adminLogin.admin_pwd)
+            let getAdmin = await axios.post("https://amirtha14.pythonanywhere.com/adminlogin", adminForm)
+            console.log("responseadmin", getAdmin)
+            localStorage.setItem("admin_token", JSON.stringify(getAdmin.data[0].admin_token))
+            dispatch(setAdminDetails({
+                admin_id: getAdmin.data[0].admin_id,
+                admin_name: getAdmin.data[0].admin_name,
+                admin_email: getAdmin.data[0].admin_email
+            }))
+            alert("Logged in succesfully")
+            dispatch(setAdminIsLogged(true))
+            navigate("/adminhome")
+        }
+       
     }
 
 

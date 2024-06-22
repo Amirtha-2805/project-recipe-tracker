@@ -36,7 +36,6 @@ const totalIngredients=async()=>{
     let parsed_admin_token=JSON.parse(admin_token) 
     const headers={"Authorization":`Bearer ${parsed_admin_token}`}
     let getIngData=await axios.get("https://amirtha14.pythonanywhere.com/getingredients",{headers})
-    // console.log("ing",getIngData)
     setNoOfIngredients(getIngData.data)
 }
 
@@ -68,7 +67,7 @@ useEffect(()=>{
     totalIngredients()
     totalDefaultRecipes()
 },[])
-// console.log("total",noOfIngredients)
+
 return(
     <>
      <div className="dash-board-body">

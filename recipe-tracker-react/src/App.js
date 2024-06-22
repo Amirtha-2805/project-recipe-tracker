@@ -1,4 +1,4 @@
-import './App.css';
+
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import Home from './components/Home';
@@ -7,7 +7,6 @@ import LoginAdmin from './components/LoginAdmin';
 import Userlogin from './components/UserLogin';
 import AdminHome from './components/AdminHome';
 import UserHome from './components/UserHome';
-import Auth from './components/Auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Ingredients from './components/adminFeatures/Ingredients';
 import {useSelector,useDispatch} from 'react-redux'
@@ -38,7 +37,6 @@ function App() {
             <Route path='/userlogin' element={<Userlogin/>}/>
             <Route path='/adminhome' element={<AdminHome/>}/>
             <Route path='/userhome' element={<UserHome/>}/>
-            <Route path='/auth' element={<Auth/>}/>  
             <Route path='/ingredients' element={<Ingredients/>}></Route>
             <Route path='/recipeedit/:id' element={<RecipeEdit/>}></Route>
             <Route path='/ingredientedit/:id' element={<IngredientEdit/>}></Route>
@@ -46,22 +44,6 @@ function App() {
             <Route path='/savedrecipeview/:id' element={<SavedRecipeView/>}></Route>
             <Route path='/todoedit/:id' element={<EditTodo/>}></Route>
             <Route path='/customsearch' element={<CustomSearch />}/>
-
-            
-
-
-
-
-            {/* <Route path='/ingredients' element={<Ingredients/>}></Route> */}
-
-            
-
-
-            {/* {
-               isLogged==false? <Route path='/' element={<Home />}/>:null
-               
-          
-            } */}
         </Routes>
       </Router>
       

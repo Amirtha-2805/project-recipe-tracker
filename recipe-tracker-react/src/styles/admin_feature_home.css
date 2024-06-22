@@ -94,9 +94,7 @@ box-shadow: 0px 0px 14px 0px rgba(215,221,224,0.58);
   @media (max-width:768px) {
     .dash-board-body{
         width:100%; 
-        /* padding-top: 30px; */
         display: flex;
-        /* justify-content: center; */
         align-items: center;
         flex-direction: column;
         background: linear-gradient(#0c0e1d,#2b2c28);

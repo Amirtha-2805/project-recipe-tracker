@@ -12,8 +12,7 @@ import axios from "axios";
 
 const IngredientList=()=>{
     const[ingredientList,setIngredientList]=useState([])
-    const dispatch=useDispatch()
-    
+    const dispatch=useDispatch()    
     const document=new jsPDF()
 
     const admin=useSelector((state)=>state.adminDetails)

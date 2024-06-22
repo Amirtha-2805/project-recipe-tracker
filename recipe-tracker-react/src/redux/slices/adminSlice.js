@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const adminSlice=createSlice({
     name:"adminDetails",    
     initialState:{
-        adminFeatureStatus:"",
+        adminFeatureStatus:"adminHome",
         adminLogin:{
             adminId:"", 
             admin_name:"",
@@ -26,6 +26,7 @@ export const adminSlice=createSlice({
         defaultRecipes:[],
         ingredientList:[],
         isadminLogged:false,
+        cloud_image:""
               
     },
         reducers:{
@@ -52,10 +53,13 @@ export const adminSlice=createSlice({
             },
             setAdminIsLogged:(state,action)=>{
                 state.isadminLogged=action.payload
+            },
+            setCloudImage:(state,action)=>{
+                state.cloud_image=action.payload
             }
            
     }
 })
-export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails,setDefaultRecipes,setAdminIsLogged,setIngredientList } = adminSlice.actions
+export const { adminFeatures,setAdmin,setAddRecipes,setAdminId,setAdminDetails,setDefaultRecipes,setAdminIsLogged,setIngredientList,setCloudImage } = adminSlice.actions
 
 export default adminSlice.reducer

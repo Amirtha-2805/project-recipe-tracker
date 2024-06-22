@@ -12,24 +12,10 @@
     gap:15px;
     margin-left: 10px; 
  }
- /* .admin-box{
-    border: 1px solid white;
-    width:55%;
-    border-radius: 20px;
-    margin-top: 10px;
-    -webkit-box-shadow:0px 0px 14px 4px rgba(215,221,224,0.58);
-    -moz-box-shadow: 0px 0px 14px 4px rgba(215,221,224,0.58);
-    box-shadow: 0px 0px 14px 4px rgba(215,221,224,0.58);    
- } */
  .admin-title{
     padding-top: 100px;
  }
  .adminloginbtn{
     margin-left: 100px;
  }
- /* #admin-bg{
-   background-image: url('../../public/assets/img/bg/loginbg.jpg');
-   size:cover;
-   height: 100vh;
-   margin-top: 0;
- } */
+

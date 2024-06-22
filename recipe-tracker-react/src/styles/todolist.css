@@ -23,25 +23,24 @@
   }
   
   #savedrec-submit-btn {
-    margin: 20px auto; /* Center button horizontally with vertical space */
-    display: block; /* Ensure button takes full width */
+    margin: 20px auto; 
+    display: block;
   }
   
   #todotable {
     margin: 20px auto; 
     margin-left: 100px;
-     /* Full width table */
   }
   #category{
     color: black;
   }
   @media (max-width: 768px) {
     .todo-body {
-      padding: 20px; /* Reduce padding on smaller screens */
+      padding: 20px; 
     }
   
     .recipe-list-head {
-      font-size: 24px; /* Decrease font size */
+      font-size: 24px; 
     }
     .input-container-todo{
         display: flex;
@@ -52,7 +51,7 @@
     }
     #savedrec-submit-btn,
     #todotable {
-      margin: 10px auto; /* Center elements with reduced space */
+      margin: 10px auto;
     }
   }
   

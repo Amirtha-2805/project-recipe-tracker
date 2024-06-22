@@ -22,7 +22,6 @@ const Home=()=>{
     let defaultDetails=useSelector((state)=>state.adminDetails.defaultRecipes);
     let ingredientListglobal=useSelector((state)=>state.adminDetails.ingredientList)
     const[recipe,setRecipe]=useState("")
-    // const question="Recipe details only with these ingredients and provide the recipe name in bold"  
     const question=`ingredients:${recipe}.\n Generate recipe with recipe details using only with the given ingredients and the format must be in the below sample format                      
                     RECIPE_TITLE: SAMPLE_TEXT
                     INSTRUCTIONS: SAMPLE_TEXT                    
@@ -30,17 +29,12 @@ const Home=()=>{
     const[ingredientsInput,setIngredientsInput]=useState([])
     const[result,setResult]=useState("")
     const[isLoading,setLoading]=useState(null)
-    const [recipeNameForImage,setRecipeNameForImage]=useState("")
     const [errorMessage, setErrorMessage] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setisLoading] = useState(false);
     const cx = "87a79793f07984bb1"
-    const cloud_apiKey="AIzaSyAUUXWKF7J3lEkfJcUgIon2We3ORZfEcZg"
+    const cloud_apiKey="AIzaSyArwq11xmZuzo_uCxnHEmGoHFkA8RhXwY8"
     const[imageLink,setImageLink]=useState("")
-
-
-
-
     
     let dispatch=useDispatch()
     const [messages, setMessages] = useState([
@@ -78,48 +72,41 @@ const Home=()=>{
 
     useEffect(()=>{
             getAllIng()
-            getDefault()         
-            
+            getDefault()             
     },[])
-    
-    useEffect(() => {
-        const fetchData = async () => {
-          if (!recipeNameForImage) return;
-          setisLoading(true);
-          setErrorMessage(null);
-    
-          try {
-            const encodedTerm = encodeURIComponent(recipeNameForImage);
-            const url = `https://www.googleapis.com/customsearch/v1?key=${cloud_apiKey}&cx=${cx}&q=${encodedTerm}&searchType=image`;
-            const response = await fetch(url);
-    
-            if (!response.ok) {
-              throw new Error(`Error fetching search results: ${response.statusText}`);
-            }
-    
-            const data = await response.json();
-            setSearchResults(data.items || []);
-          } catch (error) {
-            setErrorMessage(error.message);
-          } finally {
-            setisLoading(false);
-          }
-        };
-    
-        fetchData();
-      }, [recipeNameForImage]);
 
+    const fetchData = async (recipeNameForImage) => {
+        if (!recipeNameForImage) return;
+        setisLoading(true);
+        setErrorMessage(null);
+  
+        try {
+          const encodedTerm = encodeURIComponent(recipeNameForImage);
+          const url = `https://www.googleapis.com/customsearch/v1?key=${cloud_apiKey}&cx=${cx}&q=${encodedTerm}&searchType=image`;
+          const response = await fetch(url);
+  
+          if (!response.ok) {
+            throw new Error(`Error fetching search results: ${response.statusText}`);
+          }    
+          const data = await response.json();
+          setSearchResults(data.items || []);
+          setLink(data.items || [])
+        } catch (error) {
+          setErrorMessage(error.message);
+        } finally {
+          setisLoading(false);
+        }
+      };
 
-
-      let link_array=[]
-      const setLink=()=>{
-        searchResults.forEach((result) => {
-            link_array.push(result.link)           
-        }) 
-        console.log("array",link_array)
-        setImageLink(link_array[0])
-      }
-   
+    
+        let link_array=[]
+        const setLink=(imglink)=>{
+            imglink.forEach((result) => {
+                link_array.push(result.link)           
+            }) 
+            console.log("array",link_array)
+            setImageLink(link_array[5])
+        }
 
     const submitIngredients=async(event)=>{
         if(userLogin.isLogged==false){
@@ -143,7 +130,7 @@ const Home=()=>{
         }).then((response)=>{
             console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
             const text=response['data']['candidates'][0]['content']['parts'][0]['text']
-            
+           
             let responseArray=text.split("*");
             let newResponse=""
             for(let i=0; i<responseArray.length; i++){
@@ -154,84 +141,22 @@ const Home=()=>{
                     newResponse=newResponse+responseArray[i]
                 }
             }  
-            let recipeTitle = "";
-
             if (newResponse) {
+                let recipeTitle = "";
                 const splitIndex = newResponse.indexOf(":");                
                 if (splitIndex !== -1) {
-                    recipeTitle= newResponse.slice(splitIndex + 1).trim();
-                    setRecipeNameForImage(recipeTitle)
-                    console.log("Recipe Nameeeee:", recipeTitle);
+                    recipeTitle= newResponse.slice(splitIndex + 1).trim()
+                    fetchData(recipeTitle)
+            
+
                 } else {
                     recipeTitle = newResponse;
                 }
-            }     
+            }  
             setResult(newResponse)
-            setLink()
             setLoading(false)           
         })
     }
-    
-        
-         //open ai      
-        // const newMessage = {
-        //     message: question+recipe,
-        //     sender: "user"
-        // }
-
-        // const newMessages = [newMessage];
-        // await processMessageToChatGPT(newMessages);
-        //     }
-        // async function processMessageToChatGPT(chatMessages){
-        //         const API_KEY = "sk-proj-Gkmbh6aLEBuCSTAX5MG1T3BlbkFJMqT83lgOKYLAi2Bg48Kc"
-        //         setLoading(true)                
-        //         let apiMessages = chatMessages.map((messageObject)=>{
-        //             let role="";
-        //             if(messageObject.sender === "ChatGPT"){
-        //                 role = "assistant"
-        //             }else{
-        //                 role = "user"
-        //             }
-        //             return (
-        //                 {role: role, content: messageObject.message}
-        //             )
-        //         });
-        
-        //         const systemMessage = {
-        //             role: "system",
-        //             content: "Explain all concept like i am 10 year old"
-        //         }
-        
-        //         const apiRequestBody = {
-        //             "model": "gpt-3.5-turbo",
-        //             "messages": [
-        //                 systemMessage,
-        //                 ...apiMessages
-        //             ]
-        //         }
-        
-        //         await fetch("https://api.openai.com/v1/chat/completions",{
-        //             method: "POST",
-        //             headers: {
-        //                 "Authorization": `Bearer ${API_KEY}`,
-        //                 "Content-Type": "application/json"
-        //             },
-        //             body: JSON.stringify(apiRequestBody)
-        //         }).then((response)=>{
-        //             return response.json();
-        //         }).then((data)=>{
-        //             console.log(data.choices[0].message.content);
-        //             setMessages(
-        //                 [
-        //                     {
-        //                         message: data.choices[0].message.content,
-        //                         sender: "ChatGPT"
-        //                     }
-        //                 ]
-        //             )
-        //         })
-        //         setLoading(false)
-
             }
                 
         let selected=""
@@ -281,41 +206,12 @@ const Home=()=>{
         saveAiForm.append("recipe_instructions",result)
         saveAiForm.append("recipe_url","")
         saveAiForm.append("recipe_image","")
-        saveAiForm.append("recipe_iframe","")
+        saveAiForm.append("recipe_iframe",imageLink)
         
         axios.post("https://amirtha14.pythonanywhere.com/saverecipe",saveAiForm).then((res)=>{
             alert("saved")
         })
     }
-   
-    // const fetchData =() => {
-       
-
-    //         const options = {
-    //         method: 'GET',
-    //         url: 'https://img4me.p.rapidapi.com/',
-    //         params: {
-    //             text: 'Test Me',
-    //             font: 'trebuchet',
-    //             size: '12',
-    //             fcolor: '000000',
-    //             bcolor: 'FFFFFF',
-    //             type: 'png'
-    //         },
-    //         headers: {
-    //             'X-RapidAPI-Key': 'e5d60c81f5mshe7a9c742c01c3efp1cd495jsncac2fb52ec03',
-    //             'X-RapidAPI-Host': 'img4me.p.rapidapi.com'
-    //         }
-    //         };
-
-    //         try {
-    //             const response = axios.request(options);
-    //             console.log(response.data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //   }
-    
     return(
         <>
         <div className="home-body">          
@@ -347,7 +243,7 @@ const Home=()=>{
                     </div>
                     <button type="button" className="btn btn-success" onClick={submitIngredients}>Submit</button>
                     <br/> 
-                    <br/>    
+                    <br/>   
                     {isLoading==true ? 
                         <>
                         <Spinner animation="border" role="status" style={{color:"black"}}>
@@ -359,36 +255,13 @@ const Home=()=>{
                     {result ? 
                         <div className="resultbox">
                             <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
+                            <img src= {imageLink} width={"20%"} height={"auto"}/>
                             <p className="result-para">{result}</p>
-                            <img src= {imageLink} width={"30%"}/>
                             <br/>
                             <button type="button" className="btn btn-warning" onClick={()=>saveAiRecipe()}>save</button>
                         </div>
                         : null
                     }  
-                    {/* open ai */}
-                    {/* {   
-                        isLoading==true ? 
-                        <>
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>
-                        </>
-                        : null                             
-                    } 
-                    {
-                        isLoading==false ?   
-                        <div className="resultbox">
-                            <h5 className="result-heading"><b>Here is your delicious recipe..!</b></h5>  
-                            {messages.map((message, index) => {
-                                return(
-                                    <div>{message.message}</div>                        
-                                );
-                            })}                                
-                            <button type="button" className="btn btn-warning">save</button>
-                        </div>
-                        : null
-                    } */}
                 </div>
                 </form>
             </center>  
@@ -440,7 +313,7 @@ const Home=()=>{
                                 <Card.Header><h4>{recipe.recipe_name}</h4></Card.Header>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item><b>Category: </b>{recipe.recipe_category}</ListGroup.Item>
-                                    <ListGroup.Item><b>Ingredients: </b>{recipe.ingredients}                                    
+                                    <ListGroup.Item><b>Ingredients: </b>{recipe.recipe_ingredients}                                    
                                     </ListGroup.Item>                                    
                                     <ListGroup.Item><b></b><Link to={recipe.recipe_url}>YouTube</Link></ListGroup.Item>                                            
                                     <ListGroup.Item>                                    

@@ -1,11 +1,15 @@
 .edit-head{
     color:white;
-    margin-left: 500px;
+    margin-left: 320px;
 }
 .edit-body{
-    /* width:163%; */
     padding-top: 40px;
     background: linear-gradient(#0c0e1d,#2b2c28);
     background-size: cover;
     height: 120vh;     
+}
+.recipe-input-edit{
+    margin-top: 100px;
+    width: 75%;
+    margin-left: 155px;
 }

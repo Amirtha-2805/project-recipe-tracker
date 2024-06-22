@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import "../../styles/savedrecipe.css"
 import { useSelector } from "react-redux"
-import { db } from "../../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux";
@@ -10,6 +8,7 @@ import { userFeature,setsavedRecipes,setRecipeName } from "../../redux/slices/us
 import axios from "axios";
 const SavedRecipes=()=>{
     const userSliceDetails=useSelector((state)=>state.userDetails)
+   
     let dispatch=useDispatch()
 
     const getSavedRecipes=()=>{
@@ -37,8 +36,6 @@ const SavedRecipes=()=>{
         getSavedRecipes()
     },[])
 
-   
-
     const savedContent=(rec_name)=>{
         dispatch(setRecipeName(rec_name))
         dispatch(userFeature("viewSaved"))
@@ -47,34 +44,6 @@ const SavedRecipes=()=>{
     return(
         <>
        
-            {/* <div className="saved-body">
-                <h1 className="saved-recipe-head">Saved Recipes</h1>
-                <div className="saved-recipelist-table" >
-                       
-                            {
-                               userSliceDetails.savedRecipes.map((saved,i)=>{
-                                    return(
-                                            <div id="recipe-box" key={i}>
-                                                 <div className="recipe-content">
-                                                    <h4><Link onClick={()=>savedContent(saved.recipe_name)}>{saved.recipe_name}</Link></h4>
-                                                    <h5>Category : {saved.recipe_category}</h5>                                                    
-                                                    <h5>Ingredients : {saved.recipe_ingredients}</h5>
-                                                    <h5><Button type="button" variant="danger" onClick={()=>deleteSavedRecipe(saved.savedId)}>Delete</Button></h5>
-                                                 </div>
-                                                
-                                            </div>
-                                        )
-                                    }
-                                )
-                            }
-                       
-                   
-                    </div>
-
-
-              
-                </div> */}
-
                 <center>
             <div className="saved-body">
                 <h1 className="saved-recipe-head">Saved Recipes</h1>

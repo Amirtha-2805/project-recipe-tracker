@@ -47,7 +47,6 @@
     position: absolute;
     top:0;
     border-style: none;
-    /* left:50px */
 }
 #home-link-admin:hover{
    background-color: grey;
@@ -63,7 +62,6 @@
         color:white;
         height:250vh;
         width:130%
-        /* position: relative; */
     }
     
 }

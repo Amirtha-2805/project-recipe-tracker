@@ -30,7 +30,6 @@
         color: white;
     }
     .all-recipe-table{
-        /* border: 1px solid black; */
         height:80vh;
         overflow-y: scroll;
         margin-left: 133px;

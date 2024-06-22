@@ -34,16 +34,11 @@ const TodoList=()=>{
     todoForm.append("selected_recipe",selectedRecipe.label)
     todoForm.append("selected_datetime",dateTimeValue)
 
-    // const selectedRecipeSubmit=()=>{       
-    //     axios.post("https://amirtha14.pythonanywhere.com/storetodolist",todoForm)
-    //     alert("submitted")
-    //     get_user_todo()
-    // }
-    // const selectedRecipeSubmit=()=>{       
-    //     axios.get("https://www.googleapis.com/customsearch/v?key=AIzaSyAVM_7fMOBtHxwNfBb_7aXa5VohS0dZewY&q=Lemon Rice&searchType=image")
-    //    // get_user_todo()
-    // }
-       
+    const selectedRecipeSubmit=()=>{       
+        axios.post("https://amirtha14.pythonanywhere.com/storetodolist",todoForm)
+        alert("submitted")
+        get_user_todo()
+    }       
     const get_user_todo=()=>{
         axios.get(`https://amirtha14.pythonanywhere.com/getusertodo/${userSliceId.userAllDetails.id}`).then((res)=>{
             dispatch(setUserTodoList(res.data))
@@ -59,9 +54,6 @@ const TodoList=()=>{
             get_user_todo()
         })
     }
-
-    
-   
     
     return(
         <>

@@ -14,7 +14,11 @@ export default function Userlogin(){
     const dispatch=useDispatch();
     const userLoginData=useSelector((state)=>state.userDetails);
 
-    const userLogin=async()=>{          
+    const userLogin=async()=>{ 
+        if(userLoginData.userlogin.email=="" || userLoginData.userlogin.password==""){
+            alert("Please Enter Requirred Details")
+        }  
+        else{
             let loginForm=new FormData()
             loginForm.append("email",userLoginData.userlogin.email)
             loginForm.append("password",userLoginData.userlogin.password)
@@ -39,6 +43,8 @@ export default function Userlogin(){
             else{
                 navigate("/userhome")
                 }
+        }       
+          
     }        
     return(
         <>

@@ -3,12 +3,7 @@ import "../styles/signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { signup } from "../redux/slices/userSlice";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-import { db } from "../firebase";
-import { addDoc,collection,updateDoc,deleteDoc,getDocs,doc } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { setToken,setIsLogged,setFinalPwd } from "../redux/slices/userSlice";
 import Footer from "./Footer";
 import axios from "axios";
 import emailjs from 'emailjs-com';
@@ -17,7 +12,6 @@ export default function SignUp(){
     const signupdata=useSelector((state)=>state.userDetails)    
     const navigate = useNavigate();
     const dispatch=useDispatch();
-    const dbref=collection(db,"user_signup_details");
     const[pwd,setPwd]=useState("")
     let signupForm=new FormData()
         signupForm.append("name",signupdata.usersignup.name)
@@ -27,24 +21,9 @@ export default function SignUp(){
         signupForm.append("gender",signupdata.usersignup.gender)
         signupForm.append("address",signupdata.usersignup.address)
         signupForm.append("phone",signupdata.usersignup.phone)
-
         
     const register=async()=>{
-        
-    //     if((signupdata.usersignup.email=="" || signupdata.usersignup.password=="" || signupdata.usersignup.confirm_password=="" || signupdata.usersignup.phone=="" || signupdata.usersignup.age=="" || signupdata.usersignup.name=="" || signupdata.usersignup.gender=="")){
-    //         alert("Please fill requirred details")
-    //     }
-       
-    //    else if (signupdata.usersignup.password==signupdata.usersignup.confirm_password){
-    //         await axios.post("https://amirtha14.pythonanywhere.com/usersignup",signupForm)
-    //         alert("Registered succesfully")
-    //         navigate(`/userlogin`)
-    //     }
-        
-    //     else{
-    //         alert("Error")
-    //     }       
-    if (
+        if (
         signupdata.usersignup.email == "" ||
         signupdata.usersignup.password == "" ||
         signupdata.usersignup.confirm_password == "" ||
@@ -67,9 +46,16 @@ export default function SignUp(){
             const emailParams = {
                 to_name: signupdata.usersignup.name,
                 from_name: "Recipe_tracker",
-                message: `WELCOME ${signupdata.usersignup.name} to my website, You can enter a ingredients which what you have then I will provide you a recipe only with that ingredients and 
-                also you can save that recipe for your future purpose
-                `, // Replace with your verification URL
+                message: `Dear ${signupdata.usersignup.name} 
+                I hope this message finds you well. My name is Amirtha, and I recently completed my MSc in Mathematics. I am excited to share with you a project that I have been working on, which combines my passion for mathematics with my newfound interest in IT.
+                "Recipe Tracker" allows you to create personalized recipes based on the ingredients you have on hand. Whether you're looking to explore new culinary ideas or simply make the most of what's in your pantry, "Recipe Tracker" simplifies the process.
+                Key features of "Recipe Tracker" include:
+                1.Personalized recipe generation based on your available ingredients
+                2.Ability to save both custom and admin-generated recipes
+                3.User-friendly interface for managing recipes and scheduling cooking sessions
+                I invite you to explore "Recipe Tracker" and experience firsthand how it can streamline your recipe management and enhance your cooking experience.
+                Thank you for taking the time to learn about "Recipe Tracker." I look forward to your feedback and suggestions as we continue to improve and expand its capabilities.
+                `, 
                 to_email: signupdata.usersignup.email,
             };
 
@@ -79,10 +65,10 @@ export default function SignUp(){
                     alert("Registered successfully");
                     navigate(`/userlogin`);
                 })
-                .catch((error) => {
-                    console.error('Error sending email:', error);
-                    alert("Error sending email");
-                });
+                // .catch((error) => {
+                //     console.error('Error sending email:', error);
+                //     alert("Error sending email");
+                // });
         })
         .catch((error) => {
             console.error('Error registering user:', error);

@@ -21,7 +21,6 @@ const EditTodo=()=>{
   
   
     const handleDateTimeChange = (event) => {
-        // setDateTimeValueEdit(event.target.value);
         set_edit_usertodo({
             ...edit_usertodo,
             selected_datetime:event.target.value
@@ -54,10 +53,11 @@ const EditTodo=()=>{
         <div className="edit-body">
         <button id="home-link" type="button" onClick={()=>navigate("/")}><FaHome className="home-icon" /> Home</button>
 
-            <h3 className="recipe-list-head">Edit Todo List</h3>
  
             <div className="input-container">           
-                <div className="recipe-input">
+                <div className="recipe-input-edit">
+            <h3 className="edit-head">Edit Todo List</h3>
+
                   <form>
                      <div className="input-group input-lg">
                          <label>Select Saved Recipes</label>                         

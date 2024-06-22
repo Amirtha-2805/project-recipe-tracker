@@ -12,10 +12,8 @@ import { useEffect, useState } from "react";
 import UserFeatureHome from "./userFeatures/UserFeatureHome";
 import noUser from "../styles/no-user.webp";
 import { signup,setId,uLogin, setIsLogged,setUserAllDetails  } from "../redux/slices/userSlice";
-import Button from 'react-bootstrap/Button';
 import SavedRecipeView from "./userFeatures/SavedRecipeView";
 import { FaHome } from "react-icons/fa";
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import TodoList from "./userFeatures/TodoList";
 
 

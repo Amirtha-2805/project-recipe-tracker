@@ -1,61 +1,16 @@
-/* .saved-view-body{
-    background: linear-gradient(#0c0e1d,#2b2c28);
-    color:white;
-    min-height: 200vh;
-    width:157%;
-    margin-left: 40px;
-}
-.saved-instruction-para{
-    margin-top: 10px;
-    margin-left: 20px;  
-}
 
-.view-table{
-    width: 50%;
-}
-.saved-recipe-image{
-    border:1px solid white;
-    border-radius: 10px;
-    margin-top: 15px;
-    width: 20%;
-    margin-left: 570px;
-}
-.saved-ingredients-para{
-    margin-top: 10px;  
-    margin-left: 30px;
-}
-.saved-instruction{
-    margin-left: 714px;
-  
-}
-.ingredients-container{
-    width:60%;
-    margin-top: 10px;  
-    margin-left: 716px;  
-}
-.recipe-name{
-    margin-top: 10px;
-    margin-left: 735px;
-}
-.saved-category{
-    margin-left: 690px;
-}
-.recipe-video{
-    margin-left: 736px;
-} */
 .saved-view-body {
     background: linear-gradient(#0c0e1d, #2b2c28);
     color: white;
-    min-height: 200vh; /* Adjust as necessary */
-    width: 100%; /* Adjusted to 100% */
-    /* margin-left: 40px; Remove or adjust margin if unnecessary */
-    padding: 20px; /* Optional: Add padding for content spacing */
+    min-height: 200vh; 
+    width: 100%; 
+    padding: 20px; 
 }
 .saved-recipe-image {
     border: 1px solid white;
     border-radius: 10px;
     margin-top: 15px;
-    width: 20%; /* Adjust width if needed */
+    width: 20%; 
     margin-left: 200px; 
 }
 
@@ -65,7 +20,7 @@
 }
 
 .ingredients-container {
-    width: 60%; /* Adjust width if needed */
+    width: 60%; 
     margin-left: 200px; 
     margin-top: 10px;
 }
@@ -83,9 +38,9 @@
     margin-left: 200px; 
 }
 .view-table {
-    width: 100%; /* Adjust as per your design needs */
-    max-width: 1200px; /* Example of using max-width for responsive design */
-    margin: 0 auto; /* Center align if needed */
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 0 auto;
 }
 .view-saved-head{
     margin-left: 200px;

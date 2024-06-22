@@ -9,30 +9,9 @@ const NavBar=()=>{
    
     return(
         <>
-          {/* <Navbar expand="lg" className="custom-navbar">
-              <Navbar.Brand href="/">Recipe Tracker</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="ml-auto">
-                      <Link to="/" className="nav-link">Home</Link>
-                      <Link to="/signup" className="nav-link">Register</Link>
-                      <NavDropdown title="Login" id="basic-nav-dropdown">
-                          <Link to="/loginadmin" className="dropdown-item">Admin</Link>
-                          <Link to="/userlogin" className="dropdown-item">User</Link>
-                      </NavDropdown>
-                  </Nav>
-              </Navbar.Collapse>
-          </Navbar> */}
       <Nav className="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" id="navbar-box" >
         <div className="container-fluid" id="custom-navbar">
           <div className="navbar-wrapper">
-          <div className="navbar-toggle">
-              <button type="button" className="navbar-toggler">
-                <span className="navbar-toggler-bar bar1"></span>
-                <span className="navbar-toggler-bar bar2"></span>
-                <span className="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
             <Link className="navbar-brand" to={"/"} style={{color:"white"}}>Recipe Tracker</Link>
           </div>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
