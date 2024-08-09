@@ -28,9 +28,9 @@ const Ingredients=()=>{
                         </form>
                     </div>
                     </div>
-                    <div >
-                        <button type="button" id="submitbtn" className="btn btn-primary" onClick={()=>submitIngredients()}>Submit</button>
-                    </div>
+                  
+                    <button type="button" className="btn btn-primary" onClick={()=>submitIngredients()} style={{width:"10%",marginTop:"20px",marginLeft:"-70px"}}>Submit</button>
+                 
                 </div>                
             </div>
                            

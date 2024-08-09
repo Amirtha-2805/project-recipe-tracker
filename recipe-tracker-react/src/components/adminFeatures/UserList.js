@@ -81,7 +81,7 @@ export default function UserList(){
             </div>
             <br/>
             <center>
-        <button className="btn btn-warning" onClick={generateUserPdf}>DownLoad PDF</button>
+        <button className="btn btn-warning" id="dw-pdf" onClick={generateUserPdf}>DownLoad PDF</button>
         </center>    
            
 

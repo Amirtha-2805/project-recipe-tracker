@@ -44,7 +44,7 @@ const UserFeatureHome=()=>{
                     <h2 className="number"><b>{userSlice.totalNo.length}</b></h2>
                     <p className="veg-para">Veg {userSlice.totalVeg.length}</p>                   
                     <p className="nonveg-para">Non-veg {userSlice.totalNonVeg.length}</p>
-                    <p className="nonveg-para">Ai-recipe {userSlice.totalAiRecipes.length}</p>
+                    <p className="nonveg-para">Searched-recipe {userSlice.totalAiRecipes.length}</p>
             </div>
         </div>    
         </>

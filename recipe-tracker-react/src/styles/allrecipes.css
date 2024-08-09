@@ -29,6 +29,9 @@
         padding-top: 30px;
         color: white;
     }
+    #dn-pdf{
+        margin-left: -1000px;
+    }
     .all-recipe-table{
         height:80vh;
         overflow-y: scroll;

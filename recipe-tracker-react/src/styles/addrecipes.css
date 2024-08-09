@@ -26,6 +26,9 @@
 .recipe-submit-btn{
     margin-left: -400px;
 }
+#add-submit-btn{
+    margin-left: 350px;
+}
 #imageid{
     margin-left: 500px;
 }

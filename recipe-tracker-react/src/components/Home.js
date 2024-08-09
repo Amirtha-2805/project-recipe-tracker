@@ -64,8 +64,8 @@ const Home=()=>{
             })
         }) 
 
-    const getDefault=()=>{               
-        axios.get("https://amirtha14.pythonanywhere.com/gethomerecipes").then((res)=>{
+    const getDefault=async()=>{               
+       await axios.get("https://amirtha14.pythonanywhere.com/gethomerecipes").then((res)=>{
            dispatch(setDefaultRecipes(res.data))
         })
     }

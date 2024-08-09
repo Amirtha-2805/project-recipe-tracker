@@ -116,7 +116,7 @@ export default function AllRecipes(){
         </div> 
         <br/>
         <center>
-        <button className="btn btn-warning" onClick={generateRecipePdf}>DownLoad PDF</button>
+        <button className="btn btn-warning" id="dw-pdf" onClick={generateRecipePdf}>DownLoad PDF</button>
         </center>
         </div>
         
